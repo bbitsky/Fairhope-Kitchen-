@@ -163,16 +163,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 </div>
 <div class="screen" id="s-costs">
   <div class="cost-grid">
-    <div class="cost-card"><div class="cost-num">$128</div><div class="cost-lbl">est. total groceries</div></div>
-    <div class="cost-card"><div class="cost-num">$64</div><div class="cost-lbl">per person / week</div></div>
+    <div class="cost-card"><div class="cost-num">$130</div><div class="cost-lbl">est. total groceries</div></div>
+    <div class="cost-card"><div class="cost-num">$65</div><div class="cost-lbl">per person / week</div></div>
     <div class="cost-card full"><div class="cost-num" style="color:var(--teal)">$120 saved</div><div class="cost-lbl">vs. Week 1 — pantry &amp; freezer doing the heavy lifting</div></div>
   </div>
   <div class="savings-bar">
     <div class="savings-title">Week 2 breakdown</div>
-    <div class="savings-row"><span>Publix</span><strong>~$78</strong></div>
-    <div class="savings-row"><span>Lagnippe Fish Store</span><strong>~$40</strong></div>
-    <div class="savings-row"><span>Walmart (if needed)</span><strong>~$10</strong></div>
-    <div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$128</strong></div>
+    <div class="savings-row"><span>Publix (fresh meat, produce &amp; dairy)</span><strong>~$55</strong></div>
+    <div class="savings-row"><span>Walmart (boxed, canned &amp; frozen)</span><strong>~$35</strong></div>
+    <div class="savings-row"><span>Lartigue's Fish Store</span><strong>~$40</strong></div>
+    <div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$130</strong></div>
   </div>
   <div class="section-lbl">What your freezer is contributing</div>
   <div class="card">
@@ -184,7 +184,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
       <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Pantry staples (oils, pasta, etc.)</span><span style="color:var(--teal);font-weight:600;">saves ~$68</span></div>
     </div>
   </div>
-  <div class="note-box">Prices from June/July 2026 Gulf Coast market rates. Lagnippe varies by daily catch — call ahead. ±10%.</div>
+  <div class="note-box">Prices from June/July 2026 Gulf Coast market rates. Lartigue's varies by daily catch — call ahead. ±10%.</div>
 </div>
 
 <script>
@@ -222,7 +222,7 @@ const DAYS=[
   ]},
   {id:'thu',day:'Thursday',date:'Jul 10',color:'#0F6E56',weather:'🌊 Coastal',wc:'w-grill',meals:[
     {id:'thu_b',type:'Breakfast',name:'Fresh peach & yogurt smoothie with honey',cal:320,note:'Fresh peaches + FAGE Greek yogurt + honey + ice · thick and cold · peak peach season!',tags:['both']},
-    {id:'thu_d',type:'Dinner',name:'Gulf shrimp over garlic butter pasta with parmesan',cal:580,note:'Fresh Lagnippe shrimp · grill or sauté · Barilla pasta + olive oil + garlic + parmesan · P2 add spinach & tomatoes',tags:['both','pantry'],hasPantry:'Barilla pasta · Olive oil · Minced garlic — mostly on hand'},
+    {id:'thu_d',type:'Dinner',name:'Gulf shrimp over garlic butter pasta with parmesan',cal:580,note:'Fresh Lartigue\'s shrimp · grill or sauté · Barilla pasta + olive oil + garlic + parmesan · P2 add spinach & tomatoes',tags:['both','pantry'],hasPantry:'Barilla pasta · Olive oil · Minced garlic — mostly on hand'},
     {id:'thu_ds',type:'Dessert 🍮',name:'Fresh mango sorbet — blend & freeze',cal:180,note:'Blend 2 ripe mangoes + lime juice + honey + pinch salt · freeze 2 hrs · make in the morning',tags:['both']}
   ]},
   {id:'fri',day:'Friday',date:'Jul 11',color:'#854F0B',weather:'🥩 Grill night',wc:'w-grill',meals:[
@@ -232,7 +232,7 @@ const DAYS=[
   ]},
   {id:'sat',day:'Saturday',date:'Jul 12',color:'#5F5E5A',weather:'🌅 Easy morning',wc:'w-cool',meals:[
     {id:'sat_b',type:'Breakfast',name:'Hillshire Farm sausage & egg scramble with grits',cal:510,note:"Hillshire Farm sausage from freezer + eggs + Quaker grits · slice sausage, brown in pan, scramble eggs alongside",tags:['both','pantry'],hasPantry:'Hillshire Farm sausage (freezer) · Eggs · Quaker grits — all on hand'},
-    {id:'sat_d',type:'Dinner',name:"Fresh Gulf fish pan-sear with lemon butter & corn",cal:420,note:"Ask Lagnippe what's fresh today · quick 8-min pan-sear · lemon butter · serve with fresh corn · P1 sub: chicken",tags:['both','p2']},
+    {id:'sat_d',type:'Dinner',name:"Fresh Gulf fish pan-sear with lemon butter & corn",cal:420,note:"Ask Lartigue's what's fresh today · quick 8-min pan-sear · lemon butter · serve with fresh corn · P1 sub: chicken",tags:['both','p2']},
     {id:'sat_ds',type:'Dessert 🍮',name:"S'mores dip — chocolate chips, marshmallows & graham crackers",cal:310,note:'Spread chocolate chips in cast iron skillet · top with mini marshmallows · broil 3 min · dip with Honey Maid grahams',tags:['both','pantry'],hasPantry:"Chocolate chips · Honey Maid grahams — in pantry · buy marshmallows"}
   ]}
 ];
@@ -292,7 +292,7 @@ const RECIPES=[
      steps:['Cook grits on stovetop per package directions — usually 5 min. Add butter and season.','Heat outdoor griddle to medium. Lay bacon strips flat. Cook 3–4 min per side until crispy.','Remove bacon, leave some fat on griddle. Crack eggs directly onto griddle.','Scramble eggs gently on griddle — low heat, fold slowly.','Serve grits in a bowl topped with eggs and crumbled bacon.'],
      tip:'Cooking outside on the griddle keeps the kitchen cool on a hot July morning.'},
     {name:'Grilled Gulf Shrimp Mango Tacos with Avocado Lime Crema',cal:520,methods:['Outdoor Grill','Stovetop'],
-     ing:['12 large Gulf shrimp, peeled & deveined (Lagnippe)','2 tbsp olive oil','2 cloves garlic, minced','Juice of 1 lime','1 tsp smoked paprika','½ tsp cumin','Salt & pepper','6 small flour tortillas',
+     ing:['12 large Gulf shrimp, peeled & deveined (Lartigue\'s)','2 tbsp olive oil','2 cloves garlic, minced','Juice of 1 lime','1 tsp smoked paprika','½ tsp cumin','Salt & pepper','6 small flour tortillas',
           '— Mango Salsa —','1 mango, diced','¼ red onion, minced','Juice of 1 lime','2 tbsp cilantro','Pinch salt',
           '— Avocado Lime Crema —','1 avocado','½ cup Daisy sour cream','Juice of 1 lime','Salt'],
      steps:['Marinate shrimp: toss with olive oil, garlic, lime, paprika, cumin 15 min.','Make mango salsa: combine all salsa ingredients. Refrigerate.','Make crema: blend avocado + sour cream + lime juice + salt until smooth.','Grill shrimp at medium-high 2 min per side until pink and slightly charred.','Warm tortillas on grill 30 sec per side.','Build tacos: tortilla → crema → shrimp → mango salsa.'],
@@ -357,7 +357,7 @@ const RECIPES=[
      steps:['Add peaches, yogurt, honey, and ice to blender.','Blend until smooth and thick.','Add a splash of OJ if it\'s too thick.','Pour into 2 glasses and serve cold.'],
      tip:'Fresh peaches in July are at their absolute sweetest — this is naturally sweet enough without much honey.'},
     {name:'Gulf Shrimp over Garlic Butter Pasta with Parmesan',cal:580,methods:['Outdoor Grill','Stovetop'],
-     ing:['1 lb Gulf shrimp, peeled & deveined (Lagnippe)','8 oz Barilla pasta (from pantry)','4 tbsp butter','4 cloves garlic, minced (or from jar)','3 tbsp olive oil','4 tbsp parmesan, grated','Fresh parsley (optional)','Salt, pepper & red pepper flakes','Reserved pasta water','P2 adds: 2 cups baby spinach, ½ cup cherry tomatoes'],
+     ing:['1 lb Gulf shrimp, peeled & deveined (Lartigue\'s)','8 oz Barilla pasta (from pantry)','4 tbsp butter','4 cloves garlic, minced (or from jar)','3 tbsp olive oil','4 tbsp parmesan, grated','Fresh parsley (optional)','Salt, pepper & red pepper flakes','Reserved pasta water','P2 adds: 2 cups baby spinach, ½ cup cherry tomatoes'],
      steps:['Cook pasta in well-salted water per pkg directions. Reserve ½ cup pasta water before draining.','Season shrimp with salt, pepper, and garlic powder.','Grill or sauté shrimp 2 min per side until pink. Set aside.','In same pan, warm olive oil over medium-low. Add garlic and cook 2 min — don\'t brown.','Add drained pasta and a splash of pasta water. Toss to coat.','Add shrimp back in. Top with parmesan and parsley.'],
      p1:'Plain pasta + shrimp + garlic butter + parmesan only. Skip any greens or tomatoes.',
      p2:'Add baby spinach and cherry tomatoes when you add pasta — toss until spinach wilts.',
@@ -389,8 +389,8 @@ const RECIPES=[
      steps:['Cook grits per package directions. Add butter and season well.','Slice sausage links into rounds. Brown in a skillet over medium heat 3–4 min per side.','Push sausage to the side of the pan. Add eggs and scramble gently on low heat.','Fold everything together or serve side by side.','Plate over or alongside grits. Top with cheddar if desired.'],
      tip:'Thaw sausage in the fridge overnight for best results.'},
     {name:"Fresh Gulf Fish Pan-Sear with Lemon Butter & Corn",cal:420,methods:['Stovetop'],
-     ing:["2 fresh Gulf fish filets (Lagnippe — ask what's freshest today)",'2 tbsp butter','Juice of 1 lemon','2 cloves garlic, minced','Salt, pepper, garlic powder','2 ears corn on the cob','Fresh parsley (optional)'],
-     steps:["Call Lagnippe ahead to ask what's freshest today.",'Pat fish completely dry with paper towels — essential for a good sear.','Season both sides with salt, pepper, and garlic powder.','Heat 1 tbsp butter in a skillet over medium-high until foaming.','Add fish — cook 3–4 min per side without moving until golden and flaky.','Remove fish. In same pan melt remaining butter, add garlic and lemon juice, swirl 30 sec.','Spoon lemon butter over fish. Serve with steamed corn.'],
+     ing:["2 fresh Gulf fish filets (Lartigue's — ask what's freshest today)",'2 tbsp butter','Juice of 1 lemon','2 cloves garlic, minced','Salt, pepper, garlic powder','2 ears corn on the cob','Fresh parsley (optional)'],
+     steps:["Call Lartigue's ahead to ask what's freshest today.",'Pat fish completely dry with paper towels — essential for a good sear.','Season both sides with salt, pepper, and garlic powder.','Heat 1 tbsp butter in a skillet over medium-high until foaming.','Add fish — cook 3–4 min per side without moving until golden and flaky.','Remove fish. In same pan melt remaining butter, add garlic and lemon juice, swirl 30 sec.','Spoon lemon butter over fish. Serve with steamed corn.'],
      p1:'Swap fish for a chicken breast using the same pan and lemon butter. Same method, same time.',
      tip:'Dry fish = perfect sear. Never skip the paper towel step. Flip only once.'},
     {name:"S'mores Dip",cal:310,methods:['Oven Broiler'],
@@ -433,7 +433,7 @@ function buildRecipes(){
 
 // ── SHOPPING DATA ──
 const STORES=[
-  {id:'publix',name:'Publix',color:'#0F6E56',total:'~$78',sections:[
+  {id:'publix',name:'Publix',color:'#0F6E56',total:'~$55',sections:[
     {label:'Fresh Produce & Fruit',items:[
       {id:'si_bananas',name:'Bananas (bunch)',note:'Smoothies & breakfast',lasting:false},
       {id:'si_mangoes',name:'Mangoes (3 fresh)',note:'Shrimp tacos + smoothies',lasting:false},
@@ -447,39 +447,48 @@ const STORES=[
       {id:'si_tomatoes',name:'Cherry tomatoes (P2 only)',note:'Pasta, salads',lasting:false},
       {id:'si_basil',name:'Fresh basil (1 bunch)',note:'Caprese dessert + pasta',lasting:false},
     ]},
-    {label:'Proteins',items:[
+    {label:'Fresh Meat & Proteins',items:[
       {id:'si_chicken',name:'Chicken breasts (2 lbs)',note:'Tacos Tuesday, sub on Saturday',lasting:false},
-      {id:'si_shrimp',name:'Gulf shrimp raw large (2 lbs)',note:'Sun tacos + Thu pasta — or get at Lagnippe',lasting:false},
       {id:'si_ribeye',name:'Ribeye or NY strip steaks (2)',note:'Steak salad Friday night',lasting:false},
     ]},
     {label:'Dairy & Cold',items:[
       {id:'si_mozz',name:'Fresh mozzarella ball',note:'Caprese dessert Friday',lasting:false},
       {id:'si_yogurt',name:'Greek yogurt plain (32 oz)',note:'Parfaits & smoothies all week',lasting:true},
       {id:'si_cream',name:'Heavy cream (small carton)',note:'Chocolate mousse Tuesday',lasting:false},
-      {id:'si_marshmallows',name:'Mini marshmallows (bag)',note:"S'mores dip Saturday",lasting:true},
-    ]},
-    {label:'Pantry Picks',items:[
-      {id:'si_tortillas',name:'Flour tortillas (small pkg)',note:'Tacos Sunday & Tuesday',lasting:true},
-      {id:'si_granola',name:'Granola (1 bag)',note:'Parfaits & smoothie bowls',lasting:true},
-      {id:'si_coconutmilk',name:'Coconut milk (1 can)',note:'Tropical smoothie bowl Monday',lasting:true},
-      {id:'si_balsamicglaze',name:'Balsamic glaze (bottle)',note:'Caprese + steak salad',lasting:true},
-      {id:'si_oldBay',name:'Old Bay seasoning',note:'Air fryer shrimp Wednesday',lasting:true},
-      {id:'si_cajun',name:'Cajun seasoning (if low)',note:'Crawfish, shrimp',lasting:true},
-      {id:'si_vanillapudding',name:'Vanilla instant pudding (2 boxes)',note:'Banana pudding cups Wednesday',lasting:false},
-      {id:'si_parmesan',name:'Parmesan (wedge or shredded)',note:'Pasta Thursday',lasting:true},
     ]},
   ]},
-  {id:'lagnippe',name:'Lagnippe Fish Store',color:'#993C1D',total:'~$40',sections:[
+  {id:'walmart',name:'Walmart',color:'#0071CE',total:'~$35',sections:[
+    {label:'Frozen',items:[
+      {id:'wm_marshmallows',name:'Mini marshmallows (bag)',note:"S'mores dip Saturday",lasting:true},
+      {id:'wm_coleslaw',name:'Coleslaw mix (bag)',note:'Chicken tacos Tuesday slaw',lasting:false},
+    ]},
+    {label:'Canned & Boxed',items:[
+      {id:'wm_coconutmilk',name:'Coconut milk (1 can)',note:'Tropical smoothie bowl Monday',lasting:true},
+      {id:'wm_vanillapudding',name:'Vanilla instant pudding (2 boxes)',note:'Banana pudding cups Wednesday',lasting:false},
+      {id:'wm_chickbroth',name:'Chicken broth (32 oz carton)',note:'Pantry staple — if low',lasting:true},
+    ]},
+    {label:'Pantry & Dry Goods',items:[
+      {id:'wm_tortillas',name:'Flour tortillas (small pkg)',note:'Tacos Sunday & Tuesday',lasting:true},
+      {id:'wm_granola',name:'Granola (1 bag)',note:'Parfaits & smoothie bowls — cheaper at Walmart',lasting:true},
+      {id:'wm_balsamicglaze',name:'Balsamic glaze (bottle)',note:'Caprese + steak salad',lasting:true},
+      {id:'wm_oldBay',name:'Old Bay seasoning',note:'Air fryer shrimp Wednesday',lasting:true},
+      {id:'wm_cajun',name:'Cajun seasoning (if low)',note:'Crawfish, shrimp',lasting:true},
+      {id:'wm_parmesan',name:'Parmesan (shredded)',note:'Pasta Thursday — cheaper here than Publix',lasting:true},
+      {id:'wm_almondbuttercheck',name:'Almond butter (check stock)',note:'Smoothies — restock if almost out',lasting:true},
+      {id:'wm_grahams',name:'Honey Maid grahams (if low)',note:"Banana pudding + S'mores",lasting:true},
+    ]},
+  ]},
+  {id:'lartigues',name:'Lartigue\'s Fish Store',color:'#993C1D',total:'~$40',sections:[
     {label:'Fresh Gulf Seafood',items:[
       {id:'si_lagnshrimp',name:'Gulf shrimp raw large (2 lbs)',note:'Sun tacos + Thu pasta — call ahead',lasting:false},
-      {id:'si_lagnfish',name:"Gulf fish of the day (2 filets)",note:"Saturday dinner — ask what's freshest",lasting:false},
+      {id:'si_lagnfish',name:'Gulf fish of the day (2 filets)',note:"Saturday dinner — ask what's freshest",lasting:false},
     ]},
     {label:'Tips',items:[
       {id:'si_lagntip1',name:'📞 Call ahead to confirm catch',note:'Availability changes daily',lasting:false},
       {id:'si_lagntip2',name:'🧊 Bring a cooler',note:'Gulf heat — keep fish cold for drive home',lasting:false},
     ]},
   ]},
-];
+]
 
 let shopItems={};
 
