@@ -160,7 +160,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 /* ── UTIL ── */
 .divider-line{height:1px;background:var(--border);}
 .emoji-big{font-size:32px;display:block;margin-bottom:8px;}
-.recipe-day-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);padding:18px 2px 6px;}.r-method-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}.r-method{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--amber-light);color:var(--amber);}.r-section{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);margin:10px 0 5px;}.r-ing{font-size:14px;color:var(--text);line-height:1.5;padding:2px 0;display:flex;gap:8px;}.r-ing-dot{color:var(--teal);flex-shrink:0;line-height:1.5;}.r-divider{font-size:12px;font-weight:600;color:var(--text-muted);padding:6px 0 2px;margin-top:4px;}.r-step{font-size:14px;color:var(--text);line-height:1.5;padding:3px 0;display:flex;gap:10px;}.r-step-num{font-size:13px;font-weight:700;color:var(--teal);min-width:18px;flex-shrink:0;line-height:1.6;}.r-callout{border-radius:10px;padding:10px 12px;margin:6px 0;font-size:13px;line-height:1.5;}.c-p1{background:var(--amber-light);color:var(--amber);}.c-p2{background:var(--teal-light);color:var(--teal-dark);}.c-tip{background:var(--blue-light);color:var(--blue);}.r-body-inner{padding:4px 16px 16px;}
+.recipe-day-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);padding:18px 2px 6px;}.r-method-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}.r-method{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--amber-light);color:var(--amber);}.r-section{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);margin:10px 0 5px;}.r-ing{font-size:14px;color:var(--text);line-height:1.5;padding:2px 0;display:flex;gap:8px;}.r-divider{font-size:12px;font-weight:600;color:var(--text-muted);padding:6px 0 2px;margin-top:4px;}.r-step{font-size:14px;color:var(--text);line-height:1.5;padding:3px 0;display:flex;gap:10px;}.r-step-num{font-size:13px;font-weight:700;color:var(--teal);min-width:18px;flex-shrink:0;line-height:1.6;}.r-callout{border-radius:10px;padding:10px 12px;margin:6px 0;font-size:13px;line-height:1.5;}.c-p1{background:var(--amber-light);color:var(--amber);}.c-p2{background:var(--teal-light);color:var(--teal-dark);}.c-tip{background:var(--blue-light);color:var(--blue);}.r-body-inner{padding:4px 16px 16px;}
 </style>
 </head>
 <body>
@@ -671,7 +671,109 @@ buildRecipes();
 buildShop();
 buildPantry();
 
-var RECIPES=[{day:"Sunday Jul 6",items:[{name:"Bacon & Egg Griddle Scramble with Grits",cal:480,methods:["Outdoor Griddle"],ing:["4 strips thick-cut bacon","4 large eggs","1 cup Quaker grits (per pkg)","2 tbsp butter","Salt & pepper","Optional: shredded cheddar"],steps:["Cook grits per package. Add butter and season.","Heat outdoor griddle to medium. Cook bacon 3-4 min per side until crispy.","Remove bacon. Crack eggs on griddle, scramble gently.","Serve grits topped with eggs and crumbled bacon."],tip:"Cooking outside keeps the kitchen cool on a hot July morning."},{name:"Grilled Gulf Shrimp Mango Tacos with Avocado Lime Crema",cal:520,methods:["Outdoor Grill"],ing:["12 Gulf shrimp peeled & deveined (Lagnippe)","2 tbsp olive oil","2 cloves garlic minced","Juice of 1 lime","1 tsp smoked paprika","1/2 tsp cumin","Salt & pepper","6 small flour tortillas","-- Mango Salsa --","1 mango diced","1/4 red onion minced","Juice of 1 lime","2 tbsp cilantro","-- Avocado Lime Crema --","1 avocado","1/2 cup sour cream","Juice of 1 lime","Salt"],steps:["Marinate shrimp: oil, garlic, lime, paprika, cumin 15 min.","Mix mango salsa and refrigerate.","Blend crema: avocado + sour cream + lime + salt until smooth.","Grill shrimp medium-high 2 min per side until pink.","Warm tortillas on grill 30 sec per side.","Build: tortilla > crema > shrimp > mango salsa."],p1:"Skip salsa. Serve with sour cream, cheddar & lime only.",p2:"Add diced cherry tomatoes and jalapeno to the mango salsa.",tip:"Grill before 7 PM. Shrimp cook FAST -- pull when they curl into a C."},{name:"Vanilla Ice Cream with Strawberries & Cool Whip",cal:280,methods:["No Cook"],ing:["Vanilla ice cream (from freezer)","1 cup fresh strawberries sliced","Cool Whip (from fridge)","Optional: drizzle of honey"],steps:["Slice strawberries.","Scoop ice cream into bowls.","Top with strawberries and Cool Whip.","Serve immediately."],tip:"Zero cooking. Perfect light dessert on a hot night."}]},{day:"Monday Jul 7",items:[{name:"Tropical Smoothie Bowl",cal:380,methods:["No Cook"],ing:["1 cup frozen mango chunks","1/2 cup pineapple","1 banana","3/4 cup FAGE Greek yogurt","1/4 cup coconut milk","-- Toppings --","1/4 cup granola","Fresh fruit","Honey drizzle"],steps:["Blend mango, pineapple, banana, yogurt, coconut milk until thick.","Pour into 2 bowls -- should be spoonable not drinkable.","Top with granola, fresh fruit, and honey."],tip:"Key is thick -- use less liquid than a regular smoothie."},{name:"Crawfish Tail Cajun Butter Rice with Corn",cal:560,methods:["Stovetop"],ing:["1 lb frozen crawfish tails thawed","3 tbsp butter","3 cloves garlic minced","1.5 tsp Cajun seasoning","1/4 tsp smoked paprika","Salt & pepper","2 cups Minute rice cooked","2 ears corn on the cob","P2: 1 can Ro-Tel drained"],steps:["Cook rice per package.","Steam or microwave corn.","Melt butter in large skillet over medium-high.","Add garlic and cook 1 minute.","Add crawfish tails, Cajun seasoning, paprika. Cook 3-4 min.","P2: Stir in Ro-Tel, cook 1 more minute.","Serve crawfish over rice with corn."],p1:"As-is -- butter, garlic and Cajun is perfect for P1.",p2:"Add Ro-Tel (drained) for extra heat and tomato flavor.",tip:"Crawfish are already cooked -- just heating through. Do not overcook."},{name:"Fresh Peach Parfait",cal:290,methods:["No Cook"],ing:["1.5 cups FAGE Greek yogurt","1/2 cup granola","2 fresh Alabama peaches sliced","2 tbsp honey"],steps:["Divide yogurt between 2 bowls.","Layer granola on top.","Add fresh peach slices.","Drizzle with honey."],tip:"Alabama peaches in early July are at peak sweetness!"}]},{day:"Tuesday Jul 8",items:[{name:"Kodiak Protein Pancakes with Berries & Honey",cal:420,methods:["Stovetop"],ing:["1.5 cups Kodiak pancake mix","1 cup water or milk","1 egg","1 tbsp butter","Fresh strawberries or blueberries","2 tbsp honey"],steps:["Mix Kodiak mix with water or milk and egg until just combined.","Heat non-stick skillet over medium with butter.","Pour 1/4 cup batter per pancake. Cook until bubbles form 2-3 min.","Flip and cook 1-2 min until golden.","Serve topped with fresh berries and honey."],tip:"Higher protein and fiber than regular pancakes -- filling without being heavy."},{name:"Grilled Chicken Tacos with Avocado, Lime & Slaw",cal:490,methods:["Outdoor Grill"],ing:["2 chicken breasts 5-6 oz each","1 tbsp olive oil","1 tsp garlic powder","1 tsp cumin","Salt & pepper","6 small flour tortillas","1 avocado sliced","Juice of 1 lime","-- Quick Slaw --","2 cups coleslaw mix","2 tbsp mayo","1 tbsp apple cider vinegar","1 tsp sugar","Salt"],steps:["Make slaw: toss all ingredients. Refrigerate 15 min.","Season chicken with oil, garlic powder, cumin, salt & pepper.","Grill medium-high 5-6 min per side to 165F.","Rest chicken 5 min then slice against the grain.","Warm tortillas on grill 30 sec.","Build: tortilla > slaw > chicken > avocado > lime."],p1:"Dress with cheddar and sour cream only.",p2:"Add cherry tomatoes, jalapeno, cilantro, and hot sauce.",tip:"Rest the chicken before slicing -- keeps it juicy."},{name:"Chocolate Mousse Cups",cal:240,methods:["No Cook -- chill ahead"],ing:["1 cup heavy cream","3 tbsp cocoa powder","3 tbsp granulated sugar","1/2 tsp vanilla extract","Pinch of salt","Chocolate chips for topping"],steps:["Chill mixing bowl in freezer 10 min.","Whip heavy cream until soft peaks form.","Sift in cocoa, sugar, vanilla, salt. Fold gently.","Divide into 4 cups.","Top with chocolate chips.","Refrigerate at least 1 hour."],tip:"Make after lunch so perfectly set by dessert time. Keeps 2 days."}]},{day:"Wednesday Jul 9",items:[{name:"Strawberry Banana Spinach Smoothie with Almond Butter",cal:340,methods:["No Cook"],ing:["1 cup frozen strawberries","1 banana","1 cup baby spinach","2 tbsp almond butter","1 cup milk","Optional: 1 tbsp honey","Ice cubes"],steps:["Add all ingredients to blender.","Blend until completely smooth -- about 60 seconds.","Pour into 2 glasses and serve cold."],tip:"You cannot taste the spinach -- it just makes it green and adds fiber."},{name:"Air Fryer Butterfly Shrimp with Old Bay Corn & Remoulade",cal:480,methods:["Air Fryer"],ing:["1 bag frozen butterfly shrimp (from freezer)","Old Bay seasoning","2 ears corn on the cob","-- Remoulade --","3 tbsp mayo","1 tbsp horseradish sauce from fridge","1 tsp hot sauce","1 tsp lemon juice","1/2 tsp garlic powder","Salt"],steps:["Make remoulade: whisk all ingredients. Refrigerate.","Cook corn until tender. Season with butter and Old Bay.","Air fry butterfly shrimp at 400F for 10-12 min shaking basket halfway.","Shrimp done when golden and crispy.","Serve with corn and remoulade."],p1:"Perfect as-is for P1 -- crispy shrimp and corn.",tip:"Do NOT overcrowd the air fryer -- cook in batches for max crispiness."},{name:"Graham Cracker Banana Pudding Cups",cal:260,methods:["No Cook -- chill ahead"],ing:["1 box vanilla instant pudding mix (+milk per pkg)","2 bananas sliced","2 cups Cool Whip","1.5 cups crushed Honey Maid grahams"],steps:["Make pudding per package. Let set 5 min.","Fold in 1 cup Cool Whip for lightness.","Crush graham crackers.","Layer: grahams > pudding > banana > Cool Whip. Repeat.","Refrigerate at least 2 hours."],tip:"Make right after lunch -- gets better the longer it chills."}]},{day:"Thursday Jul 10",items:[{name:"Fresh Peach & Yogurt Smoothie",cal:320,methods:["No Cook"],ing:["2 ripe fresh Alabama peaches pitted and sliced","1 cup FAGE Greek yogurt","1 tbsp honey","1/2 cup ice cubes","Optional: splash of OJ"],steps:["Add peaches, yogurt, honey, and ice to blender.","Blend until smooth and thick.","Add a splash of OJ if too thick.","Pour into 2 glasses."],tip:"Fresh July peaches are naturally sweet -- minimal honey needed."},{name:"Gulf Shrimp over Garlic Butter Pasta with Parmesan",cal:580,methods:["Outdoor Grill","Stovetop"],ing:["1 lb Gulf shrimp peeled & deveined (Lagnippe)","8 oz Barilla pasta","4 tbsp butter","4 cloves garlic minced","3 tbsp olive oil","4 tbsp parmesan grated","Salt pepper red pepper flakes","Reserved pasta water","P2: 2 cups baby spinach 1/2 cup cherry tomatoes"],steps:["Cook pasta in salted water. Reserve 1/2 cup pasta water before draining.","Season shrimp with salt, pepper, garlic powder.","Grill or saute shrimp 2 min per side until pink. Set aside.","In same pan warm olive oil over medium-low. Add garlic 2 min.","Add drained pasta and splash of pasta water. Toss.","Add shrimp. Top with parmesan."],p1:"Plain pasta + shrimp + garlic butter + parmesan. No greens or tomatoes.",p2:"Add baby spinach and cherry tomatoes -- toss until spinach wilts.",tip:"Never skip the pasta water -- it makes the sauce coat every noodle."},{name:"Fresh Mango Sorbet",cal:180,methods:["Blender -- freeze ahead"],ing:["2 ripe mangoes peeled and diced","Juice of 1 lime","2 tbsp honey","Pinch of salt","1/4 cup water"],steps:["MAKE IN THE MORNING. Blend all ingredients until completely smooth.","Taste and adjust lime or honey.","Pour into freezer-safe container.","Freeze at least 3-4 hours.","Let sit 5 min at room temp then scoop."],tip:"The riper the mango the better. Make while having morning coffee."}]},{day:"Friday Jul 11",items:[{name:"Bacon Egg Sharp Cheddar on Toast",cal:450,methods:["Stovetop"],ing:["4 strips thick-cut bacon","4 large eggs","4 slices Sargento sharp cheddar","4 slices Natures Own bread","1 tbsp butter","Salt & pepper"],steps:["Cook bacon until crispy. Set aside on paper towels.","Toast bread in same pan or toaster.","Cook eggs to liking. Season.","Add cheddar to eggs while hot so it melts.","Assemble: toast > eggs > cheddar > bacon."],p2:"Add sliced tomatoes and a dash of hot sauce."},{name:"Grilled Ribeye Steak Salad with Romaine, Avocado & Balsamic",cal:680,methods:["Outdoor Grill"],ing:["2 ribeye or NY strip steaks 8 oz each","Coarse salt & black pepper","4 cups romaine roughly chopped","1 avocado sliced","1 cup Olive Garden croutons from pantry","Balsamic glaze bottle","2 tbsp olive oil"],steps:["Pull steaks from fridge 30 min before cooking. Season generously.","Preheat outdoor grill to high. Grill 3-4 min per side for medium-rare.","REST steaks 5 full minutes. Do not skip.","Slice steak thin against the grain.","Arrange romaine, avocado, croutons in bowls.","Top with steak. Drizzle with olive oil and balsamic glaze."],p1:"Steak + romaine + croutons + cheddar. Drizzle balsamic glaze.",p2:"Add cherry tomatoes, extra parmesan, and red onion.",tip:"5-minute rest is non-negotiable for juicy steak. Grill before 7 PM."},{name:"Caprese Dessert Plate -- Mozzarella, Strawberries & Balsamic Glaze",cal:200,methods:["No Cook"],ing:["1 ball fresh mozzarella sliced","1 cup fresh strawberries halved","Fresh basil leaves","Balsamic glaze bottle","Flaky sea salt optional"],steps:["Slice mozzarella into rounds.","Arrange mozzarella, strawberries, basil on a plate.","Drizzle generously with balsamic glaze.","Finish with a pinch of flaky sea salt.","Serve immediately."],tip:"Balsamic + strawberries + mozzarella is genuinely surprising and delicious."}]},{day:"Saturday Jul 12",items:[{name:"Hillshire Farm Sausage & Egg Scramble with Grits",cal:510,methods:["Stovetop"],ing:["1 pkg Hillshire Farm sausage links from freezer thawed","4 large eggs","1 cup Quaker grits per pkg","2 tbsp butter","Salt & pepper","Optional: shredded cheddar"],steps:["Cook grits per package. Add butter and season.","Slice sausage into rounds. Brown in skillet 3-4 min per side.","Push sausage to side. Add eggs and scramble gently.","Fold together over grits. Top with cheddar if desired."],tip:"Thaw sausage in fridge overnight for best results."},{name:"Fresh Gulf Fish Pan-Sear with Lemon Butter & Corn",cal:420,methods:["Stovetop"],ing:["2 fresh Gulf fish filets from Lagnippe","2 tbsp butter","Juice of 1 lemon","2 cloves garlic minced","Salt pepper garlic powder","2 ears corn on the cob"],steps:["Call Lagnippe ahead to ask what is freshest.","Pat fish completely dry with paper towels -- essential.","Season both sides with salt, pepper, garlic powder.","Heat 1 tbsp butter in skillet over medium-high until foaming.","Add fish -- cook 3-4 min per side without moving until golden.","Remove fish. Melt remaining butter, add garlic and lemon juice, swirl 30 sec.","Spoon lemon butter over fish. Serve with steamed corn."],p1:"Swap fish for chicken breast using same pan and lemon butter.",tip:"Dry fish = perfect sear. Never skip the paper towel step. Flip only once."},{name:"Smores Dip",cal:310,methods:["Oven Broiler"],ing:["1.5 cups chocolate chips from pantry","2 cups mini marshmallows","Honey Maid graham crackers for dipping"],steps:["Preheat oven broiler to high.","Spread chocolate chips evenly in 9-inch cast iron skillet.","Top evenly with mini marshmallows.","Broil 2-3 minutes -- WATCH CONSTANTLY.","Remove immediately. Serve with graham crackers.","Eat right away while hot and gooey!"],tip:"Watch EVERY SECOND under the broiler -- goes from golden to burnt in 30 seconds."}]}];
+function toggleCard(el){el.parentElement.classList.toggle("open");}
+
+var RECIPES=[
+{day:"Sunday Jul 6",items:[
+{name:"Bacon & Egg Griddle Scramble with Grits",cal:480,methods:["Outdoor Griddle"],
+ing:["4 strips thick-cut bacon","4 large eggs","1 cup Quaker grits","2 tbsp butter","Salt & pepper"],
+steps:["Cook grits per package. Add butter and season well.","Heat outdoor griddle to medium. Cook bacon 3-4 min per side.","Crack eggs on griddle, scramble gently on low heat.","Serve grits topped with eggs and crumbled bacon."],
+tip:"Cooking outside keeps the kitchen cool on a hot July morning."},
+{name:"Grilled Gulf Shrimp Mango Tacos with Avocado Lime Crema",cal:520,methods:["Outdoor Grill"],
+ing:["12 Gulf shrimp peeled and deveined (Lagnippe)","2 tbsp olive oil","2 cloves garlic minced","Juice of 1 lime","1 tsp smoked paprika","1/2 tsp cumin","Salt and pepper","6 small flour tortillas","-- Mango Salsa --","1 mango diced","1/4 red onion minced","Juice of 1 lime","2 tbsp cilantro","-- Avocado Lime Crema --","1 avocado","1/2 cup sour cream","Juice of 1 lime","Salt"],
+steps:["Marinate shrimp in oil, garlic, lime, paprika, cumin for 15 min.","Mix mango salsa and refrigerate.","Blend crema: avocado + sour cream + lime + salt until smooth.","Grill shrimp medium-high 2 min per side until pink.","Warm tortillas on grill 30 sec per side.","Build: tortilla, crema, shrimp, mango salsa."],
+p1:"Skip salsa. Serve with sour cream, cheddar and lime only.",p2:"Add diced cherry tomatoes and jalapeno to the mango salsa.",
+tip:"Grill before 7 PM. Shrimp cook FAST - pull when they curl into a C."},
+{name:"Vanilla Ice Cream with Strawberries and Cool Whip",cal:280,methods:["No Cook"],
+ing:["Vanilla ice cream from freezer","1 cup fresh strawberries sliced","Cool Whip from fridge","Optional: drizzle of honey"],
+steps:["Slice strawberries.","Scoop ice cream into bowls.","Top with strawberries and Cool Whip.","Serve immediately."],
+tip:"Zero cooking. Perfect light dessert on a hot night."}]},
+{day:"Monday Jul 7",items:[
+{name:"Tropical Smoothie Bowl",cal:380,methods:["No Cook"],
+ing:["1 cup frozen mango chunks","1/2 cup pineapple","1 banana","3/4 cup FAGE Greek yogurt","1/4 cup coconut milk","-- Toppings --","1/4 cup granola","Fresh fruit","Honey drizzle"],
+steps:["Blend mango, pineapple, banana, yogurt, coconut milk until thick.","Pour into 2 bowls - should be spoonable not drinkable.","Top with granola, fresh fruit, and honey."],
+tip:"Key is thick - use less liquid than a regular smoothie."},
+{name:"Crawfish Tail Cajun Butter Rice with Corn",cal:560,methods:["Stovetop"],
+ing:["1 lb frozen crawfish tails thawed","3 tbsp butter","3 cloves garlic minced","1.5 tsp Cajun seasoning","1/4 tsp smoked paprika","2 cups Minute rice cooked","2 ears corn on the cob","P2: 1 can Ro-Tel drained"],
+steps:["Cook rice per package.","Steam or microwave corn.","Melt butter in large skillet over medium-high.","Add garlic and cook 1 minute.","Add crawfish tails and Cajun seasoning. Cook 3-4 min.","P2: Stir in Ro-Tel, cook 1 more minute.","Serve crawfish over rice with corn."],
+p1:"As-is - butter, garlic and Cajun is perfect for P1.",p2:"Add Ro-Tel (drained) for extra heat and tomato flavor.",
+tip:"Crawfish are already cooked - just heating through. Do not overcook."},
+{name:"Fresh Peach Parfait",cal:290,methods:["No Cook"],
+ing:["1.5 cups FAGE Greek yogurt","1/2 cup granola","2 fresh Alabama peaches sliced","2 tbsp honey"],
+steps:["Divide yogurt between 2 bowls.","Layer granola on top.","Add fresh peach slices.","Drizzle with honey."],
+tip:"Alabama peaches in early July are at peak sweetness!"}]},
+{day:"Tuesday Jul 8",items:[
+{name:"Kodiak Protein Pancakes with Berries and Honey",cal:420,methods:["Stovetop"],
+ing:["1.5 cups Kodiak pancake mix","1 cup water or milk","1 egg","1 tbsp butter","Fresh strawberries or blueberries","2 tbsp honey"],
+steps:["Mix Kodiak mix with water or milk and egg until just combined.","Heat non-stick skillet over medium with butter.","Pour 1/4 cup batter per pancake. Cook until bubbles form, 2-3 min.","Flip and cook 1-2 min until golden.","Serve topped with fresh berries and honey."],
+tip:"Higher protein and fiber than regular pancakes - filling without being heavy."},
+{name:"Grilled Chicken Tacos with Avocado, Lime and Slaw",cal:490,methods:["Outdoor Grill"],
+ing:["2 chicken breasts 5-6 oz each","1 tbsp olive oil","1 tsp garlic powder","1 tsp cumin","Salt and pepper","6 small flour tortillas","1 avocado sliced","Juice of 1 lime","-- Quick Slaw --","2 cups coleslaw mix","2 tbsp mayo","1 tbsp apple cider vinegar","1 tsp sugar","Salt","P2: cherry tomatoes jalapeno cilantro"],
+steps:["Make slaw: toss all ingredients. Refrigerate 15 min.","Season chicken with oil, garlic powder, cumin, salt and pepper.","Grill medium-high 5-6 min per side to 165F internal.","Rest chicken 5 min then slice against the grain.","Warm tortillas on grill 30 sec.","Build: tortilla, slaw, chicken, avocado, lime."],
+p1:"Dress with cheddar and sour cream only.",p2:"Add cherry tomatoes, jalapeno, cilantro, and hot sauce.",
+tip:"Rest the chicken before slicing - keeps it juicy."},
+{name:"Chocolate Mousse Cups",cal:240,methods:["No Cook - chill ahead"],
+ing:["1 cup heavy cream","3 tbsp cocoa powder","3 tbsp granulated sugar","1/2 tsp vanilla extract","Pinch of salt","Chocolate chips for topping"],
+steps:["Chill mixing bowl in freezer 10 min.","Whip heavy cream until soft peaks form.","Sift in cocoa, sugar, vanilla, salt. Fold gently.","Divide into 4 cups. Top with chocolate chips.","Refrigerate at least 1 hour."],
+tip:"Make after lunch so perfectly set by dessert time. Keeps 2 days."}]},
+{day:"Wednesday Jul 9",items:[
+{name:"Strawberry Banana Spinach Smoothie with Almond Butter",cal:340,methods:["No Cook"],
+ing:["1 cup frozen strawberries","1 banana","1 cup baby spinach","2 tbsp almond butter","1 cup milk","Optional: 1 tbsp honey","Ice cubes"],
+steps:["Add all ingredients to blender.","Blend until completely smooth, about 60 seconds.","Pour into 2 glasses and serve cold."],
+tip:"You cannot taste the spinach - it just makes it green and adds fiber."},
+{name:"Air Fryer Butterfly Shrimp with Old Bay Corn and Remoulade",cal:480,methods:["Air Fryer"],
+ing:["1 bag frozen butterfly shrimp from freezer","Old Bay seasoning","2 ears corn on the cob","-- Remoulade --","3 tbsp mayo","1 tbsp horseradish sauce from fridge","1 tsp hot sauce","1 tsp lemon juice","1/2 tsp garlic powder","Salt"],
+steps:["Make remoulade: whisk all ingredients. Refrigerate.","Cook corn until tender. Season with butter and Old Bay.","Air fry shrimp at 400F for 10-12 min, shake basket halfway.","Shrimp done when golden and crispy.","Serve with corn and remoulade."],
+p1:"Perfect as-is for P1 - crispy shrimp and corn.",
+tip:"Do NOT overcrowd the air fryer - cook in batches for max crispiness."},
+{name:"Graham Cracker Banana Pudding Cups",cal:260,methods:["No Cook - chill ahead"],
+ing:["1 box vanilla instant pudding mix plus milk per pkg","2 bananas sliced","2 cups Cool Whip","1.5 cups crushed Honey Maid grahams"],
+steps:["Make pudding per package. Let set 5 min.","Fold in 1 cup Cool Whip for lightness.","Layer: grahams, pudding, banana, Cool Whip. Repeat.","Refrigerate at least 2 hours."],
+tip:"Make right after lunch - gets better the longer it chills."}]},
+{day:"Thursday Jul 10",items:[
+{name:"Fresh Peach and Yogurt Smoothie",cal:320,methods:["No Cook"],
+ing:["2 ripe fresh Alabama peaches pitted and sliced","1 cup FAGE Greek yogurt","1 tbsp honey","1/2 cup ice cubes","Optional: splash of OJ"],
+steps:["Add peaches, yogurt, honey, and ice to blender.","Blend until smooth and thick.","Add a splash of OJ if too thick.","Pour into 2 glasses."],
+tip:"Fresh July peaches are naturally sweet - minimal honey needed."},
+{name:"Gulf Shrimp over Garlic Butter Pasta with Parmesan",cal:580,methods:["Outdoor Grill","Stovetop"],
+ing:["1 lb Gulf shrimp peeled and deveined (Lagnippe)","8 oz Barilla pasta","4 tbsp butter","4 cloves garlic minced","3 tbsp olive oil","4 tbsp parmesan grated","Salt, pepper, red pepper flakes","Reserved pasta water","P2: 2 cups baby spinach, 1/2 cup cherry tomatoes"],
+steps:["Cook pasta in salted water. Reserve 1/2 cup pasta water before draining.","Season shrimp with salt, pepper, garlic powder.","Grill or saute shrimp 2 min per side until pink. Set aside.","In same pan warm olive oil over medium-low. Add garlic 2 min.","Add drained pasta and splash of pasta water. Toss.","Add shrimp back. Top with parmesan."],
+p1:"Plain pasta + shrimp + garlic butter + parmesan. No greens or tomatoes.",p2:"Add baby spinach and cherry tomatoes - toss until spinach wilts.",
+tip:"Never skip the pasta water - it makes the sauce coat every noodle."},
+{name:"Fresh Mango Sorbet",cal:180,methods:["Blender - freeze ahead"],
+ing:["2 ripe mangoes peeled and diced","Juice of 1 lime","2 tbsp honey","Pinch of salt","1/4 cup water"],
+steps:["MAKE IN THE MORNING. Blend all ingredients until completely smooth.","Taste and adjust lime or honey.","Pour into freezer-safe container. Freeze at least 3-4 hours.","Let sit 5 min at room temp then scoop."],
+tip:"The riper the mango the better. Make while having morning coffee."}]},
+{day:"Friday Jul 11",items:[
+{name:"Bacon Egg and Sharp Cheddar on Toast",cal:450,methods:["Stovetop"],
+ing:["4 strips thick-cut bacon","4 large eggs","4 slices Sargento sharp cheddar","4 slices Natures Own bread","1 tbsp butter","Salt and pepper"],
+steps:["Cook bacon until crispy. Set aside on paper towels.","Toast bread in same pan or toaster.","Cook eggs to liking. Season with salt and pepper.","Add cheddar to eggs while hot so it melts.","Assemble: toast, eggs, cheddar, bacon."],
+p2:"Add sliced tomatoes and a dash of hot sauce."},
+{name:"Grilled Ribeye Steak Salad with Romaine, Avocado and Balsamic",cal:680,methods:["Outdoor Grill"],
+ing:["2 ribeye or NY strip steaks 8 oz each","Coarse salt and black pepper","4 cups romaine roughly chopped","1 avocado sliced","1 cup Olive Garden croutons from pantry","Balsamic glaze bottle","2 tbsp olive oil"],
+steps:["Pull steaks from fridge 30 min before cooking. Season generously.","Preheat outdoor grill to high. Grill 3-4 min per side for medium-rare.","REST steaks 5 full minutes. Do not skip.","Slice steak thin against the grain.","Arrange romaine, avocado, croutons in bowls.","Top with steak. Drizzle with olive oil and balsamic glaze."],
+p1:"Steak + romaine + croutons + cheddar. Drizzle balsamic glaze.",p2:"Add cherry tomatoes, extra parmesan, and red onion.",
+tip:"5-minute rest is non-negotiable for juicy steak. Grill before 7 PM."},
+{name:"Caprese Dessert Plate - Mozzarella, Strawberries and Balsamic Glaze",cal:200,methods:["No Cook"],
+ing:["1 ball fresh mozzarella sliced","1 cup fresh strawberries halved","Fresh basil leaves","Balsamic glaze bottle","Flaky sea salt optional"],
+steps:["Slice mozzarella into rounds.","Arrange mozzarella, strawberries, basil on a plate.","Drizzle generously with balsamic glaze.","Finish with flaky sea salt if available.","Serve immediately."],
+tip:"Balsamic + strawberries + mozzarella is genuinely surprising and delicious."}]},
+{day:"Saturday Jul 12",items:[
+{name:"Hillshire Farm Sausage and Egg Scramble with Grits",cal:510,methods:["Stovetop"],
+ing:["1 pkg Hillshire Farm sausage links from freezer thawed","4 large eggs","1 cup Quaker grits","2 tbsp butter","Salt and pepper","Optional: shredded cheddar"],
+steps:["Cook grits per package. Add butter and season.","Slice sausage into rounds. Brown in skillet 3-4 min per side.","Push sausage to side. Add eggs and scramble gently.","Fold together over grits. Top with cheddar if desired."],
+tip:"Thaw sausage in fridge overnight for best results."},
+{name:"Fresh Gulf Fish Pan-Sear with Lemon Butter and Corn",cal:420,methods:["Stovetop"],
+ing:["2 fresh Gulf fish filets from Lagnippe","2 tbsp butter","Juice of 1 lemon","2 cloves garlic minced","Salt, pepper, garlic powder","2 ears corn on the cob"],
+steps:["Call Lagnippe ahead to ask what is freshest.","Pat fish completely dry with paper towels.","Season both sides with salt, pepper, garlic powder.","Heat 1 tbsp butter in skillet over medium-high until foaming.","Add fish - cook 3-4 min per side without moving until golden.","Remove fish. Melt remaining butter, add garlic and lemon juice, swirl 30 sec.","Spoon lemon butter over fish. Serve with steamed corn."],
+p1:"Swap fish for chicken breast using same pan and lemon butter.",
+tip:"Dry fish = perfect sear. Never skip the paper towel step. Flip only once."},
+{name:"Smores Dip",cal:310,methods:["Oven Broiler"],
+ing:["1.5 cups chocolate chips from pantry","2 cups mini marshmallows","Honey Maid graham crackers for dipping"],
+steps:["Preheat oven broiler to high.","Spread chocolate chips evenly in 9-inch cast iron skillet.","Top evenly with mini marshmallows.","Broil 2-3 minutes - WATCH CONSTANTLY.","Remove immediately. Serve with graham crackers.","Eat right away while hot and gooey!"],
+tip:"Watch EVERY SECOND under the broiler - goes from golden to burnt in 30 seconds."}]}
+];
+
 function buildRecipes(){
   var el=document.getElementById("recipe-list");
   if(!el)return;
@@ -683,22 +785,34 @@ function buildRecipes(){
     dg.items.forEach(function(r){
       var card=document.createElement("div");
       card.className="card";
-      var mH=r.methods.map(function(m){return '<span class="r-method">'+m+'</span>';}).join("");
-      var iH=r.ing.map(function(i){return i.startsWith("--")?'<div class="r-divider">'+i+'</div>':'<div class="r-ing"><span class="r-ing-dot">&bull;</span><span>'+i+'</span></div>';}).join("");
-      var sH=r.steps.map(function(s,i){return '<div class="r-step"><span class="r-step-num">'+(i+1)+'</span><span>'+s+'</span></div>';}).join("");
-      var p1=r.p1?'<div class="r-callout c-p1"><strong>P1 swap:</strong> '+r.p1+'</div>':""
-      var p2=r.p2?'<div class="r-callout c-p2"><strong>P2 add:</strong> '+r.p2+'</div>':""
-      var tip=r.tip?'<div class="r-callout c-tip"><strong>Tip:</strong> '+r.tip+'</div>':""
-      card.innerHTML='<div class="card-hdr" onclick="this.parentElement.classList.toggle(\\'open\\')">';
-      card.innerHTML+='<div class="card-hdr-info"><div class="card-title" style="font-size:15px">'+r.name+'</div>';
-      card.innerHTML+='<div class="card-sub">'+r.cal+' cal / person &middot; '+r.methods.join(" &middot; ")+'</div></div>';
-      card.innerHTML+='<svg class="card-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>';
-      card.innerHTML+='<div class="card-body"><div class="r-body-inner">';
-      card.innerHTML+='<div class="r-method-row">'+mH+'</div>';
-      card.innerHTML+='<div class="r-section">Ingredients</div>'+iH;
-      card.innerHTML+='<div class="r-section">Steps</div>'+sH;
-      card.innerHTML+='<div style="margin-top:8px">'+p1+p2+tip+'</div>';
-      card.innerHTML+='</div></div>';
+      var hdr=document.createElement("div");
+      hdr.className="card-hdr";
+      hdr.onclick=function(){this.parentElement.classList.toggle("open");};
+      var info=document.createElement("div");
+      info.className="card-hdr-info";
+      info.innerHTML="<div class=\"card-title\" style=\"font-size:15px\">"+r.name+"</div><div class=\"card-sub\">"+r.cal+" cal / person &middot; "+r.methods.join(" &middot; ")+"</div>";
+      var chev=document.createElement("svg");
+      chev.setAttribute("class","card-chev");
+      chev.setAttribute("viewBox","0 0 24 24");
+      chev.innerHTML="<polyline points=\"6 9 12 15 18 9\"/>";
+      hdr.appendChild(info);
+      hdr.appendChild(chev);
+      card.appendChild(hdr);
+      var body=document.createElement("div");
+      body.className="card-body";
+      var inner=document.createElement("div");
+      inner.className="r-body-inner";
+      var mH="<div class=\"r-method-row\">"+r.methods.map(function(m){return "<span class=\"r-method\">"+m+"</span>";}).join("")+"</div>";
+      var iH="<div class=\"r-section\">Ingredients</div>"+r.ing.map(function(i){return i.startsWith("--")?"<div class=\"r-divider\">"+i+"</div>":"<div class=\"r-ing\"><span style=\"color:var(--teal);flex-shrink:0\">&bull;</span><span>"+i+"</span></div>";}).join("");
+      var sH="<div class=\"r-section\">Steps</div>"+r.steps.map(function(s,i){return "<div class=\"r-step\"><span class=\"r-step-num\">"+(i+1)+"</span><span>"+s+"</span></div>";}).join("");
+      var extras="<div style=\"margin-top:8px\">";
+      if(r.p1)extras+="<div class=\"r-callout c-p1\"><strong>P1 swap:</strong> "+r.p1+"</div>";
+      if(r.p2)extras+="<div class=\"r-callout c-p2\"><strong>P2 add:</strong> "+r.p2+"</div>";
+      if(r.tip)extras+="<div class=\"r-callout c-tip\"><strong>Tip:</strong> "+r.tip+"</div>";
+      extras+="</div>";
+      inner.innerHTML=mH+iH+sH+extras;
+      body.appendChild(inner);
+      card.appendChild(body);
       el.appendChild(card);
     });
   });
