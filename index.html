@@ -1,184 +1,3 @@
-let shopItems={};
-
-function buildShop(){
-  var el=document.getElementById("shop-stores");
-  el.innerHTML="";
-  var checked=S.get("shop_checked")||{};
-  var lasting=S.get("shop_lasting")||{};
-  var custom=S.get("shop_custom")||{};
-  shopItems={};
-  STORES.forEach(function(store){
-    store.sections.forEach(function(sec){
-      sec.items.forEach(function(item){
-        shopItems[item.id]=item;
-        if(item.lasting&&lasting[item.id])checked[item.id]=true;
-      });
-    });
-  });
-  Object.keys(custom).forEach(function(sid){
-    (custom[sid]||[]).forEach(function(item){shopItems[item.id]=item;});
-  });
-  STORES.forEach(function(store){
-    var storeCustom=custom[store.id]||[];
-    var wrap=document.createElement("div");
-    wrap.className="store-section";
-    var hdr=document.createElement("div");
-    hdr.className="store-hdr-row";
-    hdr.style.background=store.color;
-    hdr.innerHTML="<span class=\"store-name\">"+store.name+"</span><span class=\"store-total\">"+store.total+"</span>";
-    wrap.appendChild(hdr);
-    var iw=document.createElement("div");
-    iw.className="shop-items-wrap";
-    store.sections.forEach(function(sec){
-      var lbl=document.createElement("div");
-      lbl.className="shop-sec-label";
-      lbl.textContent=sec.label;
-      iw.appendChild(lbl);
-      sec.items.forEach(function(item){iw.appendChild(makeShopRow(item,checked));});
-    });
-    if(storeCustom.length>0){
-      var clbl=document.createElement("div");
-      clbl.className="shop-sec-label";
-      clbl.textContent="My Additions";
-      iw.appendChild(clbl);
-      storeCustom.forEach(function(item){iw.appendChild(makeCustomShopRow(item,checked,store.id));});
-    }
-    var addRow=document.createElement("div");
-    addRow.className="add-item-row";
-    var inp=document.createElement("input");
-    inp.className="add-item-input";
-    inp.id="add-input-"+store.id;
-    inp.placeholder="Add item to "+store.name+"...";
-    inp.type="text";
-    (function(sid){inp.addEventListener("keydown",function(e){if(e.key==="Enter")addCustomItem(sid);});})(store.id);
-    var btn=document.createElement("button");
-    btn.className="add-item-btn";
-    btn.textContent="Add";
-    (function(sid){btn.addEventListener("click",function(){addCustomItem(sid);});})(store.id);
-    addRow.appendChild(inp);
-    addRow.appendChild(btn);
-    iw.appendChild(addRow);
-    var rb=document.createElement("button");
-    rb.className="reset-btn";
-    rb.textContent="Clear "+store.name+" checks";
-    (function(sid){rb.addEventListener("click",function(){resetStore(sid);});})(store.id);
-    iw.appendChild(rb);
-    wrap.appendChild(iw);
-    el.appendChild(wrap);
-  });
-  S.set("shop_checked",checked);
-  updateShopProgress();
-}
-
-function makeShopRow(item,checked){
-  var isCk=checked[item.id]||false;
-  var row=document.createElement("div");
-  row.className="shop-item"+(isCk?" done":"");
-  row.id="si-"+item.id;
-  var cb=document.createElement("div");
-  cb.className="shop-cb"+(isCk?" on":"");
-  cb.id="scb-"+item.id;
-  var td=document.createElement("div");
-  td.className="shop-item-text";
-  var nd=document.createElement("div");
-  nd.className="shop-item-name";
-  nd.textContent=item.name;
-  if(item.lasting){var b=document.createElement("span");b.className="lasting-badge";b.textContent="Lasts";nd.appendChild(b);}
-  var no=document.createElement("div");
-  no.className="shop-item-note";
-  no.textContent=item.note;
-  td.appendChild(nd);td.appendChild(no);
-  row.appendChild(cb);row.appendChild(td);
-  (function(id){row.addEventListener("click",function(){toggleShopItem(id);});})(item.id);
-  return row;
-}
-
-function makeCustomShopRow(item,checked,storeId){
-  var isCk=checked[item.id]||false;
-  var row=document.createElement("div");
-  row.className="shop-item"+(isCk?" done":"");
-  row.id="si-"+item.id;
-  var cb=document.createElement("div");
-  cb.className="shop-cb"+(isCk?" on":"");
-  cb.id="scb-"+item.id;
-  var td=document.createElement("div");
-  td.className="shop-item-text";
-  var nd=document.createElement("div");
-  nd.className="shop-item-name";
-  nd.textContent=item.name;
-  var nr=document.createElement("div");
-  nr.className="shop-item-note";
-  nr.style.cssText="display:flex;align-items:center;justify-content:space-between;";
-  var ns=document.createElement("span");
-  ns.textContent="Added by me";
-  var rm=document.createElement("span");
-  rm.textContent="Remove";
-  rm.style.cssText="color:var(--coral);cursor:pointer;font-size:11px;font-weight:600;padding:2px 6px;";
-  (function(sid,id){rm.addEventListener("click",function(e){e.stopPropagation();removeCustomItem(sid,id);});})(storeId,item.id);
-  nr.appendChild(ns);nr.appendChild(rm);
-  td.appendChild(nd);td.appendChild(nr);
-  row.appendChild(cb);row.appendChild(td);
-  (function(id){row.addEventListener("click",function(){toggleShopItem(id);});})(item.id);
-  return row;
-}
-
-function toggleShopItem(id){
-  var checked=S.get("shop_checked")||{};
-  checked[id]=!checked[id];
-  S.set("shop_checked",checked);
-  var item=shopItems[id];
-  if(item&&item.lasting){var l=S.get("shop_lasting")||{};l[id]=checked[id];S.set("shop_lasting",l);}
-  var row=document.getElementById("si-"+id);
-  var cb=document.getElementById("scb-"+id);
-  if(row)row.classList.toggle("done",checked[id]);
-  if(cb)cb.classList.toggle("on",checked[id]);
-  updateShopProgress();
-}
-
-function addCustomItem(storeId){
-  var input=document.getElementById("add-input-"+storeId);
-  var name=(input.value||"").trim();
-  if(!name)return;
-  var custom=S.get("shop_custom")||{};
-  if(!custom[storeId])custom[storeId]=[];
-  var id="c_"+storeId+"_"+Date.now();
-  custom[storeId].push({id:id,name:name,note:"",lasting:false});
-  S.set("shop_custom",custom);
-  input.value="";
-  buildShop();
-  setTimeout(function(){var e=document.getElementById("si-"+id);if(e)e.scrollIntoView({behavior:"smooth",block:"center"});},150);
-}
-
-function removeCustomItem(storeId,itemId){
-  var custom=S.get("shop_custom")||{};
-  custom[storeId]=(custom[storeId]||[]).filter(function(i){return i.id!==itemId;});
-  S.set("shop_custom",custom);
-  var checked=S.get("shop_checked")||{};
-  delete checked[itemId];
-  S.set("shop_checked",checked);
-  buildShop();
-}
-
-function resetStore(storeId){
-  var checked=S.get("shop_checked")||{};
-  var store=STORES.find(function(s){return s.id===storeId;});
-  if(store)store.sections.forEach(function(sec){sec.items.forEach(function(item){if(!item.lasting)checked[item.id]=false;});});
-  var custom=S.get("shop_custom")||{};
-  (custom[storeId]||[]).forEach(function(item){checked[item.id]=false;});
-  S.set("shop_checked",checked);
-  buildShop();
-}
-
-function updateShopProgress(){
-  var checked=S.get("shop_checked")||{};
-  var allIds=Object.keys(shopItems);
-  var done=allIds.filter(function(id){return checked[id];}).length;
-  var pct=allIds.length?Math.round(done/allIds.length*100):0;
-  var fill=document.getElementById("prog-fill");
-  var txt=document.getElementById("prog-txt");
-  if(fill)fill.style.width=pct+"%";
-  if(txt)txt.textContent=done+" / "+allIds.length;
-}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -190,36 +9,10 @@ function updateShopProgress(){
 <meta name="theme-color" content="#0a4a35">
 <title>Fairhope Kitchen · Week 2</title>
 <style>
-/* ── TOKENS ── */
-:root {
-  --teal:        #0F6E56;
-  --teal-dark:   #0a4a35;
-  --teal-mid:    #1a8a6a;
-  --teal-light:  #e0f5ee;
-  --teal-pale:   #f0faf6;
-  --amber:       #c07a10;
-  --amber-light: #fff4e0;
-  --coral:       #b03a1a;
-  --coral-light: #fdf0ec;
-  --blue:        #1a5fa0;
-  --blue-light:  #e8f2fc;
-  --sand:        #f7f5f0;
-  --sand-dark:   #ede9e0;
-  --border:      #ddd9d0;
-  --text:        #1a1a16;
-  --text-mid:    #4a4a42;
-  --text-muted:  #7a7a70;
-  --white:       #ffffff;
-  --shadow:      0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
-  --shadow-sm:   0 1px 3px rgba(0,0,0,.07);
-  --r:           14px;
-  --r-sm:        9px;
-}
+:root{--teal:#0F6E56;--teal-dark:#0a4a35;--teal-mid:#1a8a6a;--teal-light:#e0f5ee;--teal-pale:#f0faf6;--amber:#c07a10;--amber-light:#fff4e0;--coral:#b03a1a;--coral-light:#fdf0ec;--blue:#1a5fa0;--blue-light:#e8f2fc;--sand:#f7f5f0;--sand-dark:#ede9e0;--border:#ddd9d0;--text:#1a1a16;--text-mid:#4a4a42;--text-muted:#7a7a70;--white:#ffffff;--shadow:0 1px 4px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);--shadow-sm:0 1px 3px rgba(0,0,0,.07);--r:14px;--r-sm:9px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
 body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;background:var(--sand);color:var(--text);min-height:100vh;overscroll-behavior:none;}
-
-/* ── HEADER ── */
 .site-header{background:linear-gradient(135deg,var(--teal-dark) 0%,var(--teal) 60%,var(--teal-mid) 100%);padding:env(safe-area-inset-top,0) 0 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2);}
 .header-inner{padding:16px 16px 0;}
 .header-eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:4px;}
@@ -227,15 +20,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 .header-sub{font-size:13px;color:rgba(255,255,255,.7);margin-top:2px;padding-bottom:14px;}
 .nav-tabs{display:flex;border-top:1px solid rgba(255,255,255,.15);overflow-x:auto;scrollbar-width:none;}
 .nav-tabs::-webkit-scrollbar{display:none;}
-.nav-tab{flex:1;min-width:70px;padding:11px 8px 13px;font-size:12px;font-weight:600;color:rgba(255,255,255,.6);text-align:center;cursor:pointer;border:none;background:transparent;white-space:nowrap;border-bottom:3px solid transparent;transition:color .2s,border-color .2s;letter-spacing:.01em;}
+.nav-tab{flex:1;min-width:60px;padding:10px 4px 12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.6);text-align:center;cursor:pointer;border:none;background:transparent;white-space:nowrap;border-bottom:3px solid transparent;transition:color .2s,border-color .2s;letter-spacing:.01em;}
 .nav-tab.active{color:#fff;border-bottom-color:#fff;}
-.nav-tab-icon{display:block;font-size:16px;margin-bottom:2px;}
-
-/* ── SCREENS ── */
+.nav-tab-icon{display:block;font-size:15px;margin-bottom:2px;}
 .screen{display:none;padding:16px;max-width:540px;margin:0 auto;padding-bottom:40px;}
 .screen.active{display:block;}
-
-/* ── CARDS ── */
+/* cards */
 .card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:12px;}
 .card-hdr{padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;}
 .card-hdr-info{flex:1;min-width:0;}
@@ -244,19 +34,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 .card-chev{width:20px;height:20px;stroke:var(--text-muted);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;transition:transform .22s;}
 .card.open .card-chev{transform:rotate(180deg);}
 .card-body{max-height:0;overflow:hidden;transition:max-height .32s ease;}
-.card.open .card-body{max-height:3000px;}
-
-/* ── DAY DOT ── */
+.card.open .card-body{max-height:5000px;}
+/* day dot & weather */
 .day-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
 .weather-pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;}
 .w-hot{background:var(--amber-light);color:var(--amber);}
 .w-grill{background:var(--teal-light);color:var(--teal);}
 .w-cool{background:var(--blue-light);color:var(--blue);}
-
-/* ── MEAL BLOCKS ── */
+/* meal blocks */
 .meal-block{padding:14px 16px;border-top:1px solid var(--border);}
-.meal-type-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
-.meal-type{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);}
+.meal-type{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:3px;}
 .meal-type.dessert-type{color:var(--coral);}
 .meal-name{font-size:15px;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:4px;letter-spacing:-.15px;}
 .meal-note{font-size:12px;color:var(--text-mid);line-height:1.5;}
@@ -267,8 +54,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 .mt-p1{background:var(--amber-light);color:var(--amber);}
 .mt-p2{background:var(--teal-light);color:var(--teal);}
 .mt-pantry{background:#e8fce8;color:#1a6a1a;}
-
-/* ── STAR RATING ── */
+.pantry-note{font-size:11px;color:var(--teal);margin-top:5px;font-weight:500;}
+/* stars */
 .rating-row{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
 .rating-lbl{font-size:12px;color:var(--text-muted);flex-shrink:0;}
 .stars{display:flex;gap:3px;}
@@ -281,8 +68,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 .made-cb.on::after{content:'✓';color:#fff;font-size:12px;font-weight:700;}
 .meal-block.made-meal{opacity:.55;}
 .meal-block.made-meal .meal-name{text-decoration:line-through;}
-
-/* ── SHOPPING LIST ── */
+/* shopping */
 .prog-bar-wrap{background:var(--teal-light);border-radius:var(--r);padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
 .prog-track{flex:1;height:8px;background:rgba(15,110,86,.2);border-radius:4px;}
 .prog-fill{height:8px;border-radius:4px;background:var(--teal);transition:width .35s;}
@@ -303,13 +89,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 .shop-item-name{font-size:14px;color:var(--text);line-height:1.35;}
 .shop-item-note{font-size:12px;color:var(--text-muted);margin-top:1px;}
 .shop-item.done .shop-item-name{text-decoration:line-through;color:var(--text-muted);}
-.shop-item.pantry-item{background:var(--teal-pale);}
-.pantry-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;background:var(--teal-light);color:var(--teal);margin-left:6px;vertical-align:middle;white-space:nowrap;}
 .lasting-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;background:#e8fce8;color:#1a6a1a;margin-left:6px;vertical-align:middle;}
 .reset-btn{width:100%;padding:12px;font-size:13px;color:var(--text-muted);background:transparent;border:none;border-top:1px solid var(--border);cursor:pointer;text-align:center;}
-.reset-btn:active{background:var(--sand);}
-
-/* ── PANTRY MEMORY ── */
+/* recipes */
+.recipe-day-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);padding:18px 2px 6px;}
+.r-method-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.r-method{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--amber-light);color:var(--amber);}
+.r-section{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);margin:10px 0 5px;}
+.r-ing{font-size:14px;color:var(--text);line-height:1.5;padding:2px 0;display:flex;gap:8px;}
+.r-ing::before{content:'•';color:var(--teal);flex-shrink:0;line-height:1.5;}
+.r-divider{font-size:12px;font-weight:600;color:var(--text-muted);padding:6px 0 2px;margin-top:4px;}
+.r-step{font-size:14px;color:var(--text);line-height:1.5;padding:3px 0;display:flex;gap:10px;}
+.r-step-num{font-size:13px;font-weight:700;color:var(--teal);min-width:18px;flex-shrink:0;line-height:1.6;}
+.r-callout{border-radius:10px;padding:10px 12px;margin:6px 0;font-size:13px;line-height:1.5;}
+.c-p1{background:var(--amber-light);color:var(--amber);}
+.c-p2{background:var(--teal-light);color:var(--teal-dark);}
+.c-tip{background:var(--blue-light);color:var(--blue);}
+.r-body-inner{padding:4px 16px 16px;}
+.r-cal-row{font-size:12px;color:var(--text-muted);margin-bottom:8px;}
+/* pantry */
 .memory-intro{font-size:13px;color:var(--text-mid);line-height:1.6;margin-bottom:14px;padding:12px 14px;background:var(--teal-pale);border-radius:var(--r);border:1px solid var(--teal-light);}
 .pantry-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
 .pantry-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;cursor:pointer;transition:all .15s;}
@@ -320,8 +118,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 .pc-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.3;}
 .pc-note{font-size:11px;color:var(--text-muted);margin-top:2px;}
 .pc-check{font-size:10px;font-weight:700;color:var(--teal);margin-top:4px;}
-
-/* ── COSTS ── */
+/* costs */
 .cost-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px;}
 .cost-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px 14px;text-align:center;}
 .cost-card.full{grid-column:span 2;}
@@ -331,21 +128,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 .savings-title{font-size:13px;font-weight:700;color:var(--teal-dark);margin-bottom:8px;}
 .savings-row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--text-mid);padding:3px 0;}
 .savings-row strong{color:var(--teal-dark);}
-
-/* ── SECTION LABEL ── */
 .section-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin:20px 0 8px;padding-left:2px;}
-
-/* ── NOTE BOX ── */
 .note-box{background:var(--sand-dark);border-radius:var(--r-sm);padding:12px 14px;font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:12px;}
-
-/* ── UTIL ── */
 .divider-line{height:1px;background:var(--border);}
-.emoji-big{font-size:32px;display:block;margin-bottom:8px;}
-.recipe-day-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);padding:18px 2px 6px;}.r-method-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}.r-method{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--amber-light);color:var(--amber);}.r-section{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);margin:10px 0 5px;}.r-ing{font-size:14px;color:var(--text);line-height:1.5;padding:2px 0;display:flex;gap:8px;}.r-divider{font-size:12px;font-weight:600;color:var(--text-muted);padding:6px 0 2px;margin-top:4px;}.r-step{font-size:14px;color:var(--text);line-height:1.5;padding:3px 0;display:flex;gap:10px;}.r-step-num{font-size:13px;font-weight:700;color:var(--teal);min-width:18px;flex-shrink:0;line-height:1.6;}.r-callout{border-radius:10px;padding:10px 12px;margin:6px 0;font-size:13px;line-height:1.5;}.c-p1{background:var(--amber-light);color:var(--amber);}.c-p2{background:var(--teal-light);color:var(--teal-dark);}.c-tip{background:var(--blue-light);color:var(--blue);}.r-body-inner{padding:4px 16px 16px;}.add-item-row{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--border);background:var(--sand);}.add-item-input{flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);background:var(--white);outline:none;-webkit-appearance:none;}.add-item-input:focus{border-color:var(--teal);}.add-item-btn{padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}.add-item-btn:active{opacity:.85;}
+.add-item-row{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--border);background:var(--sand);}.add-item-input{flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);background:var(--white);outline:none;-webkit-appearance:none;}.add-item-input:focus{border-color:var(--teal);}.add-item-btn{padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}.add-item-btn:active{opacity:.85;}
 </style>
 </head>
 <body>
-
 <header class="site-header">
   <div class="header-inner">
     <div class="header-eyebrow">Fairhope, AL · Week 2</div>
@@ -361,33 +150,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
   </nav>
 </header>
 
-<!-- ── MENU ── -->
-<div class="screen active" id="s-menu">
-  <div id="menu-days"></div>
-  <div class="note-box">⭐ Tap the stars to rate each meal — ratings are saved. Check "Made it!" to mark meals you've cooked.</div>
-</div>
-
+<div class="screen active" id="s-menu"><div id="menu-days"></div><div class="note-box">⭐ Tap stars to rate each meal — saved automatically. Check "Made it!" to mark meals you've cooked.</div></div>
 <div class="screen" id="s-recipes"><div id="recipe-list"></div></div>
-
-<!-- ── SHOPPING ── -->
 <div class="screen" id="s-shop">
-  <div class="prog-bar-wrap">
-    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
-    <span class="prog-txt" id="prog-txt">0 / 0</span>
-  </div>
+  <div class="prog-bar-wrap"><div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div><span class="prog-txt" id="prog-txt">0 / 0</span></div>
   <div id="shop-stores"></div>
-  <div class="note-box">🟢 Items marked <strong>Already have</strong> are from your pantry/fridge/freezer — no need to buy. Items marked <strong>Lasts</strong> are things you'll use across multiple meals and weeks, so they carry forward automatically.</div>
+  <div class="note-box">🟢 <strong>Lasts</strong> items carry forward week to week automatically.</div>
 </div>
-
-<!-- ── PANTRY MEMORY ── -->
 <div class="screen" id="s-pantry">
-  <div class="memory-intro">
-    Tap items to mark what you have on hand. This remembers your pantry so next week's shopping list starts from what's still there. <strong>Green = you have it.</strong>
-  </div>
+  <div class="memory-intro">Tap items to mark what you have on hand. <strong>Green = you have it.</strong></div>
   <div id="pantry-grid"></div>
 </div>
-
-<!-- ── COSTS ── -->
 <div class="screen" id="s-costs">
   <div class="cost-grid">
     <div class="cost-card"><div class="cost-num">$128</div><div class="cost-lbl">est. total groceries</div></div>
@@ -402,169 +175,95 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
     <div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$128</strong></div>
   </div>
   <div class="section-lbl">What your freezer is contributing</div>
-  <div class="card" style="overflow:visible;">
-    <div style="padding:14px 16px;">
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Butterfly shrimp bag</span><span style="color:var(--teal);font-weight:600;">saves ~$16</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Crawfish tails</span><span style="color:var(--teal);font-weight:600;">saves ~$14</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Thick cut bacon</span><span style="color:var(--teal);font-weight:600;">saves ~$9</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Hillshire Farm sausage</span><span style="color:var(--teal);font-weight:600;">saves ~$7</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Vanilla ice cream</span><span style="color:var(--teal);font-weight:600;">saves ~$6</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Pantry staples (oils, pasta, etc.)</span><span style="color:var(--teal);font-weight:600;">saves ~$68</span></div>
-      </div>
+  <div class="card">
+    <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Butterfly shrimp bag</span><span style="color:var(--teal);font-weight:600;">saves ~$16</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Crawfish tails</span><span style="color:var(--teal);font-weight:600;">saves ~$14</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Thick cut bacon</span><span style="color:var(--teal);font-weight:600;">saves ~$9</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Hillshire Farm sausage</span><span style="color:var(--teal);font-weight:600;">saves ~$7</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Pantry staples (oils, pasta, etc.)</span><span style="color:var(--teal);font-weight:600;">saves ~$68</span></div>
     </div>
   </div>
-  <div class="note-box">Prices estimated from current June/July 2026 Gulf Coast market rates. Lagnippe prices vary by daily catch — call ahead. Actual cost ±10%.</div>
+  <div class="note-box">Prices from June/July 2026 Gulf Coast market rates. Lagnippe varies by daily catch — call ahead. ±10%.</div>
 </div>
 
 <script>
-// ── STORAGE ──
-const S = {
-  get: k => { try { return JSON.parse(localStorage.getItem('fhk_' + k) || 'null'); } catch(e){ return null; } },
-  set: (k, v) => { try { localStorage.setItem('fhk_' + k, JSON.stringify(v)); } catch(e){} }
-};
+const S={get:k=>{try{return JSON.parse(localStorage.getItem('fhk_'+k)||'null');}catch(e){return null;}},set:(k,v)=>{try{localStorage.setItem('fhk_'+k,JSON.stringify(v));}catch(e){}}};
 
-// ── NAV ──
-function goTab(id, btn) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('s-' + id).classList.add('active');
+function goTab(id,btn){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');
   btn.classList.add('active');
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
 }
 
 // ── MENU DATA ──
-const DAYS = [
-  { id:'sun', day:'Sunday', date:'Jul 6', color:'#0F6E56', weather:'🔥 Grill early', wc:'w-hot',
-    meals:[
-      { id:'sun_b', type:'Breakfast', name:'Bacon & egg griddle scramble with grits', cal:480,
-        note:'Use thick-cut bacon from fridge + eggs + Quaker grits · outdoor griddle keeps kitchen cool',
-        tags:['both','pantry'], hasPantry:'Bacon · Eggs · Grits · Butter — all on hand' },
-      { id:'sun_d', type:'Dinner', name:'Grilled shrimp mango tacos with avocado lime crema', cal:520,
-        note:'The Week 1 hit — remixed as tacos! Flour tortillas, mango salsa, lime crema (sour cream + lime) · grill outside before 7 PM',
-        tags:['both','p2'] },
-      { id:'sun_ds', type:'Dessert 🍮', name:'Vanilla ice cream with fresh strawberries & Cool Whip', cal:280,
-        note:'Zero cooking · freezer ice cream + fridge Cool Whip + fresh strawberries you have on hand',
-        tags:['both','pantry'], hasPantry:'Ice cream · Cool Whip · Strawberries — already in fridge/freezer' }
-    ]
-  },
-  { id:'mon', day:'Monday', date:'Jul 7', color:'#185FA5', weather:'🌊 Coastal', wc:'w-grill',
-    meals:[
-      { id:'mon_b', type:'Breakfast', name:'Tropical smoothie bowl — mango, pineapple, banana & Greek yogurt', cal:380,
-        note:'Blend frozen mango + pineapple + banana + FAGE yogurt + coconut milk · top with granola · no cooking',
-        tags:['both'] },
-      { id:'mon_d', type:'Dinner', name:'Crawfish tail Cajun butter rice with corn', cal:560,
-        note:'Your frozen crawfish tails! Sauté in butter + Cajun seasoning + minced garlic · serve over Minute rice · corn from fridge · P2 add Ro-Tel for kick',
-        tags:['both','pantry'], hasPantry:'Crawfish tails (freezer) · Minute rice · Minced garlic · Butter · Cajun seasoning — all on hand' },
-      { id:'mon_ds', type:'Dessert 🍮', name:'Fresh peach parfait — Greek yogurt, granola & honey', cal:290,
-        note:'FAGE yogurt + granola + sliced fresh peaches + drizzle of honey · no cooking · make ahead and chill',
-        tags:['both'] }
-    ]
-  },
-  { id:'tue', day:'Tuesday', date:'Jul 8', color:'#534AB7', weather:'🌿 Light & cool', wc:'w-cool',
-    meals:[
-      { id:'tue_b', type:'Breakfast', name:'Kodiak protein pancakes with fresh berries & honey', cal:420,
-        note:'Kodiak pancake mix from pantry · top with strawberries or blueberries + honey · quick stovetop',
-        tags:['both','pantry'], hasPantry:'Kodiak mix · Honey · Berries — all on hand' },
-      { id:'tue_d', type:'Dinner', name:'Grilled chicken tacos with avocado, lime & slaw', cal:490,
-        note:'Chicken breasts on outdoor grill · flour tortillas · P1: cheddar, sour cream only · P2: tomato, jalapeño, cilantro · quick slaw from coleslaw mix',
-        tags:['both'] },
-      { id:'tue_ds', type:'Dessert 🍮', name:'Chocolate mousse cups', cal:240,
-        note:'Whip heavy cream + cocoa powder (pantry) + sugar + vanilla · chill 1 hr · top with chocolate chips · make ahead the night before',
-        tags:['both','pantry'], hasPantry:'Cocoa powder · Sugar · Chocolate chips — already in pantry' }
-    ]
-  },
-  { id:'wed', day:'Wednesday', date:'Jul 9', color:'#993C1D', weather:'🔥 No oven', wc:'w-hot',
-    meals:[
-      { id:'wed_b', type:'Breakfast', name:'Strawberry banana spinach smoothie with almond butter', cal:340,
-        note:'Frozen strawberries + banana + baby spinach + almond butter + milk · zero cooking · thick and cold',
-        tags:['both','pantry'], hasPantry:'Almond butter · Frozen strawberries — on hand; buy bananas & spinach' },
-      { id:'wed_d', type:'Dinner', name:'Air fryer butterfly shrimp with Old Bay corn & remoulade', cal:480,
-        note:'Use your frozen butterfly shrimp bag! Air fryer 400°F 12 min · corn on the cob · remoulade = horseradish sauce + mayo from your fridge · P1 loves this',
-        tags:['both','pantry'], hasPantry:'Butterfly shrimp (freezer) · Corn · Horseradish sauce · Mayo — all on hand' },
-      { id:'wed_ds', type:'Dessert 🍮', name:'Graham cracker banana pudding cups', cal:260,
-        note:'Layer crushed Honey Maid grahams + vanilla instant pudding + banana slices + Cool Whip · make ahead, chill 2 hrs · crowd pleaser',
-        tags:['both','pantry'], hasPantry:'Honey Maid grahams · Cool Whip — already in pantry/fridge' }
-    ]
-  },
-  { id:'thu', day:'Thursday', date:'Jul 10', color:'#0F6E56', weather:'🌊 Coastal', wc:'w-grill',
-    meals:[
-      { id:'thu_b', type:'Breakfast', name:'Fresh peach & yogurt smoothie with honey', cal:320,
-        note:'Fresh peaches + FAGE Greek yogurt + honey + ice · thick, cold, and naturally sweet · peak peach season right now',
-        tags:['both'] },
-      { id:'thu_d', type:'Dinner', name:'Gulf shrimp over garlic butter pasta with parmesan', cal:580,
-        note:'Fresh Lagnippe shrimp · grill or quick sauté · toss with Barilla pasta, olive oil, garlic, parmesan · P1 plain pasta + shrimp · P2 add spinach & cherry tomatoes',
-        tags:['both','pantry'], hasPantry:'Barilla pasta · Olive oil · Minced garlic · Parmesan (get fresh) — mostly on hand' },
-      { id:'thu_ds', type:'Dessert 🍮', name:'Fresh mango sorbet — blend & freeze', cal:180,
-        note:'Blend 2 ripe mangoes + lime juice + honey + pinch salt · pour into container, freeze 2 hrs · scoop like sorbet · make in the morning',
-        tags:['both'] }
-    ]
-  },
-  { id:'fri', day:'Friday', date:'Jul 11', color:'#854F0B', weather:'🥩 Grill night', wc:'w-grill',
-    meals:[
-      { id:'fri_b', type:'Breakfast', name:'Bacon egg & sharp cheddar on Nature\'s Own toast', cal:450,
-        note:"Use your thick-cut bacon + eggs + Sargento sharp cheddar + Nature's Own bread · quick griddle breakfast before the heat hits",
-        tags:['both','pantry'], hasPantry:"Bacon · Eggs · Sargento cheddar · Nature's Own bread — all on hand" },
-      { id:'fri_d', type:'Dinner', name:'Grilled ribeye steak salad — romaine, avocado & balsamic', cal:680,
-        note:'Light but satisfying · grill steak outside · slice thin over romaine + avocado + Olive Garden croutons (pantry!) · P1 plain with cheddar · drizzle balsamic glaze',
-        tags:['both','pantry'], hasPantry:'Olive Garden croutons — already in pantry!' },
-      { id:'fri_ds', type:'Dessert 🍮', name:'Caprese dessert plate — mozzarella, strawberries & balsamic glaze', cal:200,
-        note:'Fresh mozzarella + halved strawberries + fresh basil + balsamic glaze drizzle · elegant, no cooking, very coastal · doubles as a light salad',
-        tags:['both'] }
-    ]
-  },
-  { id:'sat', day:'Saturday', date:'Jul 12', color:'#5F5E5A', weather:'🌅 Easy morning', wc:'w-cool',
-    meals:[
-      { id:'sat_b', type:'Breakfast', name:'Hillshire Farm sausage & egg scramble with grits', cal:510,
-        note:"Use your Hillshire Farm sausage from freezer + eggs + Quaker grits · slice sausage, brown in pan, scramble eggs alongside · easy Saturday morning",
-        tags:['both','pantry'], hasPantry:'Hillshire Farm sausage (freezer) · Eggs · Quaker grits — all on hand' },
-      { id:'sat_d', type:'Dinner', name:'Fresh Gulf fish pan-sear with lemon butter & corn', cal:420,
-        note:"Ask Lagnippe what's fresh today · quick 8-min pan-sear · lemon butter · serve with fresh corn · P1 sub: chicken breast from pantry · very light for a hot Saturday",
-        tags:['both','p2'] },
-      { id:'sat_ds', type:'Dessert 🍮', name:"S'mores dip — chocolate chips, marshmallows & graham crackers", cal:310,
-        note:'Spread chocolate chips in cast iron skillet · top with mini marshmallows · broil 3 min until golden · dip with Honey Maid grahams · fun weekend treat',
-        tags:['both','pantry'], hasPantry:'Chocolate chips · Honey Maid grahams — both in pantry · buy marshmallows' }
-    ]
-  }
+const DAYS=[
+  {id:'sun',day:'Sunday',date:'Jul 6',color:'#0F6E56',weather:'🔥 Grill early',wc:'w-hot',meals:[
+    {id:'sun_b',type:'Breakfast',name:"Bacon & egg griddle scramble with grits",cal:480,note:'Thick-cut bacon + eggs + Quaker grits · outdoor griddle keeps kitchen cool',tags:['both','pantry'],hasPantry:'Bacon · Eggs · Grits · Butter — all on hand'},
+    {id:'sun_d',type:'Dinner',name:'Grilled shrimp mango tacos with avocado lime crema',cal:520,note:'The Week 1 hit — remixed as tacos! Flour tortillas, mango salsa, lime crema · grill outside before 7 PM',tags:['both','p2']},
+    {id:'sun_ds',type:'Dessert 🍮',name:'Vanilla ice cream with fresh strawberries & Cool Whip',cal:280,note:'Zero cooking · freezer ice cream + fridge Cool Whip + fresh strawberries',tags:['both','pantry'],hasPantry:'Ice cream · Cool Whip · Strawberries — already on hand'}
+  ]},
+  {id:'mon',day:'Monday',date:'Jul 7',color:'#185FA5',weather:'🌊 Coastal',wc:'w-grill',meals:[
+    {id:'mon_b',type:'Breakfast',name:'Tropical smoothie bowl — mango, pineapple, banana & Greek yogurt',cal:380,note:'Blend frozen mango + pineapple + banana + FAGE yogurt + coconut milk · top with granola · no cooking',tags:['both']},
+    {id:'mon_d',type:'Dinner',name:'Crawfish tail Cajun butter rice with corn',cal:560,note:'Your frozen crawfish tails! Sauté in butter + Cajun seasoning + minced garlic · Minute rice · P2 add Ro-Tel',tags:['both','pantry'],hasPantry:'Crawfish tails · Minute rice · Minced garlic · Butter · Cajun seasoning — all on hand'},
+    {id:'mon_ds',type:'Dessert 🍮',name:'Fresh peach parfait — Greek yogurt, granola & honey',cal:290,note:'FAGE yogurt + granola + sliced fresh peaches + honey · no cooking · make ahead and chill',tags:['both']}
+  ]},
+  {id:'tue',day:'Tuesday',date:'Jul 8',color:'#534AB7',weather:'🌿 Light & cool',wc:'w-cool',meals:[
+    {id:'tue_b',type:'Breakfast',name:'Kodiak protein pancakes with fresh berries & honey',cal:420,note:'Kodiak pancake mix from pantry · top with strawberries or blueberries + honey',tags:['both','pantry'],hasPantry:'Kodiak mix · Honey · Berries — all on hand'},
+    {id:'tue_d',type:'Dinner',name:'Grilled chicken tacos with avocado, lime & slaw',cal:490,note:'Chicken breasts on outdoor grill · P1: cheddar & sour cream only · P2: tomato, jalapeño, cilantro',tags:['both']},
+    {id:'tue_ds',type:'Dessert 🍮',name:'Chocolate mousse cups',cal:240,note:'Whip heavy cream + cocoa powder + sugar + vanilla · chill 1 hr · top with chocolate chips · make ahead!',tags:['both','pantry'],hasPantry:'Cocoa powder · Sugar · Chocolate chips — in pantry'}
+  ]},
+  {id:'wed',day:'Wednesday',date:'Jul 9',color:'#993C1D',weather:'🔥 No oven',wc:'w-hot',meals:[
+    {id:'wed_b',type:'Breakfast',name:'Strawberry banana spinach smoothie with almond butter',cal:340,note:'Frozen strawberries + banana + spinach + almond butter + milk · zero cooking',tags:['both','pantry'],hasPantry:'Almond butter · Frozen strawberries — on hand; buy bananas & spinach'},
+    {id:'wed_d',type:'Dinner',name:'Air fryer butterfly shrimp with Old Bay corn & remoulade',cal:480,note:'Frozen butterfly shrimp bag! Air fryer 400°F 12 min · corn on cob · remoulade = horseradish sauce + mayo',tags:['both','pantry'],hasPantry:'Butterfly shrimp (freezer) · Corn · Horseradish sauce · Mayo — all on hand'},
+    {id:'wed_ds',type:'Dessert 🍮',name:'Graham cracker banana pudding cups',cal:260,note:'Layer crushed Honey Maid grahams + vanilla pudding + banana + Cool Whip · chill 2 hrs',tags:['both','pantry'],hasPantry:'Honey Maid grahams · Cool Whip — in pantry/fridge'}
+  ]},
+  {id:'thu',day:'Thursday',date:'Jul 10',color:'#0F6E56',weather:'🌊 Coastal',wc:'w-grill',meals:[
+    {id:'thu_b',type:'Breakfast',name:'Fresh peach & yogurt smoothie with honey',cal:320,note:'Fresh peaches + FAGE Greek yogurt + honey + ice · thick and cold · peak peach season!',tags:['both']},
+    {id:'thu_d',type:'Dinner',name:'Gulf shrimp over garlic butter pasta with parmesan',cal:580,note:'Fresh Lagnippe shrimp · grill or sauté · Barilla pasta + olive oil + garlic + parmesan · P2 add spinach & tomatoes',tags:['both','pantry'],hasPantry:'Barilla pasta · Olive oil · Minced garlic — mostly on hand'},
+    {id:'thu_ds',type:'Dessert 🍮',name:'Fresh mango sorbet — blend & freeze',cal:180,note:'Blend 2 ripe mangoes + lime juice + honey + pinch salt · freeze 2 hrs · make in the morning',tags:['both']}
+  ]},
+  {id:'fri',day:'Friday',date:'Jul 11',color:'#854F0B',weather:'🥩 Grill night',wc:'w-grill',meals:[
+    {id:'fri_b',type:'Breakfast',name:"Bacon egg & sharp cheddar on Nature's Own toast",cal:450,note:"Thick-cut bacon + eggs + Sargento sharp cheddar + Nature's Own bread · quick griddle breakfast",tags:['both','pantry'],hasPantry:"Bacon · Eggs · Sargento cheddar · Nature's Own bread — all on hand"},
+    {id:'fri_d',type:'Dinner',name:'Grilled ribeye steak salad — romaine, avocado & balsamic',cal:680,note:'Grill steak outside · slice thin over romaine + avocado + Olive Garden croutons (pantry!) · drizzle balsamic glaze',tags:['both','pantry'],hasPantry:'Olive Garden croutons — already in pantry!'},
+    {id:'fri_ds',type:'Dessert 🍮',name:'Caprese dessert plate — mozzarella, strawberries & balsamic glaze',cal:200,note:'Fresh mozzarella + halved strawberries + fresh basil + balsamic glaze · no cooking · elegant',tags:['both']}
+  ]},
+  {id:'sat',day:'Saturday',date:'Jul 12',color:'#5F5E5A',weather:'🌅 Easy morning',wc:'w-cool',meals:[
+    {id:'sat_b',type:'Breakfast',name:'Hillshire Farm sausage & egg scramble with grits',cal:510,note:"Hillshire Farm sausage from freezer + eggs + Quaker grits · slice sausage, brown in pan, scramble eggs alongside",tags:['both','pantry'],hasPantry:'Hillshire Farm sausage (freezer) · Eggs · Quaker grits — all on hand'},
+    {id:'sat_d',type:'Dinner',name:"Fresh Gulf fish pan-sear with lemon butter & corn",cal:420,note:"Ask Lagnippe what's fresh today · quick 8-min pan-sear · lemon butter · serve with fresh corn · P1 sub: chicken",tags:['both','p2']},
+    {id:'sat_ds',type:'Dessert 🍮',name:"S'mores dip — chocolate chips, marshmallows & graham crackers",cal:310,note:'Spread chocolate chips in cast iron skillet · top with mini marshmallows · broil 3 min · dip with Honey Maid grahams',tags:['both','pantry'],hasPantry:"Chocolate chips · Honey Maid grahams — in pantry · buy marshmallows"}
+  ]}
 ];
 
-// ── BUILD MENU ──
-function buildMenu() {
-  const el = document.getElementById('menu-days');
-  DAYS.forEach((d, i) => {
-    const ratings = S.get('ratings') || {};
-    const made = S.get('made') || {};
-    const card = document.createElement('div');
-    card.className = 'card' + (i === 0 ? ' open' : '');
-    card.id = 'daycard-' + d.id;
+const TAG={both:'Works for both',p1:'P1 swap needed',p2:'P2 add-ons',pantry:'Uses what you have'};
+const TAGCLS={both:'mt-both',p1:'mt-p1',p2:'mt-p2',pantry:'mt-pantry'};
 
-    const totalCal = d.meals.reduce((s, m) => s + m.cal, 0);
-
-    const mealsHTML = d.meals.map(m => {
-      const r = ratings[m.id] || 0;
-      const isMade = made[m.id] || false;
-      const starsHTML = [1,2,3,4,5].map(n =>
-        `<span class="star${n<=r?' lit':''}" onclick="rate('${m.id}',${n});event.stopPropagation()">★</span>`
-      ).join('');
-      const tagsHTML = m.tags.map(t => {
-        const map={both:'Works for both',p1:'P1 swap needed',p2:'P2 add-ons',pantry:'Uses what you have',dessert:'Dessert'};
-        const cls={both:'mt-both',p1:'mt-p1',p2:'mt-p2',pantry:'mt-pantry',dessert:'mt-both'};
-        return `<span class="mtag ${cls[t]}">${map[t]}</span>`;
-      }).join('');
-      const pantryNote = m.hasPantry ? `<div style="font-size:11px;color:var(--teal);margin-top:5px;font-weight:500;">✓ ${m.hasPantry}</div>` : '';
-      const isDesert = m.type.includes('Dessert');
+function buildMenu(){
+  const el=document.getElementById('menu-days');
+  DAYS.forEach((d,i)=>{
+    const ratings=S.get('ratings')||{};
+    const made=S.get('made')||{};
+    const card=document.createElement('div');
+    card.className='card'+(i===0?' open':'');
+    const totalCal=d.meals.reduce((s,m)=>s+m.cal,0);
+    const mealsHTML=d.meals.map(m=>{
+      const r=ratings[m.id]||0;
+      const isMade=made[m.id]||false;
+      const stars=[1,2,3,4,5].map(n=>`<span class="star${n<=r?' lit':''}" onclick="rate('${m.id}',${n});event.stopPropagation()">★</span>`).join('');
+      const tags=m.tags.map(t=>`<span class="mtag ${TAGCLS[t]}">${TAG[t]}</span>`).join('');
+      const pnote=m.hasPantry?`<div class="pantry-note">✓ ${m.hasPantry}</div>`:'';
+      const isDes=m.type.includes('Dessert');
       return `<div class="meal-block${isMade?' made-meal':''}" id="mb-${m.id}">
-        <div class="meal-type-row">
-          <span class="meal-type${isDesert?' dessert-type':''}">${m.type}</span>
-        </div>
+        <div class="meal-type${isDes?' dessert-type':''}">${m.type}</div>
         <div class="meal-name">${m.name}</div>
-        <div class="meal-note">${m.note}</div>
-        ${pantryNote}
+        <div class="meal-note">${m.note}</div>${pnote}
         <div class="meal-cal">${m.cal} cal / person</div>
-        <div class="meal-tags">${tagsHTML}</div>
+        <div class="meal-tags">${tags}</div>
         <div class="rating-row">
           <span class="rating-lbl">Rate it:</span>
-          <div class="stars" id="stars-${m.id}">${starsHTML}</div>
+          <div class="stars" id="stars-${m.id}">${stars}</div>
           <div class="made-toggle" onclick="toggleMade('${m.id}')">
             <div class="made-cb${isMade?' on':''}" id="madecb-${m.id}"></div>
             <span>Made it!</span>
@@ -572,366 +271,506 @@ function buildMenu() {
         </div>
       </div>`;
     }).join('<div class="divider-line"></div>');
-
-    card.innerHTML = `
-      <div class="card-hdr" onclick="this.parentElement.classList.toggle('open')">
-        <div class="day-dot" style="background:${d.color}"></div>
-        <div class="card-hdr-info">
-          <div class="card-title">${d.day} <span style="font-size:13px;font-weight:400;color:var(--text-muted)">${d.date}</span></div>
-          <div class="card-sub">${totalCal.toLocaleString()} cal total · 3 meals</div>
-        </div>
-        <span class="weather-pill ${d.wc}">${d.weather}</span>
-        <svg class="card-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-      <div class="card-body">${mealsHTML}</div>`;
-
+    card.innerHTML=`<div class="card-hdr" onclick="this.parentElement.classList.toggle('open')">
+      <div class="day-dot" style="background:${d.color}"></div>
+      <div class="card-hdr-info"><div class="card-title">${d.day} <span style="font-size:13px;font-weight:400;color:var(--text-muted)">${d.date}</span></div><div class="card-sub">${totalCal.toLocaleString()} cal total · 3 meals</div></div>
+      <span class="weather-pill ${d.wc}">${d.weather}</span>
+      <svg class="card-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="card-body">${mealsHTML}</div>`;
     el.appendChild(card);
   });
 }
 
-function rate(mealId, stars) {
-  const ratings = S.get('ratings') || {};
-  ratings[mealId] = stars;
-  S.set('ratings', ratings);
-  const starsEl = document.getElementById('stars-' + mealId);
-  if (starsEl) {
-    starsEl.querySelectorAll('.star').forEach((s, i) => {
-      s.classList.toggle('lit', i < stars);
-    });
-  }
-}
+function rate(id,stars){const r=S.get('ratings')||{};r[id]=stars;S.set('ratings',r);const el=document.getElementById('stars-'+id);if(el)el.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<stars));}
+function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);const cb=document.getElementById('madecb-'+id);const mb=document.getElementById('mb-'+id);if(cb)cb.classList.toggle('on',m[id]);if(mb)mb.classList.toggle('made-meal',m[id]);}
 
-function toggleMade(mealId) {
-  const made = S.get('made') || {};
-  made[mealId] = !made[mealId];
-  S.set('made', made);
-  const cb = document.getElementById('madecb-' + mealId);
-  const mb = document.getElementById('mb-' + mealId);
-  if (cb) cb.classList.toggle('on', made[mealId]);
-  if (mb) mb.classList.toggle('made-meal', made[mealId]);
+// ── RECIPES DATA ──
+const RECIPES=[
+  {day:'Sunday Jun 29 · Week 1 favourite!',items:[
+    {name:'Bacon & Egg Griddle Scramble with Grits',cal:480,methods:['Outdoor Griddle','Stovetop'],
+     ing:['4 strips thick-cut bacon','4 large eggs','1 cup Quaker grits (cooked per pkg)','2 tbsp butter','Salt & pepper','Optional: shredded cheddar'],
+     steps:['Cook grits on stovetop per package directions — usually 5 min. Add butter and season.','Heat outdoor griddle to medium. Lay bacon strips flat. Cook 3–4 min per side until crispy.','Remove bacon, leave some fat on griddle. Crack eggs directly onto griddle.','Scramble eggs gently on griddle — low heat, fold slowly.','Serve grits in a bowl topped with eggs and crumbled bacon.'],
+     tip:'Cooking outside on the griddle keeps the kitchen cool on a hot July morning.'},
+    {name:'Grilled Gulf Shrimp Mango Tacos with Avocado Lime Crema',cal:520,methods:['Outdoor Grill','Stovetop'],
+     ing:['12 large Gulf shrimp, peeled & deveined (Lagnippe)','2 tbsp olive oil','2 cloves garlic, minced','Juice of 1 lime','1 tsp smoked paprika','½ tsp cumin','Salt & pepper','6 small flour tortillas',
+          '— Mango Salsa —','1 mango, diced','¼ red onion, minced','Juice of 1 lime','2 tbsp cilantro','Pinch salt',
+          '— Avocado Lime Crema —','1 avocado','½ cup Daisy sour cream','Juice of 1 lime','Salt'],
+     steps:['Marinate shrimp: toss with olive oil, garlic, lime, paprika, cumin 15 min.','Make mango salsa: combine all salsa ingredients. Refrigerate.','Make crema: blend avocado + sour cream + lime juice + salt until smooth.','Grill shrimp at medium-high 2 min per side until pink and slightly charred.','Warm tortillas on grill 30 sec per side.','Build tacos: tortilla → crema → shrimp → mango salsa.'],
+     p1:'Skip the salsa. Serve shrimp in tortillas with sour cream, cheddar & lime only.',
+     p2:'Add diced cherry tomatoes and jalapeño to the mango salsa.',
+     tip:'Grill before 7 PM. Shrimp cook FAST — pull the moment they curl into a C.'},
+    {name:'Vanilla Ice Cream with Strawberries & Cool Whip',cal:280,methods:['No Cook'],
+     ing:['Vanilla ice cream (from your freezer)','1 cup fresh strawberries, sliced','Cool Whip (from your fridge)','Optional: drizzle of honey'],
+     steps:['Slice strawberries. Optional: toss with a tiny pinch of sugar and let sit 5 min.','Scoop ice cream into bowls.','Top with strawberries and a dollop of Cool Whip.','Serve immediately.'],
+     tip:'Zero cooking needed. Perfect light dessert on a hot night.'}
+  ]},
+  {day:'Monday Jul 7',items:[
+    {name:'Tropical Smoothie Bowl',cal:380,methods:['No Cook'],
+     ing:['1 cup frozen mango chunks','½ cup fresh or frozen pineapple','1 banana','¾ cup FAGE Greek yogurt','¼ cup coconut milk','— Toppings —','¼ cup granola','Fresh fruit slices','Drizzle of honey'],
+     steps:['Blend mango, pineapple, banana, yogurt, and coconut milk until thick and smooth.','Pour into 2 bowls — it should be thick enough to eat with a spoon.','Top with granola, fresh fruit, and a honey drizzle.','Serve immediately.'],
+     tip:'The key is thick — use less liquid than a regular smoothie. If it\'s too runny, add more frozen fruit.'},
+    {name:'Crawfish Tail Cajun Butter Rice with Corn',cal:560,methods:['Stovetop'],
+     ing:['1 lb frozen crawfish tails, thawed','3 tbsp butter','3 cloves garlic, minced (or from jar)','1½ tsp Cajun seasoning','¼ tsp smoked paprika','Salt & pepper','2 cups Minute white rice (cooked per pkg)','2 ears corn on the cob (or from fridge)','P2: 1 can Ro-Tel, drained'],
+     steps:['Cook rice per package directions — usually 5 min with boiling water.','Steam or microwave corn until tender.','In a large skillet, melt butter over medium-high heat.','Add garlic and cook 1 minute until fragrant.','Add crawfish tails, Cajun seasoning, and paprika. Cook 3–4 min until heated through and slightly seared.','P2: Stir in Ro-Tel and cook 1 more minute.','Serve crawfish mixture over rice with corn on the side.'],
+     p1:'As-is — the butter, garlic and Cajun seasoning is exactly right for P1.',
+     p2:'Add a can of Ro-Tel (drained) for extra heat and tomato flavor.',
+     tip:'Crawfish tails are already cooked — you\'re just heating them through and adding flavor. Don\'t overcook or they get rubbery.'},
+    {name:'Fresh Peach Parfait',cal:290,methods:['No Cook'],
+     ing:['1½ cups FAGE Greek yogurt','½ cup granola','2 fresh Alabama peaches, sliced','2 tbsp honey'],
+     steps:['Divide yogurt between 2 glasses or bowls.','Layer granola on top.','Add fresh peach slices.','Drizzle honey over everything.'],
+     tip:'Alabama peaches in early July are at peak sweetness. Publix often has local ones.'}
+  ]},
+  {day:'Tuesday Jul 8',items:[
+    {name:'Kodiak Protein Pancakes with Berries & Honey',cal:420,methods:['Stovetop'],
+     ing:['1½ cups Kodiak pancake mix (from pantry)','1 cup water or milk','1 egg','1 tbsp butter (for pan)','Fresh strawberries or blueberries','2 tbsp honey'],
+     steps:['Mix Kodiak mix with water or milk and egg until just combined — lumps are fine.','Heat a non-stick skillet or griddle over medium. Add a little butter.','Pour ¼ cup batter per pancake. Cook until bubbles form on surface, 2–3 min.','Flip and cook 1–2 min more until golden.','Serve topped with fresh berries and a drizzle of honey.'],
+     tip:'Kodiak pancakes are higher protein and higher fiber than regular pancakes — filling without being heavy.'},
+    {name:'Grilled Chicken Tacos with Avocado, Lime & Slaw',cal:490,methods:['Outdoor Grill'],
+     ing:['2 chicken breasts (5–6 oz each)','1 tbsp olive oil','1 tsp garlic powder','1 tsp cumin','Salt & pepper','6 small flour tortillas','1 avocado, sliced','Juice of 1 lime','— Quick Slaw —','2 cups coleslaw mix','2 tbsp mayo','1 tbsp apple cider vinegar','1 tsp sugar','Salt','P2 adds: cherry tomatoes, jalapeño, cilantro'],
+     steps:['Make slaw: toss coleslaw mix with mayo, vinegar, sugar, salt. Refrigerate 15 min.','Season chicken with olive oil, garlic powder, cumin, salt & pepper.','Grill at medium-high 5–6 min per side until internal temp is 165°F.','Rest chicken 5 min, then slice against the grain.','Warm tortillas on grill 30 sec each.','Build tacos: tortilla → slaw → chicken → avocado → lime squeeze.'],
+     p1:'Dress with cheddar and sour cream only. Skip the slaw or make a small plain portion.',
+     p2:'Add cherry tomatoes, sliced jalapeño, cilantro, and a dash of hot sauce.',
+     tip:'Rest the chicken before slicing — keeps it juicy.'},
+    {name:'Chocolate Mousse Cups',cal:240,methods:['No Cook — chill ahead'],
+     ing:['1 cup heavy cream','3 tbsp cocoa powder (from pantry)','3 tbsp granulated sugar','½ tsp vanilla extract','Pinch of salt','Chocolate chips for topping (from pantry)'],
+     steps:['Chill your mixing bowl in the freezer for 10 minutes.','Whip heavy cream in chilled bowl until soft peaks form — about 3–4 min with hand mixer.','Sift in cocoa powder, sugar, vanilla, and salt. Fold gently until fully incorporated.','Divide into 4 small cups or glasses.','Top with a few chocolate chips.','Refrigerate at least 1 hour before serving — better if 3+ hours.'],
+     tip:'Make these after lunch so they\'re perfectly set by dessert time. They keep in the fridge for 2 days.'}
+  ]},
+  {day:'Wednesday Jul 9',items:[
+    {name:'Strawberry Banana Spinach Smoothie with Almond Butter',cal:340,methods:['No Cook'],
+     ing:['1 cup frozen strawberries (from freezer)','1 banana','1 cup baby spinach','2 tbsp almond butter (from pantry)','1 cup milk or almond milk','Optional: 1 tbsp honey','Ice cubes'],
+     steps:['Add all ingredients to blender.','Blend until completely smooth — about 60 seconds.','Taste and adjust: more banana for sweetness, more spinach for nutrition.','Pour into 2 glasses and serve immediately.'],
+     tip:'You can\'t taste the spinach — it just makes it green and adds fiber. The almond butter adds protein and makes it filling.'},
+    {name:'Air Fryer Butterfly Shrimp with Old Bay Corn & Remoulade',cal:480,methods:['Air Fryer','Stovetop'],
+     ing:['1 bag frozen butterfly shrimp (from your freezer)','Old Bay seasoning','2 ears corn on the cob','— Remoulade —','3 tbsp mayo','1 tbsp horseradish sauce (from your fridge)','1 tsp hot sauce','1 tsp lemon juice','½ tsp garlic powder','Salt'],
+     steps:['Make remoulade: whisk all remoulade ingredients together. Refrigerate.','Cook corn: boil or microwave until tender (5 min). Season with butter and Old Bay.','Air fry butterfly shrimp at 400°F for 10–12 min, shaking basket halfway. No oil needed — they come pre-breaded.','Shrimp are done when golden and crispy.','Serve shrimp with corn and remoulade dipping sauce on the side.'],
+     p1:'This is perfect as-is for P1 — no vegetables, just crispy shrimp and corn.',
+     tip:'Do NOT overcrowd the air fryer basket — cook in batches if needed for max crispiness.'},
+    {name:'Graham Cracker Banana Pudding Cups',cal:260,methods:['No Cook — chill ahead'],
+     ing:['1 box vanilla instant pudding mix (+ milk per pkg directions)','2 bananas, sliced','2 cups Cool Whip (from your fridge)','1½ cups crushed Honey Maid graham crackers (from pantry)'],
+     steps:['Make pudding: whisk instant pudding mix with milk per package directions. Let set 5 min.','Fold in 1 cup of Cool Whip into the pudding for extra lightness.','Crush graham crackers into crumbs.','Layer in cups or a dish: graham crumbs → pudding → banana slices → Cool Whip.','Repeat layers, finishing with Cool Whip and a sprinkle of graham crumbs on top.','Refrigerate at least 2 hours.'],
+     tip:'Make these right after lunch — they get better the longer they chill. Make them in individual cups for easy serving.'}
+  ]},
+  {day:'Thursday Jul 10',items:[
+    {name:'Fresh Peach & Yogurt Smoothie',cal:320,methods:['No Cook'],
+     ing:['2 ripe fresh Alabama peaches, pitted and sliced','1 cup FAGE Greek yogurt','1 tbsp honey','½ cup ice cubes','Optional: splash of orange juice'],
+     steps:['Add peaches, yogurt, honey, and ice to blender.','Blend until smooth and thick.','Add a splash of OJ if it\'s too thick.','Pour into 2 glasses and serve cold.'],
+     tip:'Fresh peaches in July are at their absolute sweetest — this is naturally sweet enough without much honey.'},
+    {name:'Gulf Shrimp over Garlic Butter Pasta with Parmesan',cal:580,methods:['Outdoor Grill','Stovetop'],
+     ing:['1 lb Gulf shrimp, peeled & deveined (Lagnippe)','8 oz Barilla pasta (from pantry)','4 tbsp butter','4 cloves garlic, minced (or from jar)','3 tbsp olive oil','4 tbsp parmesan, grated','Fresh parsley (optional)','Salt, pepper & red pepper flakes','Reserved pasta water','P2 adds: 2 cups baby spinach, ½ cup cherry tomatoes'],
+     steps:['Cook pasta in well-salted water per pkg directions. Reserve ½ cup pasta water before draining.','Season shrimp with salt, pepper, and garlic powder.','Grill or sauté shrimp 2 min per side until pink. Set aside.','In same pan, warm olive oil over medium-low. Add garlic and cook 2 min — don\'t brown.','Add drained pasta and a splash of pasta water. Toss to coat.','Add shrimp back in. Top with parmesan and parsley.'],
+     p1:'Plain pasta + shrimp + garlic butter + parmesan only. Skip any greens or tomatoes.',
+     p2:'Add baby spinach and cherry tomatoes when you add pasta — toss until spinach wilts.',
+     tip:'Never skip the pasta water — it makes the garlic oil cling to every noodle.'},
+    {name:'Fresh Mango Sorbet',cal:180,methods:['Blender — freeze ahead'],
+     ing:['2 ripe mangoes, peeled and diced','Juice of 1 lime','2 tbsp honey','Pinch of salt','¼ cup water'],
+     steps:['MAKE THIS IN THE MORNING. Blend mango, lime juice, honey, salt, and water until completely smooth.','Taste — should be sweet and bright. Adjust with more lime or honey.','Pour into a freezer-safe container.','Freeze at least 3–4 hours until firm.','When ready to serve, let sit 5 min at room temp, then scoop like sorbet.'],
+     tip:'The more ripe the mango, the better. Make it while having your morning coffee so it\'s perfectly set by dessert time.'}
+  ]},
+  {day:'Friday Jul 11',items:[
+    {name:"Bacon Egg & Sharp Cheddar on Nature's Own Toast",cal:450,methods:['Stovetop','Outdoor Griddle'],
+     ing:["4 strips thick-cut bacon",'4 large eggs','4 slices Sargento sharp cheddar',"4 slices Nature's Own bread",'1 tbsp butter','Salt & pepper'],
+     steps:['Cook bacon in a skillet or on the griddle until crispy. Set aside on paper towels.','Toast bread in the same pan or toaster.','Cook eggs to your liking — scrambled or fried. Season with salt & pepper.','Add cheddar to eggs while still hot so it melts.','Assemble: toast → eggs → cheddar → bacon.'],
+     p2:'Add sliced tomatoes and a dash of hot sauce.'},
+    {name:'Grilled Ribeye Steak Salad with Romaine, Avocado & Balsamic',cal:680,methods:['Outdoor Grill'],
+     ing:['2 ribeye or NY strip steaks (8 oz each)','Coarse salt & black pepper','4 cups romaine, roughly chopped','1 avocado, sliced','1 cup Olive Garden croutons (from pantry)','Balsamic glaze (bottle)','— Optional dressing —','2 tbsp olive oil','1 tbsp balsamic vinegar','Salt & pepper'],
+     steps:['Pull steaks from fridge 30 min before cooking. Season generously with coarse salt & pepper.','Preheat outdoor grill to high (500°F+). Grill 3–4 min per side for medium-rare.','REST steaks 5 full minutes on a cutting board — do not skip.','Slice steak thin against the grain.','Arrange romaine, avocado, and croutons in bowls.','Top with sliced steak. Drizzle with olive oil and balsamic glaze.'],
+     p1:'Classic steak + romaine + croutons + cheddar. Skip tomatoes. Drizzle with balsamic glaze.',
+     p2:'Add cherry tomatoes, extra parmesan, and red onion slices.',
+     tip:'The 5-minute rest is non-negotiable for juicy steak. Grill before 7 PM to beat the evening heat.'},
+    {name:'Caprese Dessert Plate — Mozzarella, Strawberries & Balsamic Glaze',cal:200,methods:['No Cook'],
+     ing:['1 ball fresh mozzarella, sliced','1 cup fresh strawberries, halved','Fresh basil leaves','Balsamic glaze (bottle)','Flaky sea salt (optional)'],
+     steps:['Slice mozzarella into rounds.','Arrange mozzarella, strawberries, and fresh basil on a serving plate.','Drizzle generously with balsamic glaze.','Finish with a pinch of flaky sea salt if you have it.','Serve immediately.'],
+     tip:'This is the most elegant dessert that requires zero effort. The balsamic glaze + strawberries + mozzarella combination is genuinely surprising and delicious.'}
+  ]},
+  {day:'Saturday Jul 12',items:[
+    {name:'Hillshire Farm Sausage & Egg Scramble with Grits',cal:510,methods:['Stovetop'],
+     ing:['1 pkg Hillshire Farm sausage links (from freezer), thawed','4 large eggs','1 cup Quaker grits (cooked per pkg)','2 tbsp butter','Salt & pepper','Optional: shredded cheddar'],
+     steps:['Cook grits per package directions. Add butter and season well.','Slice sausage links into rounds. Brown in a skillet over medium heat 3–4 min per side.','Push sausage to the side of the pan. Add eggs and scramble gently on low heat.','Fold everything together or serve side by side.','Plate over or alongside grits. Top with cheddar if desired.'],
+     tip:'Thaw sausage in the fridge overnight for best results.'},
+    {name:"Fresh Gulf Fish Pan-Sear with Lemon Butter & Corn",cal:420,methods:['Stovetop'],
+     ing:["2 fresh Gulf fish filets (Lagnippe — ask what's freshest today)",'2 tbsp butter','Juice of 1 lemon','2 cloves garlic, minced','Salt, pepper, garlic powder','2 ears corn on the cob','Fresh parsley (optional)'],
+     steps:["Call Lagnippe ahead to ask what's freshest today.",'Pat fish completely dry with paper towels — essential for a good sear.','Season both sides with salt, pepper, and garlic powder.','Heat 1 tbsp butter in a skillet over medium-high until foaming.','Add fish — cook 3–4 min per side without moving until golden and flaky.','Remove fish. In same pan melt remaining butter, add garlic and lemon juice, swirl 30 sec.','Spoon lemon butter over fish. Serve with steamed corn.'],
+     p1:'Swap fish for a chicken breast using the same pan and lemon butter. Same method, same time.',
+     tip:'Dry fish = perfect sear. Never skip the paper towel step. Flip only once.'},
+    {name:"S'mores Dip",cal:310,methods:['Oven Broiler'],
+     ing:['1½ cups chocolate chips (from pantry)','2 cups mini marshmallows (buy these)','Honey Maid graham crackers (from pantry) for dipping'],
+     steps:['Preheat oven broiler to high.','Spread chocolate chips in an even layer in a 9-inch cast iron skillet or oven-safe pan.','Top evenly with mini marshmallows.','Broil 2–3 minutes — watch constantly! — until marshmallows are golden and chocolate is melted.','Remove immediately and serve with graham crackers for dipping.','Eat right away while hot and gooey!'],
+     tip:'Watch this under the broiler the ENTIRE time — it goes from golden to burnt in 30 seconds. Keep the oven door cracked and your eyes on it.'}
+  ]}
+];
+
+function buildRecipes(){
+  const el=document.getElementById('recipe-list');
+  RECIPES.forEach(dg=>{
+    const dl=document.createElement('div');
+    dl.className='recipe-day-label';
+    dl.textContent=dg.day;
+    el.appendChild(dl);
+    dg.items.forEach(r=>{
+      const card=document.createElement('div');
+      card.className='card';
+      const methodsHTML=r.methods.map(m=>`<span class="r-method">${m}</span>`).join('');
+      const ingHTML=r.ing.map(i=>i.startsWith('—')?`<div class="r-divider">${i}</div>`:`<div class="r-ing"><span>${i}</span></div>`).join('');
+      const stepsHTML=r.steps.map((s,i)=>`<div class="r-step"><span class="r-step-num">${i+1}</span><span>${s}</span></div>`).join('');
+      const p1=r.p1?`<div class="r-callout c-p1"><strong>P1 swap:</strong> ${r.p1}</div>`:'';
+      const p2=r.p2?`<div class="r-callout c-p2"><strong>P2 add:</strong> ${r.p2}</div>`:'';
+      const tip=r.tip?`<div class="r-callout c-tip"><strong>Tip:</strong> ${r.tip}</div>`:'';
+      card.innerHTML=`<div class="card-hdr" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-hdr-info"><div class="card-title" style="font-size:15px">${r.name}</div><div class="card-sub">${r.cal} cal / person · ${r.methods.join(' · ')}</div></div>
+        <svg class="card-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body"><div class="r-body-inner">
+        <div class="r-method-row">${methodsHTML}</div>
+        <div class="r-section">Ingredients</div>${ingHTML}
+        <div class="r-section">Steps</div>${stepsHTML}
+        <div style="margin-top:8px">${p1}${p2}${tip}</div>
+      </div></div>`;
+      el.appendChild(card);
+    });
+  });
 }
 
 // ── SHOPPING DATA ──
-// lasting:true = persists week to week in memory
-const STORES = [
-  { id:'publix', name:'Publix', color:'#0F6E56', total:'~$78',
-    sections:[
-      { label:'Fresh Produce & Fruit', items:[
-        { id:'si_bananas', name:'Bananas (bunch)', note:'Smoothies & breakfast', lasting:false },
-        { id:'si_mangoes', name:'Mangoes (3 fresh)', note:'Shrimp tacos + smoothies', lasting:false },
-        { id:'si_peaches', name:'Peaches (3–4 fresh)', note:'Parfaits & smoothies — peak season!', lasting:false },
-        { id:'si_pineapple', name:'Pineapple (fresh or chunks)', note:'Smoothie bowl Monday', lasting:false },
-        { id:'si_limes', name:'Limes (6)', note:'Shrimp, tacos, smoothies, sorbet', lasting:false },
-        { id:'si_lemons', name:'Lemons (3)', note:'Fish, dressings, pasta', lasting:false },
-        { id:'si_avocados', name:'Avocados (4)', note:'Tacos, eggs, salad', lasting:false },
-        { id:'si_spinach', name:'Baby spinach (5 oz bag)', note:'Smoothies & eggs', lasting:false },
-        { id:'si_romaine', name:'Romaine (1 head)', note:'Steak salad Friday', lasting:false },
-        { id:'si_tomatoes', name:'Cherry tomatoes (P2)', note:'Pasta, salads — P2 only', lasting:false },
-        { id:'si_basil', name:'Fresh basil (1 bunch)', note:'Caprese dessert + pasta', lasting:false },
-      ]},
-      { label:'Proteins', items:[
-        { id:'si_chicken', name:'Chicken breasts (2 lbs)', note:'Tacos Tuesday, sub on Saturday', lasting:false },
-        { id:'si_shrimp', name:'Gulf shrimp raw large (2 lbs)', note:'Sun tacos + Thu pasta — or get at Lagnippe', lasting:false },
-        { id:'si_ribeye', name:'Ribeye or NY strip steaks (2)', note:'Steak salad Friday night', lasting:false },
-      ]},
-      { label:'Dairy & Cold', items:[
-        { id:'si_mozz', name:'Fresh mozzarella ball', note:'Caprese dessert Friday', lasting:false },
-        { id:'si_yogurt', name:'Greek yogurt plain (32 oz)', note:'Parfaits & smoothies all week', lasting:true },
-        { id:'si_cream', name:'Heavy cream (small carton)', note:'Chocolate mousse Tuesday', lasting:false },
-        { id:'si_marshmallows', name:'Mini marshmallows (bag)', note:"S'mores dip Saturday", lasting:true },
-      ]},
-      { label:'Pantry Picks', items:[
-        { id:'si_tortillas', name:'Flour tortillas (small pkg)', note:'Tacos Sunday & Tuesday', lasting:true },
-        { id:'si_granola', name:'Granola (1 bag)', note:'Parfaits & smoothie bowls', lasting:true },
-        { id:'si_coconutmilk', name:'Coconut milk (1 can)', note:'Tropical smoothie bowl Monday', lasting:true },
-        { id:'si_balsamicglaze', name:'Balsamic glaze (bottle)', note:'Caprese + steak salad', lasting:true },
-        { id:'si_oldBay', name:'Old Bay seasoning', note:'Air fryer shrimp Wednesday', lasting:true },
-        { id:'si_cajun', name:'Cajun seasoning (if low)', note:'Crawfish, shrimp', lasting:true },
-        { id:'si_vanillapudding', name:'Vanilla instant pudding (2 boxes)', note:'Banana pudding cups Wednesday', lasting:false },
-        { id:'si_parmesan', name:'Parmesan (wedge or shredded)', note:'Pasta Thursday', lasting:true },
-      ]},
-    ]
-  },
-  { id:'lagnippe', name:'Lagnippe Fish Store', color:'#993C1D', total:'~$40',
-    sections:[
-      { label:'Fresh Gulf Seafood', items:[
-        { id:'si_lagnshrimp', name:'Gulf shrimp raw large (2 lbs)', note:'Sun tacos + Thu pasta — call ahead', lasting:false },
-        { id:'si_lagnfish', name:'Gulf fish of the day (2 filets)', note:'Saturday dinner — ask what\'s freshest', lasting:false },
-      ]},
-      { label:'Tips', items:[
-        { id:'si_lagntip1', name:'📞 Call ahead to confirm catch', note:'Availability changes daily', lasting:false },
-        { id:'si_lagntip2', name:'🧊 Bring a cooler', note:'Gulf heat — keep fish cold for drive home', lasting:false },
-      ]},
-    ]
-  },
+const STORES=[
+  {id:'publix',name:'Publix',color:'#0F6E56',total:'~$78',sections:[
+    {label:'Fresh Produce & Fruit',items:[
+      {id:'si_bananas',name:'Bananas (bunch)',note:'Smoothies & breakfast',lasting:false},
+      {id:'si_mangoes',name:'Mangoes (3 fresh)',note:'Shrimp tacos + smoothies',lasting:false},
+      {id:'si_peaches',name:'Peaches (3–4 fresh)',note:'Parfaits & smoothies — peak season!',lasting:false},
+      {id:'si_pineapple',name:'Pineapple (fresh or chunks)',note:'Smoothie bowl Monday',lasting:false},
+      {id:'si_limes',name:'Limes (6)',note:'Shrimp, tacos, smoothies, sorbet',lasting:false},
+      {id:'si_lemons',name:'Lemons (3)',note:'Fish, dressings, pasta',lasting:false},
+      {id:'si_avocados',name:'Avocados (4)',note:'Tacos, eggs, salad',lasting:false},
+      {id:'si_spinach',name:'Baby spinach (5 oz bag)',note:'Smoothies & eggs',lasting:false},
+      {id:'si_romaine',name:'Romaine (1 head)',note:'Steak salad Friday',lasting:false},
+      {id:'si_tomatoes',name:'Cherry tomatoes (P2 only)',note:'Pasta, salads',lasting:false},
+      {id:'si_basil',name:'Fresh basil (1 bunch)',note:'Caprese dessert + pasta',lasting:false},
+    ]},
+    {label:'Proteins',items:[
+      {id:'si_chicken',name:'Chicken breasts (2 lbs)',note:'Tacos Tuesday, sub on Saturday',lasting:false},
+      {id:'si_shrimp',name:'Gulf shrimp raw large (2 lbs)',note:'Sun tacos + Thu pasta — or get at Lagnippe',lasting:false},
+      {id:'si_ribeye',name:'Ribeye or NY strip steaks (2)',note:'Steak salad Friday night',lasting:false},
+    ]},
+    {label:'Dairy & Cold',items:[
+      {id:'si_mozz',name:'Fresh mozzarella ball',note:'Caprese dessert Friday',lasting:false},
+      {id:'si_yogurt',name:'Greek yogurt plain (32 oz)',note:'Parfaits & smoothies all week',lasting:true},
+      {id:'si_cream',name:'Heavy cream (small carton)',note:'Chocolate mousse Tuesday',lasting:false},
+      {id:'si_marshmallows',name:'Mini marshmallows (bag)',note:"S'mores dip Saturday",lasting:true},
+    ]},
+    {label:'Pantry Picks',items:[
+      {id:'si_tortillas',name:'Flour tortillas (small pkg)',note:'Tacos Sunday & Tuesday',lasting:true},
+      {id:'si_granola',name:'Granola (1 bag)',note:'Parfaits & smoothie bowls',lasting:true},
+      {id:'si_coconutmilk',name:'Coconut milk (1 can)',note:'Tropical smoothie bowl Monday',lasting:true},
+      {id:'si_balsamicglaze',name:'Balsamic glaze (bottle)',note:'Caprese + steak salad',lasting:true},
+      {id:'si_oldBay',name:'Old Bay seasoning',note:'Air fryer shrimp Wednesday',lasting:true},
+      {id:'si_cajun',name:'Cajun seasoning (if low)',note:'Crawfish, shrimp',lasting:true},
+      {id:'si_vanillapudding',name:'Vanilla instant pudding (2 boxes)',note:'Banana pudding cups Wednesday',lasting:false},
+      {id:'si_parmesan',name:'Parmesan (wedge or shredded)',note:'Pasta Thursday',lasting:true},
+    ]},
+  ]},
+  {id:'lagnippe',name:'Lagnippe Fish Store',color:'#993C1D',total:'~$40',sections:[
+    {label:'Fresh Gulf Seafood',items:[
+      {id:'si_lagnshrimp',name:'Gulf shrimp raw large (2 lbs)',note:'Sun tacos + Thu pasta — call ahead',lasting:false},
+      {id:'si_lagnfish',name:"Gulf fish of the day (2 filets)",note:"Saturday dinner — ask what's freshest",lasting:false},
+    ]},
+    {label:'Tips',items:[
+      {id:'si_lagntip1',name:'📞 Call ahead to confirm catch',note:'Availability changes daily',lasting:false},
+      {id:'si_lagntip2',name:'🧊 Bring a cooler',note:'Gulf heat — keep fish cold for drive home',lasting:false},
+    ]},
+  ]},
 ];
 
-// ── BUILD SHOPPING ──
-let shopItems = {};
+let shopItems={};
 
-function buildShop() {
-  const el = document.getElementById('shop-stores');
-  const checked = S.get('shop_checked') || {};
-  const lasting = S.get('shop_lasting') || {};
+function buildShop(){
+  var el=document.getElementById('shop-stores');
+  el.innerHTML='';
+  var checked=S.get('shop_checked')||{};
+  var lasting=S.get('shop_lasting')||{};
+  var custom=S.get('shop_custom')||{};
+  shopItems={};
 
-  // Merge lasting items from previous weeks
-  STORES.forEach(store => {
-    store.sections.forEach(sec => {
-      sec.items.forEach(item => {
-        shopItems[item.id] = item;
-        if (item.lasting && lasting[item.id]) {
-          checked[item.id] = true;
-        }
+  STORES.forEach(function(store){
+    store.sections.forEach(function(sec){
+      sec.items.forEach(function(item){
+        shopItems[item.id]=item;
+        if(item.lasting&&lasting[item.id])checked[item.id]=true;
       });
     });
   });
 
-  STORES.forEach(store => {
-    const wrap = document.createElement('div');
-    wrap.className = 'store-section';
+  Object.keys(custom).forEach(function(storeId){
+    (custom[storeId]||[]).forEach(function(item){
+      shopItems[item.id]=item;
+    });
+  });
 
-    let html = `<div class="store-hdr-row" style="background:${store.color}">
-      <span class="store-name">${store.name}</span>
-      <span class="store-total">${store.total}</span>
-    </div>
-    <div class="shop-items-wrap">`;
+  STORES.forEach(function(store){
+    var storeCustom=custom[store.id]||[];
+    var wrap=document.createElement('div');
+    wrap.className='store-section';
+    wrap.id='store-wrap-'+store.id;
 
-    store.sections.forEach(sec => {
-      html += `<div class="shop-sec-label">${sec.label}</div>`;
-      sec.items.forEach(item => {
-        const isChecked = checked[item.id] || false;
-        const lastingBadge = item.lasting ? `<span class="lasting-badge">Lasts</span>` : '';
-        html += `<div class="shop-item${isChecked?' done':''}" id="si-${item.id}" onclick="toggleShopItem('${item.id}')">
-          <div class="shop-cb${isChecked?' on':''}" id="scb-${item.id}"></div>
-          <div class="shop-item-text">
-            <div class="shop-item-name">${item.name}${lastingBadge}</div>
-            <div class="shop-item-note">${item.note}</div>
-          </div>
-        </div>`;
+    var hdr=document.createElement('div');
+    hdr.className='store-hdr-row';
+    hdr.style.background=store.color;
+    hdr.innerHTML='<span class="store-name">'+store.name+'</span><span class="store-total">'+store.total+'</span>';
+    wrap.appendChild(hdr);
+
+    var itemsWrap=document.createElement('div');
+    itemsWrap.className='shop-items-wrap';
+
+    // Built-in sections
+    store.sections.forEach(function(sec){
+      var lbl=document.createElement('div');
+      lbl.className='shop-sec-label';
+      lbl.textContent=sec.label;
+      itemsWrap.appendChild(lbl);
+      sec.items.forEach(function(item){
+        itemsWrap.appendChild(makeShopRow(item,checked));
       });
     });
 
-    html += `<button class="reset-btn" onclick="resetStore('${store.id}')">Clear ${store.name} checks</button>`;
-    html += `</div>`;
-    wrap.innerHTML = html;
+    // Custom items
+    if(storeCustom.length>0){
+      var clbl=document.createElement('div');
+      clbl.className='shop-sec-label';
+      clbl.textContent='My Additions';
+      itemsWrap.appendChild(clbl);
+      storeCustom.forEach(function(item){
+        itemsWrap.appendChild(makeCustomShopRow(item,checked,store.id));
+      });
+    }
+
+    // Add item row
+    var addRow=document.createElement('div');
+    addRow.className='add-item-row';
+    var inp=document.createElement('input');
+    inp.className='add-item-input';
+    inp.id='add-input-'+store.id;
+    inp.placeholder='Add item to '+store.name+'...';
+    inp.type='text';
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Enter')addCustomItem(store.id);
+    });
+    var btn=document.createElement('button');
+    btn.className='add-item-btn';
+    btn.textContent='Add';
+    btn.addEventListener('click',function(){addCustomItem(store.id);});
+    addRow.appendChild(inp);
+    addRow.appendChild(btn);
+    itemsWrap.appendChild(addRow);
+
+    // Clear button
+    var resetBtn=document.createElement('button');
+    resetBtn.className='reset-btn';
+    resetBtn.textContent='Clear '+store.name+' checks';
+    resetBtn.addEventListener('click',function(){resetStore(store.id);});
+    itemsWrap.appendChild(resetBtn);
+
+    wrap.appendChild(itemsWrap);
     el.appendChild(wrap);
   });
 
+  S.set('shop_checked',checked);
   updateShopProgress();
 }
 
-function toggleShopItem(id) {
-  const checked = S.get('shop_checked') || {};
-  checked[id] = !checked[id];
-  S.set('shop_checked', checked);
-
-  // Remember lasting items
-  const item = shopItems[id];
-  if (item && item.lasting) {
-    const lasting = S.get('shop_lasting') || {};
-    lasting[id] = checked[id];
-    S.set('shop_lasting', lasting);
+function makeShopRow(item,checked){
+  var isCk=checked[item.id]||false;
+  var row=document.createElement('div');
+  row.className='shop-item'+(isCk?' done':'');
+  row.id='si-'+item.id;
+  var cb=document.createElement('div');
+  cb.className='shop-cb'+(isCk?' on':'');
+  cb.id='scb-'+item.id;
+  var textDiv=document.createElement('div');
+  textDiv.className='shop-item-text';
+  var nameDiv=document.createElement('div');
+  nameDiv.className='shop-item-name';
+  nameDiv.textContent=item.name;
+  if(item.lasting){
+    var badge=document.createElement('span');
+    badge.className='lasting-badge';
+    badge.textContent='Lasts';
+    nameDiv.appendChild(badge);
   }
+  var noteDiv=document.createElement('div');
+  noteDiv.className='shop-item-note';
+  noteDiv.textContent=item.note;
+  textDiv.appendChild(nameDiv);
+  textDiv.appendChild(noteDiv);
+  row.appendChild(cb);
+  row.appendChild(textDiv);
+  row.addEventListener('click',function(){toggleShopItem(item.id);});
+  return row;
+}
 
-  const row = document.getElementById('si-' + id);
-  const cb = document.getElementById('scb-' + id);
-  if (row) row.classList.toggle('done', checked[id]);
-  if (cb) cb.classList.toggle('on', checked[id]);
+function makeCustomShopRow(item,checked,storeId){
+  var isCk=checked[item.id]||false;
+  var row=document.createElement('div');
+  row.className='shop-item'+(isCk?' done':'');
+  row.id='si-'+item.id;
+  var cb=document.createElement('div');
+  cb.className='shop-cb'+(isCk?' on':'');
+  cb.id='scb-'+item.id;
+  var textDiv=document.createElement('div');
+  textDiv.className='shop-item-text';
+  var nameDiv=document.createElement('div');
+  nameDiv.className='shop-item-name';
+  nameDiv.textContent=item.name;
+  var noteRow=document.createElement('div');
+  noteRow.className='shop-item-note';
+  noteRow.style.cssText='display:flex;align-items:center;justify-content:space-between;';
+  var noteSpan=document.createElement('span');
+  noteSpan.textContent='Added by me';
+  var removeBtn=document.createElement('span');
+  removeBtn.textContent='Remove';
+  removeBtn.style.cssText='color:var(--coral);cursor:pointer;font-size:11px;font-weight:600;padding:2px 6px;';
+  removeBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    removeCustomItem(storeId,item.id);
+  });
+  noteRow.appendChild(noteSpan);
+  noteRow.appendChild(removeBtn);
+  textDiv.appendChild(nameDiv);
+  textDiv.appendChild(noteRow);
+  row.appendChild(cb);
+  row.appendChild(textDiv);
+  row.addEventListener('click',function(){toggleShopItem(item.id);});
+  return row;
+}
+
+function toggleShopItem(id){
+  var checked=S.get('shop_checked')||{};
+  checked[id]=!checked[id];
+  S.set('shop_checked',checked);
+  var item=shopItems[id];
+  if(item&&item.lasting){var l=S.get('shop_lasting')||{};l[id]=checked[id];S.set('shop_lasting',l);}
+  var row=document.getElementById('si-'+id);
+  var cb=document.getElementById('scb-'+id);
+  if(row)row.classList.toggle('done',checked[id]);
+  if(cb)cb.classList.toggle('on',checked[id]);
   updateShopProgress();
 }
 
-function resetStore(storeId) {
-  const checked = S.get('shop_checked') || {};
-  const store = STORES.find(s => s.id === storeId);
-  if (!store) return;
-  store.sections.forEach(sec => {
-    sec.items.forEach(item => {
-      if (!item.lasting) {
-        checked[item.id] = false;
-        const row = document.getElementById('si-' + item.id);
-        const cb = document.getElementById('scb-' + item.id);
-        if (row) row.classList.remove('done');
-        if (cb) cb.classList.remove('on');
-      }
+function addCustomItem(storeId){
+  var input=document.getElementById('add-input-'+storeId);
+  var name=(input.value||'').trim();
+  if(!name)return;
+  var custom=S.get('shop_custom')||{};
+  if(!custom[storeId])custom[storeId]=[];
+  var id='c_'+storeId+'_'+Date.now();
+  custom[storeId].push({id:id,name:name,note:'',lasting:false});
+  S.set('shop_custom',custom);
+  input.value='';
+  buildShop();
+  // Scroll to the new item
+  setTimeout(function(){
+    var el=document.getElementById('si-'+id);
+    if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
+  },100);
+}
+
+function removeCustomItem(storeId,itemId){
+  var custom=S.get('shop_custom')||{};
+  custom[storeId]=(custom[storeId]||[]).filter(function(i){return i.id!==itemId;});
+  S.set('shop_custom',custom);
+  var checked=S.get('shop_checked')||{};
+  delete checked[itemId];
+  S.set('shop_checked',checked);
+  buildShop();
+}
+
+function resetStore(storeId){
+  var checked=S.get('shop_checked')||{};
+  var store=STORES.find(function(s){return s.id===storeId;});
+  if(!store)return;
+  store.sections.forEach(function(sec){
+    sec.items.forEach(function(item){
+      if(!item.lasting)checked[item.id]=false;
     });
   });
-  S.set('shop_checked', checked);
-  updateShopProgress();
+  var custom=S.get('shop_custom')||{};
+  (custom[storeId]||[]).forEach(function(item){checked[item.id]=false;});
+  S.set('shop_checked',checked);
+  buildShop();
 }
 
-function updateShopProgress() {
-  const checked = S.get('shop_checked') || {};
-  const allIds = Object.keys(shopItems);
-  const total = allIds.length;
-  const done = allIds.filter(id => checked[id]).length;
-  const pct = total ? Math.round(done / total * 100) : 0;
-  const fill = document.getElementById('prog-fill');
-  const txt = document.getElementById('prog-txt');
-  if (fill) fill.style.width = pct + '%';
-  if (txt) txt.textContent = done + ' / ' + total;
+function updateShopProgress(){
+  var checked=S.get('shop_checked')||{};
+  var allIds=Object.keys(shopItems);
+  var total=allIds.length;
+  var done=allIds.filter(function(id){return checked[id];}).length;
+  var pct=total?Math.round(done/total*100):0;
+  var fill=document.getElementById('prog-fill');
+  var txt=document.getElementById('prog-txt');
+  if(fill)fill.style.width=pct+'%';
+  if(txt)txt.textContent=done+' / '+total;
 }
 
-// ── PANTRY MEMORY ──
-const PANTRY_ITEMS = [
-  { id:'p_bacon', icon:'🥓', name:'Thick cut bacon', note:'Fridge — 2 uses this week' },
-  { id:'p_eggs', icon:'🥚', name:'Eggs', note:'Fridge — multiple breakfasts' },
-  { id:'p_grits', icon:'🥣', name:'Quaker grits', note:'Pantry' },
-  { id:'p_kodiak', icon:'🥞', name:'Kodiak pancake mix', note:'Pantry' },
-  { id:'p_almondbutter', icon:'🥜', name:'Almond butter', note:'Pantry' },
-  { id:'p_honey', icon:'🍯', name:'Honey', note:'Pantry' },
-  { id:'p_crawfish', icon:'🦞', name:'Crawfish tails', note:'Freezer' },
-  { id:'p_butterflyshrimp', icon:'🍤', name:'Butterfly shrimp bag', note:'Freezer' },
-  { id:'p_hillshire', icon:'🌭', name:'Hillshire sausage', note:'Freezer' },
-  { id:'p_icecream', icon:'🍦', name:'Vanilla ice cream', note:'Freezer' },
-  { id:'p_coolwhip', icon:'🍦', name:'Cool Whip', note:'Fridge' },
-  { id:'p_minuterice', icon:'🍚', name:'Minute white rice', note:'Pantry' },
-  { id:'p_barilla', icon:'🍝', name:'Barilla pasta', note:'Pantry — GF & whole grain' },
-  { id:'p_oliveoil', icon:'🫙', name:'Olive oil (Pompeian)', note:'Pantry' },
-  { id:'p_garlic', icon:'🧄', name:'Minced garlic jar', note:'Fridge' },
-  { id:'p_cocoa', icon:'🍫', name:'Cocoa powder', note:'Pantry' },
-  { id:'p_chocchips', icon:'🍫', name:'Chocolate chips', note:'Pantry' },
-  { id:'p_grahams', icon:'🍪', name:'Honey Maid grahams', note:'Pantry' },
-  { id:'p_croutons', icon:'🥗', name:'Olive Garden croutons', note:'Pantry' },
-  { id:'p_sargento', icon:'🧀', name:'Sargento sharp cheddar', note:'Fridge' },
-  { id:'p_cream_cheese', icon:'🧀', name:'Philadelphia cream cheese', note:'Fridge' },
-  { id:'p_sourcream', icon:'🥄', name:'Daisy sour cream', note:'Fridge' },
-  { id:'p_fage', icon:'🥛', name:'FAGE Greek yogurt', note:'Fridge' },
-  { id:'p_horseradish', icon:'🫙', name:'Horseradish sauce', note:'Fridge' },
-  { id:'p_naturesown', icon:'🍞', name:"Nature's Own bread", note:'Pantry' },
-  { id:'p_corn', icon:'🌽', name:'Corn on the cob', note:'Fridge drawer' },
+// ── PANTRY ──
+const PANTRY_ITEMS=[
+  {id:'p_bacon',icon:'🥓',name:'Thick cut bacon',note:'Fridge'},
+  {id:'p_eggs',icon:'🥚',name:'Eggs',note:'Fridge'},
+  {id:'p_grits',icon:'🥣',name:'Quaker grits',note:'Pantry'},
+  {id:'p_kodiak',icon:'🥞',name:'Kodiak pancake mix',note:'Pantry'},
+  {id:'p_almondbutter',icon:'🥜',name:'Almond butter',note:'Pantry'},
+  {id:'p_honey',icon:'🍯',name:'Honey',note:'Pantry'},
+  {id:'p_crawfish',icon:'🦞',name:'Crawfish tails',note:'Freezer'},
+  {id:'p_butterflyshrimp',icon:'🍤',name:'Butterfly shrimp bag',note:'Freezer'},
+  {id:'p_hillshire',icon:'🌭',name:'Hillshire sausage',note:'Freezer'},
+  {id:'p_icecream',icon:'🍦',name:'Vanilla ice cream',note:'Freezer'},
+  {id:'p_coolwhip',icon:'🍦',name:'Cool Whip',note:'Fridge'},
+  {id:'p_minuterice',icon:'🍚',name:'Minute white rice',note:'Pantry'},
+  {id:'p_barilla',icon:'🍝',name:'Barilla pasta',note:'Pantry'},
+  {id:'p_oliveoil',icon:'🫙',name:'Olive oil (Pompeian)',note:'Pantry'},
+  {id:'p_garlic',icon:'🧄',name:'Minced garlic jar',note:'Fridge'},
+  {id:'p_cocoa',icon:'🍫',name:'Cocoa powder',note:'Pantry'},
+  {id:'p_chocchips',icon:'🍫',name:'Chocolate chips',note:'Pantry'},
+  {id:'p_grahams',icon:'🍪',name:'Honey Maid grahams',note:'Pantry'},
+  {id:'p_croutons',icon:'🥗',name:'Olive Garden croutons',note:'Pantry'},
+  {id:'p_sargento',icon:'🧀',name:'Sargento sharp cheddar',note:'Fridge'},
+  {id:'p_sourcream',icon:'🥄',name:'Daisy sour cream',note:'Fridge'},
+  {id:'p_fage',icon:'🥛',name:'FAGE Greek yogurt',note:'Fridge'},
+  {id:'p_horseradish',icon:'🫙',name:'Horseradish sauce',note:'Fridge'},
+  {id:'p_naturesown',icon:'🍞',name:"Nature's Own bread",note:'Pantry'},
+  {id:'p_corn',icon:'🌽',name:'Corn on the cob',note:'Fridge drawer'},
 ];
 
-function buildPantry() {
-  const el = document.getElementById('pantry-grid');
-  const have = S.get('pantry_have') || {};
-  const grid = document.createElement('div');
-  grid.className = 'pantry-grid';
+function initPantry(){const h=S.get('pantry_have');if(h===null){const d={};PANTRY_ITEMS.forEach(i=>{d[i.id]=true;});S.set('pantry_have',d);}}
 
-  PANTRY_ITEMS.forEach(item => {
-    const isHave = have[item.id] !== false; // default: yes, they have it (we saw it in photos)
-    const card = document.createElement('div');
-    card.className = 'pantry-card' + (isHave ? ' have' : '');
-    card.id = 'pc-' + item.id;
-    card.innerHTML = `<div class="pc-icon">${item.icon}</div>
-      <div class="pc-name">${item.name}</div>
-      <div class="pc-note">${item.note}</div>
-      ${isHave ? '<div class="pc-check">✓ Have it</div>' : '<div class="pc-check" style="color:var(--text-muted)">Tap to mark</div>'}`;
-    card.onclick = () => togglePantry(item.id);
+function buildPantry(){
+  const el=document.getElementById('pantry-grid');
+  const have=S.get('pantry_have')||{};
+  const grid=document.createElement('div');
+  grid.className='pantry-grid';
+  PANTRY_ITEMS.forEach(item=>{
+    const isHave=have[item.id]!==false;
+    const card=document.createElement('div');
+    card.className='pantry-card'+(isHave?' have':'');
+    card.id='pc-'+item.id;
+    card.innerHTML=`<div class="pc-icon">${item.icon}</div><div class="pc-name">${item.name}</div><div class="pc-note">${item.note}</div><div class="pc-check" style="${isHave?'':'color:var(--text-muted)'}">${isHave?'✓ Have it':'Tap to mark'}</div>`;
+    card.onclick=()=>{
+      const h=S.get('pantry_have')||{};
+      h[item.id]=!(h[item.id]!==false);
+      S.set('pantry_have',h);
+      card.classList.toggle('have',h[item.id]);
+      const c=card.querySelector('.pc-check');
+      c.textContent=h[item.id]?'✓ Have it':'Tap to mark';
+      c.style.color=h[item.id]?'':'var(--text-muted)';
+    };
     grid.appendChild(card);
   });
-
   el.appendChild(grid);
 }
 
-function togglePantry(id) {
-  const have = S.get('pantry_have') || {};
-  have[id] = !((have[id] !== false));
-  S.set('pantry_have', have);
-  const card = document.getElementById('pc-' + id);
-  if (!card) return;
-  card.classList.toggle('have', have[id]);
-  const check = card.querySelector('.pc-check');
-  if (check) check.textContent = have[id] ? '✓ Have it' : 'Tap to mark';
-  if (have[id]) check.style.color = ''; else check.style.color = 'var(--text-muted)';
-}
-
-// Initialize pantry with "have" as default for everything we saw in photos
-function initPantry() {
-  const have = S.get('pantry_have');
-  if (have === null) {
-    const defaults = {};
-    PANTRY_ITEMS.forEach(item => { defaults[item.id] = true; });
-    S.set('pantry_have', defaults);
-  }
-}
-
-// ── INIT ──
 initPantry();
 buildMenu();
 buildRecipes();
 buildShop();
 buildPantry();
-
-var RECIPES=[
-{day:"Sunday Jul 6",items:[
-{name:"Bacon & Egg Griddle Scramble with Grits",cal:480,methods:["Outdoor Griddle"],ing:["4 strips thick-cut bacon","4 large eggs","1 cup Quaker grits","2 tbsp butter","Salt and pepper"],steps:["Cook grits per package. Add butter and season.","Cook bacon on griddle 3-4 min per side until crispy.","Crack eggs on griddle, scramble gently on low heat.","Serve grits topped with eggs and crumbled bacon."],tip:"Cooking outside keeps the kitchen cool on a hot July morning."},
-{name:"Grilled Shrimp Mango Tacos with Avocado Lime Crema",cal:520,methods:["Outdoor Grill"],ing:["12 Gulf shrimp peeled and deveined","2 tbsp olive oil","2 cloves garlic minced","Juice of 1 lime","1 tsp smoked paprika","1/2 tsp cumin","Salt and pepper","6 small flour tortillas","-- Mango Salsa --","1 mango diced","1/4 red onion minced","Juice of 1 lime","2 tbsp cilantro","-- Avocado Lime Crema --","1 avocado","1/2 cup sour cream","Juice of 1 lime","Salt"],steps:["Marinate shrimp: oil, garlic, lime, paprika, cumin for 15 min.","Mix mango salsa and refrigerate.","Blend crema: avocado + sour cream + lime + salt.","Grill shrimp 2 min per side until pink.","Warm tortillas on grill 30 sec per side.","Build: tortilla, crema, shrimp, mango salsa."],p1:"Skip salsa. Serve with sour cream, cheddar and lime only.",p2:"Add cherry tomatoes and jalapeno to the mango salsa.",tip:"Grill before 7 PM. Shrimp cook FAST."},
-{name:"Vanilla Ice Cream with Strawberries and Cool Whip",cal:280,methods:["No Cook"],ing:["Vanilla ice cream from freezer","1 cup fresh strawberries sliced","Cool Whip from fridge"],steps:["Slice strawberries.","Scoop ice cream into bowls.","Top with strawberries and Cool Whip.","Serve immediately."],tip:"Zero cooking. Perfect light dessert on a hot night."}
-]},
-{day:"Monday Jul 7",items:[
-{name:"Tropical Smoothie Bowl",cal:380,methods:["No Cook"],ing:["1 cup frozen mango","1/2 cup pineapple","1 banana","3/4 cup FAGE Greek yogurt","1/4 cup coconut milk","-- Toppings --","1/4 cup granola","Fresh fruit","Honey drizzle"],steps:["Blend mango, pineapple, banana, yogurt, coconut milk until thick.","Pour into 2 bowls - should be spoonable not drinkable.","Top with granola, fresh fruit, and honey."],tip:"Key is thick - use less liquid than a regular smoothie."},
-{name:"Crawfish Tail Cajun Butter Rice with Corn",cal:560,methods:["Stovetop"],ing:["1 lb frozen crawfish tails thawed","3 tbsp butter","3 cloves garlic minced","1.5 tsp Cajun seasoning","2 cups Minute rice cooked","2 ears corn on the cob","P2: 1 can Ro-Tel drained"],steps:["Cook rice per package.","Steam or microwave corn.","Melt butter in large skillet over medium-high.","Add garlic and cook 1 minute.","Add crawfish tails and Cajun seasoning. Cook 3-4 min.","P2: Stir in Ro-Tel, cook 1 more minute.","Serve crawfish over rice with corn."],p1:"As-is - butter, garlic and Cajun is perfect for P1.",p2:"Add Ro-Tel for extra heat and tomato flavor.",tip:"Crawfish are already cooked - do not overcook."},
-{name:"Fresh Peach Parfait",cal:290,methods:["No Cook"],ing:["1.5 cups FAGE Greek yogurt","1/2 cup granola","2 fresh Alabama peaches sliced","2 tbsp honey"],steps:["Divide yogurt between 2 bowls.","Layer granola on top.","Add fresh peach slices.","Drizzle with honey."],tip:"Alabama peaches in early July are at peak sweetness!"}
-]},
-{day:"Tuesday Jul 8",items:[
-{name:"Kodiak Protein Pancakes with Berries and Honey",cal:420,methods:["Stovetop"],ing:["1.5 cups Kodiak pancake mix","1 cup water or milk","1 egg","1 tbsp butter","Fresh berries","2 tbsp honey"],steps:["Mix Kodiak mix with water or milk and egg until just combined.","Heat non-stick skillet over medium with butter.","Pour 1/4 cup batter per pancake. Cook until bubbles form, 2-3 min.","Flip and cook 1-2 min until golden.","Serve topped with fresh berries and honey."],tip:"Higher protein and fiber - filling without being heavy."},
-{name:"Grilled Chicken Tacos with Avocado, Lime and Slaw",cal:490,methods:["Outdoor Grill"],ing:["2 chicken breasts","1 tbsp olive oil","1 tsp garlic powder","1 tsp cumin","Salt and pepper","6 small flour tortillas","1 avocado sliced","Juice of 1 lime","-- Quick Slaw --","2 cups coleslaw mix","2 tbsp mayo","1 tbsp apple cider vinegar","1 tsp sugar","Salt"],steps:["Make slaw: toss all ingredients. Refrigerate 15 min.","Season chicken with oil, garlic powder, cumin, salt.","Grill 5-6 min per side to 165F internal.","Rest 5 min then slice against the grain.","Warm tortillas on grill 30 sec.","Build: tortilla, slaw, chicken, avocado, lime."],p1:"Dress with cheddar and sour cream only.",p2:"Add cherry tomatoes, jalapeno, cilantro, and hot sauce.",tip:"Rest the chicken before slicing - keeps it juicy."},
-{name:"Chocolate Mousse Cups",cal:240,methods:["No Cook - chill ahead"],ing:["1 cup heavy cream","3 tbsp cocoa powder","3 tbsp granulated sugar","1/2 tsp vanilla extract","Pinch of salt","Chocolate chips for topping"],steps:["Chill mixing bowl in freezer 10 min.","Whip heavy cream until soft peaks form.","Sift in cocoa, sugar, vanilla, salt. Fold gently.","Divide into 4 cups. Top with chocolate chips.","Refrigerate at least 1 hour."],tip:"Make after lunch so perfectly set by dessert time."}
-]},
-{day:"Wednesday Jul 9",items:[
-{name:"Strawberry Banana Spinach Smoothie with Almond Butter",cal:340,methods:["No Cook"],ing:["1 cup frozen strawberries","1 banana","1 cup baby spinach","2 tbsp almond butter","1 cup milk","Optional: honey","Ice cubes"],steps:["Add all ingredients to blender.","Blend until completely smooth, about 60 seconds.","Pour into 2 glasses and serve cold."],tip:"You cannot taste the spinach - it just makes it green and adds fiber."},
-{name:"Air Fryer Butterfly Shrimp with Old Bay Corn and Remoulade",cal:480,methods:["Air Fryer"],ing:["1 bag frozen butterfly shrimp","Old Bay seasoning","2 ears corn on the cob","-- Remoulade --","3 tbsp mayo","1 tbsp horseradish sauce","1 tsp hot sauce","1 tsp lemon juice","1/2 tsp garlic powder","Salt"],steps:["Make remoulade: whisk all ingredients. Refrigerate.","Cook corn until tender. Season with butter and Old Bay.","Air fry shrimp at 400F for 10-12 min, shake basket halfway.","Shrimp done when golden and crispy.","Serve with corn and remoulade."],p1:"Perfect as-is for P1 - crispy shrimp and corn.",tip:"Do NOT overcrowd the air fryer - cook in batches."},
-{name:"Graham Cracker Banana Pudding Cups",cal:260,methods:["No Cook - chill ahead"],ing:["1 box vanilla instant pudding mix plus milk","2 bananas sliced","2 cups Cool Whip","1.5 cups crushed Honey Maid grahams"],steps:["Make pudding per package. Let set 5 min.","Fold in 1 cup Cool Whip for lightness.","Layer: grahams, pudding, banana, Cool Whip. Repeat.","Refrigerate at least 2 hours."],tip:"Make right after lunch - gets better the longer it chills."}
-]},
-{day:"Thursday Jul 10",items:[
-{name:"Fresh Peach and Yogurt Smoothie",cal:320,methods:["No Cook"],ing:["2 ripe fresh Alabama peaches pitted and sliced","1 cup FAGE Greek yogurt","1 tbsp honey","1/2 cup ice cubes"],steps:["Add peaches, yogurt, honey, and ice to blender.","Blend until smooth and thick.","Pour into 2 glasses."],tip:"Fresh July peaches are naturally sweet - minimal honey needed."},
-{name:"Gulf Shrimp over Garlic Butter Pasta with Parmesan",cal:580,methods:["Outdoor Grill","Stovetop"],ing:["1 lb Gulf shrimp peeled and deveined","8 oz Barilla pasta","4 tbsp butter","4 cloves garlic minced","3 tbsp olive oil","4 tbsp parmesan grated","Salt, pepper, red pepper flakes","Reserved pasta water","P2: 2 cups baby spinach, 1/2 cup cherry tomatoes"],steps:["Cook pasta in salted water. Reserve 1/2 cup pasta water before draining.","Season shrimp with salt, pepper, garlic powder.","Grill or saute shrimp 2 min per side until pink. Set aside.","In same pan warm olive oil. Add garlic 2 min.","Add drained pasta and pasta water. Toss.","Add shrimp back. Top with parmesan."],p1:"Plain pasta + shrimp + garlic butter + parmesan. No greens.",p2:"Add baby spinach and cherry tomatoes - toss until spinach wilts.",tip:"Never skip the pasta water - it makes the sauce coat every noodle."},
-{name:"Fresh Mango Sorbet",cal:180,methods:["Blender - freeze ahead"],ing:["2 ripe mangoes peeled and diced","Juice of 1 lime","2 tbsp honey","Pinch of salt","1/4 cup water"],steps:["MAKE IN THE MORNING. Blend all ingredients until completely smooth.","Taste and adjust lime or honey.","Pour into freezer-safe container. Freeze 3-4 hours.","Let sit 5 min at room temp then scoop."],tip:"The riper the mango the better. Make while having morning coffee."}
-]},
-{day:"Friday Jul 11",items:[
-{name:"Bacon Egg and Sharp Cheddar on Toast",cal:450,methods:["Stovetop"],ing:["4 strips thick-cut bacon","4 large eggs","4 slices Sargento sharp cheddar","4 slices Natures Own bread","1 tbsp butter","Salt and pepper"],steps:["Cook bacon until crispy. Set aside on paper towels.","Toast bread in same pan or toaster.","Cook eggs to liking. Season with salt and pepper.","Add cheddar to eggs while hot so it melts.","Assemble: toast, eggs, cheddar, bacon."],p2:"Add sliced tomatoes and a dash of hot sauce."},
-{name:"Grilled Ribeye Steak Salad with Romaine, Avocado and Balsamic",cal:680,methods:["Outdoor Grill"],ing:["2 ribeye or NY strip steaks 8 oz each","Coarse salt and black pepper","4 cups romaine roughly chopped","1 avocado sliced","1 cup Olive Garden croutons from pantry","Balsamic glaze bottle","2 tbsp olive oil"],steps:["Pull steaks from fridge 30 min before cooking. Season generously.","Grill at high heat 3-4 min per side for medium-rare.","REST steaks 5 full minutes. Do not skip.","Slice steak thin against the grain.","Arrange romaine, avocado, croutons in bowls.","Top with steak. Drizzle with olive oil and balsamic glaze."],p1:"Steak + romaine + croutons + cheddar. Drizzle balsamic.",p2:"Add cherry tomatoes, extra parmesan, and red onion.",tip:"5-minute rest is non-negotiable for juicy steak. Grill before 7 PM."},
-{name:"Caprese Dessert Plate - Mozzarella, Strawberries and Balsamic Glaze",cal:200,methods:["No Cook"],ing:["1 ball fresh mozzarella sliced","1 cup fresh strawberries halved","Fresh basil leaves","Balsamic glaze bottle"],steps:["Slice mozzarella into rounds.","Arrange mozzarella, strawberries, basil on a plate.","Drizzle generously with balsamic glaze.","Serve immediately."],tip:"Balsamic + strawberries + mozzarella is genuinely surprising and delicious."}
-]},
-{day:"Saturday Jul 12",items:[
-{name:"Hillshire Farm Sausage and Egg Scramble with Grits",cal:510,methods:["Stovetop"],ing:["1 pkg Hillshire Farm sausage links from freezer thawed","4 large eggs","1 cup Quaker grits","2 tbsp butter","Salt and pepper","Optional: shredded cheddar"],steps:["Cook grits per package. Add butter and season.","Slice sausage into rounds. Brown in skillet 3-4 min per side.","Push sausage to side. Add eggs and scramble gently.","Fold together over grits. Top with cheddar if desired."],tip:"Thaw sausage in fridge overnight for best results."},
-{name:"Fresh Gulf Fish Pan-Sear with Lemon Butter and Corn",cal:420,methods:["Stovetop"],ing:["2 fresh Gulf fish filets from Lagnippe","2 tbsp butter","Juice of 1 lemon","2 cloves garlic minced","Salt, pepper, garlic powder","2 ears corn on the cob"],steps:["Call Lagnippe ahead to ask what is freshest.","Pat fish completely dry with paper towels.","Season both sides with salt, pepper, garlic powder.","Heat 1 tbsp butter in skillet over medium-high until foaming.","Add fish - cook 3-4 min per side without moving until golden.","Remove fish. Melt remaining butter, add garlic and lemon juice, swirl 30 sec.","Spoon lemon butter over fish. Serve with steamed corn."],p1:"Swap fish for chicken breast using same pan and lemon butter.",tip:"Dry fish equals perfect sear. Never skip the paper towel step. Flip only once."},
-{name:"Smores Dip",cal:310,methods:["Oven Broiler"],ing:["1.5 cups chocolate chips from pantry","2 cups mini marshmallows","Honey Maid graham crackers for dipping"],steps:["Preheat oven broiler to high.","Spread chocolate chips evenly in 9-inch cast iron skillet.","Top evenly with mini marshmallows.","Broil 2-3 minutes - WATCH CONSTANTLY.","Remove immediately. Serve with graham crackers."],tip:"Watch EVERY SECOND under the broiler - goes from golden to burnt in 30 seconds."}
-]}];
-
-function buildRecipes(){
-  var el=document.getElementById("recipe-list");
-  if(!el)return;
-  RECIPES.forEach(function(dg){
-    var dl=document.createElement("div");
-    dl.className="recipe-day-label";
-    dl.textContent=dg.day;
-    el.appendChild(dl);
-    dg.items.forEach(function(r){
-      var card=document.createElement("div");
-      card.className="card";
-      var hdr=document.createElement("div");
-      hdr.className="card-hdr";
-      hdr.onclick=function(){this.parentElement.classList.toggle("open");};
-      var info=document.createElement("div");
-      info.className="card-hdr-info";
-      info.innerHTML="<div class=\"card-title\" style=\"font-size:15px\">"+r.name+"</div><div class=\"card-sub\">"+r.cal+" cal / person &middot; "+r.methods.join(" &middot; ")+"</div>";
-      var chev=document.createElement("svg");
-      chev.setAttribute("class","card-chev");
-      chev.setAttribute("viewBox","0 0 24 24");
-      chev.innerHTML="<polyline points=\"6 9 12 15 18 9\"/>";
-      hdr.appendChild(info);
-      hdr.appendChild(chev);
-      card.appendChild(hdr);
-      var body=document.createElement("div");
-      body.className="card-body";
-      var inner=document.createElement("div");
-      inner.className="r-body-inner";
-      var mH="<div class=\"r-method-row\">"+r.methods.map(function(m){return "<span class=\"r-method\">"+m+"</span>";}).join("")+"</div>";
-      var iH="<div class=\"r-section\">Ingredients</div>"+r.ing.map(function(i){return i.startsWith("--")?"<div class=\"r-divider\">"+i+"</div>":"<div class=\"r-ing\"><span style=\"color:var(--teal);margin-right:4px\">&bull;</span><span>"+i+"</span></div>";}).join("");
-      var sH="<div class=\"r-section\">Steps</div>"+r.steps.map(function(s,i){return "<div class=\"r-step\"><span class=\"r-step-num\">"+(i+1)+"</span><span>"+s+"</span></div>";}).join("");
-      var ex="<div style=\"margin-top:8px\">";
-      if(r.p1)ex+="<div class=\"r-callout c-p1\"><strong>P1 swap:</strong> "+r.p1+"</div>";
-      if(r.p2)ex+="<div class=\"r-callout c-p2\"><strong>P2 add:</strong> "+r.p2+"</div>";
-      if(r.tip)ex+="<div class=\"r-callout c-tip\"><strong>Tip:</strong> "+r.tip+"</div>";
-      ex+="</div>";
-      inner.innerHTML=mH+iH+sH+ex;
-      body.appendChild(inner);
-      card.appendChild(body);
-      el.appendChild(card);
-    });
-  });
-}
 </script>
 </body>
 </html>
