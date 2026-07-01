@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fairhope Menu">
+<meta name="theme-color" content="#0a4a35">
+<title>Fairhope Kitchen · Week 2</title>
+<style>
+/* ── TOKENS ── */
+:root {
+  --teal:        #0F6E56;
+  --teal-dark:   #0a4a35;
+  --teal-mid:    #1a8a6a;
+  --teal-light:  #e0f5ee;
+  --teal-pale:   #f0faf6;
+  --amber:       #c07a10;
+  --amber-light: #fff4e0;
+  --coral:       #b03a1a;
+  --coral-light: #fdf0ec;
+  --blue:        #1a5fa0;
+  --blue-light:  #e8f2fc;
+  --sand:        #f7f5f0;
+  --sand-dark:   #ede9e0;
+  --border:      #ddd9d0;
+  --text:        #1a1a16;
+  --text-mid:    #4a4a42;
+  --text-muted:  #7a7a70;
+  --white:       #ffffff;
+  --shadow:      0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+  --shadow-sm:   0 1px 3px rgba(0,0,0,.07);
+  --r:           14px;
+  --r-sm:        9px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;background:var(--sand);color:var(--text);min-height:100vh;overscroll-behavior:none;}
+
+/* ── HEADER ── */
+.site-header{background:linear-gradient(135deg,var(--teal-dark) 0%,var(--teal) 60%,var(--teal-mid) 100%);padding:env(safe-area-inset-top,0) 0 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2);}
+.header-inner{padding:16px 16px 0;}
+.header-eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:4px;}
+.header-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.4px;}
+.header-sub{font-size:13px;color:rgba(255,255,255,.7);margin-top:2px;padding-bottom:14px;}
+.nav-tabs{display:flex;border-top:1px solid rgba(255,255,255,.15);overflow-x:auto;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{flex:1;min-width:70px;padding:11px 8px 13px;font-size:12px;font-weight:600;color:rgba(255,255,255,.6);text-align:center;cursor:pointer;border:none;background:transparent;white-space:nowrap;border-bottom:3px solid transparent;transition:color .2s,border-color .2s;letter-spacing:.01em;}
+.nav-tab.active{color:#fff;border-bottom-color:#fff;}
+.nav-tab-icon{display:block;font-size:16px;margin-bottom:2px;}
+
+/* ── SCREENS ── */
+.screen{display:none;padding:16px;max-width:540px;margin:0 auto;padding-bottom:40px;}
+.screen.active{display:block;}
+
+/* ── CARDS ── */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:12px;}
+.card-hdr{padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;}
+.card-hdr-info{flex:1;min-width:0;}
+.card-title{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.2px;}
+.card-sub{font-size:12px;color:var(--text-muted);margin-top:2px;}
+.card-chev{width:20px;height:20px;stroke:var(--text-muted);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;transition:transform .22s;}
+.card.open .card-chev{transform:rotate(180deg);}
+.card-body{max-height:0;overflow:hidden;transition:max-height .32s ease;}
+.card.open .card-body{max-height:3000px;}
+
+/* ── DAY DOT ── */
+.day-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.weather-pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+.w-hot{background:var(--amber-light);color:var(--amber);}
+.w-grill{background:var(--teal-light);color:var(--teal);}
+.w-cool{background:var(--blue-light);color:var(--blue);}
+
+/* ── MEAL BLOCKS ── */
+.meal-block{padding:14px 16px;border-top:1px solid var(--border);}
+.meal-type-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.meal-type{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);}
+.meal-type.dessert-type{color:var(--coral);}
+.meal-name{font-size:15px;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:4px;letter-spacing:-.15px;}
+.meal-note{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.meal-cal{font-size:12px;color:var(--text-muted);margin-top:4px;}
+.meal-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;}
+.mtag{font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;}
+.mt-both{background:#eeedfe;color:#3c3489;}
+.mt-p1{background:var(--amber-light);color:var(--amber);}
+.mt-p2{background:var(--teal-light);color:var(--teal);}
+.mt-pantry{background:#e8fce8;color:#1a6a1a;}
+
+/* ── STAR RATING ── */
+.rating-row{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.rating-lbl{font-size:12px;color:var(--text-muted);flex-shrink:0;}
+.stars{display:flex;gap:3px;}
+.star{font-size:22px;cursor:pointer;color:#ddd;transition:color .1s,transform .1s;line-height:1;}
+.star.lit{color:#f5a623;}
+.star:active{transform:scale(.85);}
+.made-toggle{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);cursor:pointer;}
+.made-cb{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
+.made-cb.on{background:var(--teal);border-color:var(--teal);}
+.made-cb.on::after{content:'✓';color:#fff;font-size:12px;font-weight:700;}
+.meal-block.made-meal{opacity:.55;}
+.meal-block.made-meal .meal-name{text-decoration:line-through;}
+
+/* ── SHOPPING LIST ── */
+.prog-bar-wrap{background:var(--teal-light);border-radius:var(--r);padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.prog-track{flex:1;height:8px;background:rgba(15,110,86,.2);border-radius:4px;}
+.prog-fill{height:8px;border-radius:4px;background:var(--teal);transition:width .35s;}
+.prog-txt{font-size:13px;font-weight:700;color:var(--teal-dark);white-space:nowrap;}
+.store-section{margin-bottom:16px;}
+.store-hdr-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:var(--r) var(--r) 0 0;color:#fff;}
+.store-name{font-size:14px;font-weight:700;}
+.store-total{font-size:12px;opacity:.82;}
+.shop-items-wrap{background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r) var(--r);overflow:hidden;}
+.shop-sec-label{padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);background:var(--sand);border-bottom:1px solid var(--border);}
+.shop-item{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;min-height:52px;transition:background .1s;}
+.shop-item:last-child{border-bottom:none;}
+.shop-item:active{background:var(--sand);}
+.shop-cb{width:24px;height:24px;border-radius:7px;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-top:1px;}
+.shop-cb.on{background:var(--teal);border-color:var(--teal);}
+.shop-cb.on::after{content:'✓';color:#fff;font-size:13px;font-weight:700;}
+.shop-item-text{flex:1;min-width:0;}
+.shop-item-name{font-size:14px;color:var(--text);line-height:1.35;}
+.shop-item-note{font-size:12px;color:var(--text-muted);margin-top:1px;}
+.shop-item.done .shop-item-name{text-decoration:line-through;color:var(--text-muted);}
+.shop-item.pantry-item{background:var(--teal-pale);}
+.pantry-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;background:var(--teal-light);color:var(--teal);margin-left:6px;vertical-align:middle;white-space:nowrap;}
+.lasting-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;background:#e8fce8;color:#1a6a1a;margin-left:6px;vertical-align:middle;}
+.reset-btn{width:100%;padding:12px;font-size:13px;color:var(--text-muted);background:transparent;border:none;border-top:1px solid var(--border);cursor:pointer;text-align:center;}
+.reset-btn:active{background:var(--sand);}
+
+/* ── PANTRY MEMORY ── */
+.memory-intro{font-size:13px;color:var(--text-mid);line-height:1.6;margin-bottom:14px;padding:12px 14px;background:var(--teal-pale);border-radius:var(--r);border:1px solid var(--teal-light);}
+.pantry-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.pantry-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;cursor:pointer;transition:all .15s;}
+.pantry-card.have{border-color:var(--teal);background:var(--teal-pale);}
+.pantry-card.have .pc-name{color:var(--teal-dark);}
+.pantry-card.have .pc-icon{opacity:1;}
+.pc-icon{font-size:20px;margin-bottom:4px;opacity:.4;transition:opacity .15s;}
+.pc-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.3;}
+.pc-note{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.pc-check{font-size:10px;font-weight:700;color:var(--teal);margin-top:4px;}
+
+/* ── COSTS ── */
+.cost-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px;}
+.cost-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px 14px;text-align:center;}
+.cost-card.full{grid-column:span 2;}
+.cost-num{font-size:26px;font-weight:700;color:var(--text);letter-spacing:-.5px;}
+.cost-lbl{font-size:12px;color:var(--text-muted);margin-top:3px;line-height:1.3;}
+.savings-bar{background:var(--teal-light);border-radius:var(--r);padding:14px;margin-bottom:14px;border:1px solid rgba(15,110,86,.2);}
+.savings-title{font-size:13px;font-weight:700;color:var(--teal-dark);margin-bottom:8px;}
+.savings-row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--text-mid);padding:3px 0;}
+.savings-row strong{color:var(--teal-dark);}
+
+/* ── SECTION LABEL ── */
+.section-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin:20px 0 8px;padding-left:2px;}
+
+/* ── NOTE BOX ── */
+.note-box{background:var(--sand-dark);border-radius:var(--r-sm);padding:12px 14px;font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:12px;}
+
+/* ── UTIL ── */
+.divider-line{height:1px;background:var(--border);}
+.emoji-big{font-size:32px;display:block;margin-bottom:8px;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Fairhope, AL · Week 2</div>
+    <div class="header-title">Our Kitchen Dashboard</div>
+    <div class="header-sub">July 6–12 · Dinners &amp; Breakfasts · Light desserts 🌴</div>
+  </div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="goTab('menu',this)"><span class="nav-tab-icon">🍽</span>Menu</button>
+    <button class="nav-tab" onclick="goTab('shop',this)"><span class="nav-tab-icon">🛒</span>Shopping</button>
+    <button class="nav-tab" onclick="goTab('pantry',this)"><span class="nav-tab-icon">📦</span>Pantry</button>
+    <button class="nav-tab" onclick="goTab('costs',this)"><span class="nav-tab-icon">💰</span>Costs</button>
+  </nav>
+</header>
+
+<!-- ── MENU ── -->
+<div class="screen active" id="s-menu">
+  <div id="menu-days"></div>
+  <div class="note-box">⭐ Tap the stars to rate each meal — ratings are saved. Check "Made it!" to mark meals you've cooked.</div>
+</div>
+
+<!-- ── SHOPPING ── -->
+<div class="screen" id="s-shop">
+  <div class="prog-bar-wrap">
+    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    <span class="prog-txt" id="prog-txt">0 / 0</span>
+  </div>
+  <div id="shop-stores"></div>
+  <div class="note-box">🟢 Items marked <strong>Already have</strong> are from your pantry/fridge/freezer — no need to buy. Items marked <strong>Lasts</strong> are things you'll use across multiple meals and weeks, so they carry forward automatically.</div>
+</div>
+
+<!-- ── PANTRY MEMORY ── -->
+<div class="screen" id="s-pantry">
+  <div class="memory-intro">
+    Tap items to mark what you have on hand. This remembers your pantry so next week's shopping list starts from what's still there. <strong>Green = you have it.</strong>
+  </div>
+  <div id="pantry-grid"></div>
+</div>
+
+<!-- ── COSTS ── -->
+<div class="screen" id="s-costs">
+  <div class="cost-grid">
+    <div class="cost-card"><div class="cost-num">$128</div><div class="cost-lbl">est. total groceries</div></div>
+    <div class="cost-card"><div class="cost-num">$64</div><div class="cost-lbl">per person / week</div></div>
+    <div class="cost-card full"><div class="cost-num" style="color:var(--teal)">$120 saved</div><div class="cost-lbl">vs. Week 1 — pantry &amp; freezer doing the heavy lifting</div></div>
+  </div>
+  <div class="savings-bar">
+    <div class="savings-title">Week 2 breakdown</div>
+    <div class="savings-row"><span>Publix</span><strong>~$78</strong></div>
+    <div class="savings-row"><span>Lagnippe Fish Store</span><strong>~$40</strong></div>
+    <div class="savings-row"><span>Walmart (if needed)</span><strong>~$10</strong></div>
+    <div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$128</strong></div>
+  </div>
+  <div class="section-lbl">What your freezer is contributing</div>
+  <div class="card" style="overflow:visible;">
+    <div style="padding:14px 16px;">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Butterfly shrimp bag</span><span style="color:var(--teal);font-weight:600;">saves ~$16</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Crawfish tails</span><span style="color:var(--teal);font-weight:600;">saves ~$14</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Thick cut bacon</span><span style="color:var(--teal);font-weight:600;">saves ~$9</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Hillshire Farm sausage</span><span style="color:var(--teal);font-weight:600;">saves ~$7</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Vanilla ice cream</span><span style="color:var(--teal);font-weight:600;">saves ~$6</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Pantry staples (oils, pasta, etc.)</span><span style="color:var(--teal);font-weight:600;">saves ~$68</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="note-box">Prices estimated from current June/July 2026 Gulf Coast market rates. Lagnippe prices vary by daily catch — call ahead. Actual cost ±10%.</div>
+</div>
+
+<script>
+// ── STORAGE ──
+const S = {
+  get: k => { try { return JSON.parse(localStorage.getItem('fhk_' + k) || 'null'); } catch(e){ return null; } },
+  set: (k, v) => { try { localStorage.setItem('fhk_' + k, JSON.stringify(v)); } catch(e){} }
+};
+
+// ── NAV ──
+function goTab(id, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('s-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── MENU DATA ──
+const DAYS = [
+  { id:'sun', day:'Sunday', date:'Jul 6', color:'#0F6E56', weather:'🔥 Grill early', wc:'w-hot',
+    meals:[
+      { id:'sun_b', type:'Breakfast', name:'Bacon & egg griddle scramble with grits', cal:480,
+        note:'Use thick-cut bacon from fridge + eggs + Quaker grits · outdoor griddle keeps kitchen cool',
+        tags:['both','pantry'], hasPantry:'Bacon · Eggs · Grits · Butter — all on hand' },
+      { id:'sun_d', type:'Dinner', name:'Grilled shrimp mango tacos with avocado lime crema', cal:520,
+        note:'The Week 1 hit — remixed as tacos! Flour tortillas, mango salsa, lime crema (sour cream + lime) · grill outside before 7 PM',
+        tags:['both','p2'] },
+      { id:'sun_ds', type:'Dessert 🍮', name:'Vanilla ice cream with fresh strawberries & Cool Whip', cal:280,
+        note:'Zero cooking · freezer ice cream + fridge Cool Whip + fresh strawberries you have on hand',
+        tags:['both','pantry'], hasPantry:'Ice cream · Cool Whip · Strawberries — already in fridge/freezer' }
+    ]
+  },
+  { id:'mon', day:'Monday', date:'Jul 7', color:'#185FA5', weather:'🌊 Coastal', wc:'w-grill',
+    meals:[
+      { id:'mon_b', type:'Breakfast', name:'Tropical smoothie bowl — mango, pineapple, banana & Greek yogurt', cal:380,
+        note:'Blend frozen mango + pineapple + banana + FAGE yogurt + coconut milk · top with granola · no cooking',
+        tags:['both'] },
+      { id:'mon_d', type:'Dinner', name:'Crawfish tail Cajun butter rice with corn', cal:560,
+        note:'Your frozen crawfish tails! Sauté in butter + Cajun seasoning + minced garlic · serve over Minute rice · corn from fridge · P2 add Ro-Tel for kick',
+        tags:['both','pantry'], hasPantry:'Crawfish tails (freezer) · Minute rice · Minced garlic · Butter · Cajun seasoning — all on hand' },
+      { id:'mon_ds', type:'Dessert 🍮', name:'Fresh peach parfait — Greek yogurt, granola & honey', cal:290,
+        note:'FAGE yogurt + granola + sliced fresh peaches + drizzle of honey · no cooking · make ahead and chill',
+        tags:['both'] }
+    ]
+  },
+  { id:'tue', day:'Tuesday', date:'Jul 8', color:'#534AB7', weather:'🌿 Light & cool', wc:'w-cool',
+    meals:[
+      { id:'tue_b', type:'Breakfast', name:'Kodiak protein pancakes with fresh berries & honey', cal:420,
+        note:'Kodiak pancake mix from pantry · top with strawberries or blueberries + honey · quick stovetop',
+        tags:['both','pantry'], hasPantry:'Kodiak mix · Honey · Berries — all on hand' },
+      { id:'tue_d', type:'Dinner', name:'Grilled chicken tacos with avocado, lime & slaw', cal:490,
+        note:'Chicken breasts on outdoor grill · flour tortillas · P1: cheddar, sour cream only · P2: tomato, jalapeño, cilantro · quick slaw from coleslaw mix',
+        tags:['both'] },
+      { id:'tue_ds', type:'Dessert 🍮', name:'Chocolate mousse cups', cal:240,
+        note:'Whip heavy cream + cocoa powder (pantry) + sugar + vanilla · chill 1 hr · top with chocolate chips · make ahead the night before',
+        tags:['both','pantry'], hasPantry:'Cocoa powder · Sugar · Chocolate chips — already in pantry' }
+    ]
+  },
+  { id:'wed', day:'Wednesday', date:'Jul 9', color:'#993C1D', weather:'🔥 No oven', wc:'w-hot',
+    meals:[
+      { id:'wed_b', type:'Breakfast', name:'Strawberry banana spinach smoothie with almond butter', cal:340,
+        note:'Frozen strawberries + banana + baby spinach + almond butter + milk · zero cooking · thick and cold',
+        tags:['both','pantry'], hasPantry:'Almond butter · Frozen strawberries — on hand; buy bananas & spinach' },
+      { id:'wed_d', type:'Dinner', name:'Air fryer butterfly shrimp with Old Bay corn & remoulade', cal:480,
+        note:'Use your frozen butterfly shrimp bag! Air fryer 400°F 12 min · corn on the cob · remoulade = horseradish sauce + mayo from your fridge · P1 loves this',
+        tags:['both','pantry'], hasPantry:'Butterfly shrimp (freezer) · Corn · Horseradish sauce · Mayo — all on hand' },
+      { id:'wed_ds', type:'Dessert 🍮', name:'Graham cracker banana pudding cups', cal:260,
+        note:'Layer crushed Honey Maid grahams + vanilla instant pudding + banana slices + Cool Whip · make ahead, chill 2 hrs · crowd pleaser',
+        tags:['both','pantry'], hasPantry:'Honey Maid grahams · Cool Whip — already in pantry/fridge' }
+    ]
+  },
+  { id:'thu', day:'Thursday', date:'Jul 10', color:'#0F6E56', weather:'🌊 Coastal', wc:'w-grill',
+    meals:[
+      { id:'thu_b', type:'Breakfast', name:'Fresh peach & yogurt smoothie with honey', cal:320,
+        note:'Fresh peaches + FAGE Greek yogurt + honey + ice · thick, cold, and naturally sweet · peak peach season right now',
+        tags:['both'] },
+      { id:'thu_d', type:'Dinner', name:'Gulf shrimp over garlic butter pasta with parmesan', cal:580,
+        note:'Fresh Lagnippe shrimp · grill or quick sauté · toss with Barilla pasta, olive oil, garlic, parmesan · P1 plain pasta + shrimp · P2 add spinach & cherry tomatoes',
+        tags:['both','pantry'], hasPantry:'Barilla pasta · Olive oil · Minced garlic · Parmesan (get fresh) — mostly on hand' },
+      { id:'thu_ds', type:'Dessert 🍮', name:'Fresh mango sorbet — blend & freeze', cal:180,
+        note:'Blend 2 ripe mangoes + lime juice + honey + pinch salt · pour into container, freeze 2 hrs · scoop like sorbet · make in the morning',
+        tags:['both'] }
+    ]
+  },
+  { id:'fri', day:'Friday', date:'Jul 11', color:'#854F0B', weather:'🥩 Grill night', wc:'w-grill',
+    meals:[
+      { id:'fri_b', type:'Breakfast', name:'Bacon egg & sharp cheddar on Nature\'s Own toast', cal:450,
+        note:"Use your thick-cut bacon + eggs + Sargento sharp cheddar + Nature's Own bread · quick griddle breakfast before the heat hits",
+        tags:['both','pantry'], hasPantry:"Bacon · Eggs · Sargento cheddar · Nature's Own bread — all on hand" },
+      { id:'fri_d', type:'Dinner', name:'Grilled ribeye steak salad — romaine, avocado & balsamic', cal:680,
+        note:'Light but satisfying · grill steak outside · slice thin over romaine + avocado + Olive Garden croutons (pantry!) · P1 plain with cheddar · drizzle balsamic glaze',
+        tags:['both','pantry'], hasPantry:'Olive Garden croutons — already in pantry!' },
+      { id:'fri_ds', type:'Dessert 🍮', name:'Caprese dessert plate — mozzarella, strawberries & balsamic glaze', cal:200,
+        note:'Fresh mozzarella + halved strawberries + fresh basil + balsamic glaze drizzle · elegant, no cooking, very coastal · doubles as a light salad',
+        tags:['both'] }
+    ]
+  },
+  { id:'sat', day:'Saturday', date:'Jul 12', color:'#5F5E5A', weather:'🌅 Easy morning', wc:'w-cool',
+    meals:[
+      { id:'sat_b', type:'Breakfast', name:'Hillshire Farm sausage & egg scramble with grits', cal:510,
+        note:"Use your Hillshire Farm sausage from freezer + eggs + Quaker grits · slice sausage, brown in pan, scramble eggs alongside · easy Saturday morning",
+        tags:['both','pantry'], hasPantry:'Hillshire Farm sausage (freezer) · Eggs · Quaker grits — all on hand' },
+      { id:'sat_d', type:'Dinner', name:'Fresh Gulf fish pan-sear with lemon butter & corn', cal:420,
+        note:"Ask Lagnippe what's fresh today · quick 8-min pan-sear · lemon butter · serve with fresh corn · P1 sub: chicken breast from pantry · very light for a hot Saturday",
+        tags:['both','p2'] },
+      { id:'sat_ds', type:'Dessert 🍮', name:"S'mores dip — chocolate chips, marshmallows & graham crackers", cal:310,
+        note:'Spread chocolate chips in cast iron skillet · top with mini marshmallows · broil 3 min until golden · dip with Honey Maid grahams · fun weekend treat',
+        tags:['both','pantry'], hasPantry:'Chocolate chips · Honey Maid grahams — both in pantry · buy marshmallows' }
+    ]
+  }
+];
+
+// ── BUILD MENU ──
+function buildMenu() {
+  const el = document.getElementById('menu-days');
+  DAYS.forEach((d, i) => {
+    const ratings = S.get('ratings') || {};
+    const made = S.get('made') || {};
+    const card = document.createElement('div');
+    card.className = 'card' + (i === 0 ? ' open' : '');
+    card.id = 'daycard-' + d.id;
+
+    const totalCal = d.meals.reduce((s, m) => s + m.cal, 0);
+
+    const mealsHTML = d.meals.map(m => {
+      const r = ratings[m.id] || 0;
+      const isMade = made[m.id] || false;
+      const starsHTML = [1,2,3,4,5].map(n =>
+        `<span class="star${n<=r?' lit':''}" onclick="rate('${m.id}',${n});event.stopPropagation()">★</span>`
+      ).join('');
+      const tagsHTML = m.tags.map(t => {
+        const map={both:'Works for both',p1:'P1 swap needed',p2:'P2 add-ons',pantry:'Uses what you have',dessert:'Dessert'};
+        const cls={both:'mt-both',p1:'mt-p1',p2:'mt-p2',pantry:'mt-pantry',dessert:'mt-both'};
+        return `<span class="mtag ${cls[t]}">${map[t]}</span>`;
+      }).join('');
+      const pantryNote = m.hasPantry ? `<div style="font-size:11px;color:var(--teal);margin-top:5px;font-weight:500;">✓ ${m.hasPantry}</div>` : '';
+      const isDesert = m.type.includes('Dessert');
+      return `<div class="meal-block${isMade?' made-meal':''}" id="mb-${m.id}">
+        <div class="meal-type-row">
+          <span class="meal-type${isDesert?' dessert-type':''}">${m.type}</span>
+        </div>
+        <div class="meal-name">${m.name}</div>
+        <div class="meal-note">${m.note}</div>
+        ${pantryNote}
+        <div class="meal-cal">${m.cal} cal / person</div>
+        <div class="meal-tags">${tagsHTML}</div>
+        <div class="rating-row">
+          <span class="rating-lbl">Rate it:</span>
+          <div class="stars" id="stars-${m.id}">${starsHTML}</div>
+          <div class="made-toggle" onclick="toggleMade('${m.id}')">
+            <div class="made-cb${isMade?' on':''}" id="madecb-${m.id}"></div>
+            <span>Made it!</span>
+          </div>
+        </div>
+      </div>`;
+    }).join('<div class="divider-line"></div>');
+
+    card.innerHTML = `
+      <div class="card-hdr" onclick="this.parentElement.classList.toggle('open')">
+        <div class="day-dot" style="background:${d.color}"></div>
+        <div class="card-hdr-info">
+          <div class="card-title">${d.day} <span style="font-size:13px;font-weight:400;color:var(--text-muted)">${d.date}</span></div>
+          <div class="card-sub">${totalCal.toLocaleString()} cal total · 3 meals</div>
+        </div>
+        <span class="weather-pill ${d.wc}">${d.weather}</span>
+        <svg class="card-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body">${mealsHTML}</div>`;
+
+    el.appendChild(card);
+  });
+}
+
+function rate(mealId, stars) {
+  const ratings = S.get('ratings') || {};
+  ratings[mealId] = stars;
+  S.set('ratings', ratings);
+  const starsEl = document.getElementById('stars-' + mealId);
+  if (starsEl) {
+    starsEl.querySelectorAll('.star').forEach((s, i) => {
+      s.classList.toggle('lit', i < stars);
+    });
+  }
+}
+
+function toggleMade(mealId) {
+  const made = S.get('made') || {};
+  made[mealId] = !made[mealId];
+  S.set('made', made);
+  const cb = document.getElementById('madecb-' + mealId);
+  const mb = document.getElementById('mb-' + mealId);
+  if (cb) cb.classList.toggle('on', made[mealId]);
+  if (mb) mb.classList.toggle('made-meal', made[mealId]);
+}
+
+// ── SHOPPING DATA ──
+// lasting:true = persists week to week in memory
+const STORES = [
+  { id:'publix', name:'Publix', color:'#0F6E56', total:'~$78',
+    sections:[
+      { label:'Fresh Produce & Fruit', items:[
+        { id:'si_bananas', name:'Bananas (bunch)', note:'Smoothies & breakfast', lasting:false },
+        { id:'si_mangoes', name:'Mangoes (3 fresh)', note:'Shrimp tacos + smoothies', lasting:false },
+        { id:'si_peaches', name:'Peaches (3–4 fresh)', note:'Parfaits & smoothies — peak season!', lasting:false },
+        { id:'si_pineapple', name:'Pineapple (fresh or chunks)', note:'Smoothie bowl Monday', lasting:false },
+        { id:'si_limes', name:'Limes (6)', note:'Shrimp, tacos, smoothies, sorbet', lasting:false },
+        { id:'si_lemons', name:'Lemons (3)', note:'Fish, dressings, pasta', lasting:false },
+        { id:'si_avocados', name:'Avocados (4)', note:'Tacos, eggs, salad', lasting:false },
+        { id:'si_spinach', name:'Baby spinach (5 oz bag)', note:'Smoothies & eggs', lasting:false },
+        { id:'si_romaine', name:'Romaine (1 head)', note:'Steak salad Friday', lasting:false },
+        { id:'si_tomatoes', name:'Cherry tomatoes (P2)', note:'Pasta, salads — P2 only', lasting:false },
+        { id:'si_basil', name:'Fresh basil (1 bunch)', note:'Caprese dessert + pasta', lasting:false },
+      ]},
+      { label:'Proteins', items:[
+        { id:'si_chicken', name:'Chicken breasts (2 lbs)', note:'Tacos Tuesday, sub on Saturday', lasting:false },
+        { id:'si_shrimp', name:'Gulf shrimp raw large (2 lbs)', note:'Sun tacos + Thu pasta — or get at Lagnippe', lasting:false },
+        { id:'si_ribeye', name:'Ribeye or NY strip steaks (2)', note:'Steak salad Friday night', lasting:false },
+      ]},
+      { label:'Dairy & Cold', items:[
+        { id:'si_mozz', name:'Fresh mozzarella ball', note:'Caprese dessert Friday', lasting:false },
+        { id:'si_yogurt', name:'Greek yogurt plain (32 oz)', note:'Parfaits & smoothies all week', lasting:true },
+        { id:'si_cream', name:'Heavy cream (small carton)', note:'Chocolate mousse Tuesday', lasting:false },
+        { id:'si_marshmallows', name:'Mini marshmallows (bag)', note:"S'mores dip Saturday", lasting:true },
+      ]},
+      { label:'Pantry Picks', items:[
+        { id:'si_tortillas', name:'Flour tortillas (small pkg)', note:'Tacos Sunday & Tuesday', lasting:true },
+        { id:'si_granola', name:'Granola (1 bag)', note:'Parfaits & smoothie bowls', lasting:true },
+        { id:'si_coconutmilk', name:'Coconut milk (1 can)', note:'Tropical smoothie bowl Monday', lasting:true },
+        { id:'si_balsamicglaze', name:'Balsamic glaze (bottle)', note:'Caprese + steak salad', lasting:true },
+        { id:'si_oldBay', name:'Old Bay seasoning', note:'Air fryer shrimp Wednesday', lasting:true },
+        { id:'si_cajun', name:'Cajun seasoning (if low)', note:'Crawfish, shrimp', lasting:true },
+        { id:'si_vanillapudding', name:'Vanilla instant pudding (2 boxes)', note:'Banana pudding cups Wednesday', lasting:false },
+        { id:'si_parmesan', name:'Parmesan (wedge or shredded)', note:'Pasta Thursday', lasting:true },
+      ]},
+    ]
+  },
+  { id:'lagnippe', name:'Lagnippe Fish Store', color:'#993C1D', total:'~$40',
+    sections:[
+      { label:'Fresh Gulf Seafood', items:[
+        { id:'si_lagnshrimp', name:'Gulf shrimp raw large (2 lbs)', note:'Sun tacos + Thu pasta — call ahead', lasting:false },
+        { id:'si_lagnfish', name:'Gulf fish of the day (2 filets)', note:'Saturday dinner — ask what\'s freshest', lasting:false },
+      ]},
+      { label:'Tips', items:[
+        { id:'si_lagntip1', name:'📞 Call ahead to confirm catch', note:'Availability changes daily', lasting:false },
+        { id:'si_lagntip2', name:'🧊 Bring a cooler', note:'Gulf heat — keep fish cold for drive home', lasting:false },
+      ]},
+    ]
+  },
+];
+
+// ── BUILD SHOPPING ──
+let shopItems = {};
+
+function buildShop() {
+  const el = document.getElementById('shop-stores');
+  const checked = S.get('shop_checked') || {};
+  const lasting = S.get('shop_lasting') || {};
+
+  // Merge lasting items from previous weeks
+  STORES.forEach(store => {
+    store.sections.forEach(sec => {
+      sec.items.forEach(item => {
+        shopItems[item.id] = item;
+        if (item.lasting && lasting[item.id]) {
+          checked[item.id] = true;
+        }
+      });
+    });
+  });
+
+  STORES.forEach(store => {
+    const wrap = document.createElement('div');
+    wrap.className = 'store-section';
+
+    let html = `<div class="store-hdr-row" style="background:${store.color}">
+      <span class="store-name">${store.name}</span>
+      <span class="store-total">${store.total}</span>
+    </div>
+    <div class="shop-items-wrap">`;
+
+    store.sections.forEach(sec => {
+      html += `<div class="shop-sec-label">${sec.label}</div>`;
+      sec.items.forEach(item => {
+        const isChecked = checked[item.id] || false;
+        const lastingBadge = item.lasting ? `<span class="lasting-badge">Lasts</span>` : '';
+        html += `<div class="shop-item${isChecked?' done':''}" id="si-${item.id}" onclick="toggleShopItem('${item.id}')">
+          <div class="shop-cb${isChecked?' on':''}" id="scb-${item.id}"></div>
+          <div class="shop-item-text">
+            <div class="shop-item-name">${item.name}${lastingBadge}</div>
+            <div class="shop-item-note">${item.note}</div>
+          </div>
+        </div>`;
+      });
+    });
+
+    html += `<button class="reset-btn" onclick="resetStore('${store.id}')">Clear ${store.name} checks</button>`;
+    html += `</div>`;
+    wrap.innerHTML = html;
+    el.appendChild(wrap);
+  });
+
+  updateShopProgress();
+}
+
+function toggleShopItem(id) {
+  const checked = S.get('shop_checked') || {};
+  checked[id] = !checked[id];
+  S.set('shop_checked', checked);
+
+  // Remember lasting items
+  const item = shopItems[id];
+  if (item && item.lasting) {
+    const lasting = S.get('shop_lasting') || {};
+    lasting[id] = checked[id];
+    S.set('shop_lasting', lasting);
+  }
+
+  const row = document.getElementById('si-' + id);
+  const cb = document.getElementById('scb-' + id);
+  if (row) row.classList.toggle('done', checked[id]);
+  if (cb) cb.classList.toggle('on', checked[id]);
+  updateShopProgress();
+}
+
+function resetStore(storeId) {
+  const checked = S.get('shop_checked') || {};
+  const store = STORES.find(s => s.id === storeId);
+  if (!store) return;
+  store.sections.forEach(sec => {
+    sec.items.forEach(item => {
+      if (!item.lasting) {
+        checked[item.id] = false;
+        const row = document.getElementById('si-' + item.id);
+        const cb = document.getElementById('scb-' + item.id);
+        if (row) row.classList.remove('done');
+        if (cb) cb.classList.remove('on');
+      }
+    });
+  });
+  S.set('shop_checked', checked);
+  updateShopProgress();
+}
+
+function updateShopProgress() {
+  const checked = S.get('shop_checked') || {};
+  const allIds = Object.keys(shopItems);
+  const total = allIds.length;
+  const done = allIds.filter(id => checked[id]).length;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  const fill = document.getElementById('prog-fill');
+  const txt = document.getElementById('prog-txt');
+  if (fill) fill.style.width = pct + '%';
+  if (txt) txt.textContent = done + ' / ' + total;
+}
+
+// ── PANTRY MEMORY ──
+const PANTRY_ITEMS = [
+  { id:'p_bacon', icon:'🥓', name:'Thick cut bacon', note:'Fridge — 2 uses this week' },
+  { id:'p_eggs', icon:'🥚', name:'Eggs', note:'Fridge — multiple breakfasts' },
+  { id:'p_grits', icon:'🥣', name:'Quaker grits', note:'Pantry' },
+  { id:'p_kodiak', icon:'🥞', name:'Kodiak pancake mix', note:'Pantry' },
+  { id:'p_almondbutter', icon:'🥜', name:'Almond butter', note:'Pantry' },
+  { id:'p_honey', icon:'🍯', name:'Honey', note:'Pantry' },
+  { id:'p_crawfish', icon:'🦞', name:'Crawfish tails', note:'Freezer' },
+  { id:'p_butterflyshrimp', icon:'🍤', name:'Butterfly shrimp bag', note:'Freezer' },
+  { id:'p_hillshire', icon:'🌭', name:'Hillshire sausage', note:'Freezer' },
+  { id:'p_icecream', icon:'🍦', name:'Vanilla ice cream', note:'Freezer' },
+  { id:'p_coolwhip', icon:'🍦', name:'Cool Whip', note:'Fridge' },
+  { id:'p_minuterice', icon:'🍚', name:'Minute white rice', note:'Pantry' },
+  { id:'p_barilla', icon:'🍝', name:'Barilla pasta', note:'Pantry — GF & whole grain' },
+  { id:'p_oliveoil', icon:'🫙', name:'Olive oil (Pompeian)', note:'Pantry' },
+  { id:'p_garlic', icon:'🧄', name:'Minced garlic jar', note:'Fridge' },
+  { id:'p_cocoa', icon:'🍫', name:'Cocoa powder', note:'Pantry' },
+  { id:'p_chocchips', icon:'🍫', name:'Chocolate chips', note:'Pantry' },
+  { id:'p_grahams', icon:'🍪', name:'Honey Maid grahams', note:'Pantry' },
+  { id:'p_croutons', icon:'🥗', name:'Olive Garden croutons', note:'Pantry' },
+  { id:'p_sargento', icon:'🧀', name:'Sargento sharp cheddar', note:'Fridge' },
+  { id:'p_cream_cheese', icon:'🧀', name:'Philadelphia cream cheese', note:'Fridge' },
+  { id:'p_sourcream', icon:'🥄', name:'Daisy sour cream', note:'Fridge' },
+  { id:'p_fage', icon:'🥛', name:'FAGE Greek yogurt', note:'Fridge' },
+  { id:'p_horseradish', icon:'🫙', name:'Horseradish sauce', note:'Fridge' },
+  { id:'p_naturesown', icon:'🍞', name:"Nature's Own bread", note:'Pantry' },
+  { id:'p_corn', icon:'🌽', name:'Corn on the cob', note:'Fridge drawer' },
+];
+
+function buildPantry() {
+  const el = document.getElementById('pantry-grid');
+  const have = S.get('pantry_have') || {};
+  const grid = document.createElement('div');
+  grid.className = 'pantry-grid';
+
+  PANTRY_ITEMS.forEach(item => {
+    const isHave = have[item.id] !== false; // default: yes, they have it (we saw it in photos)
+    const card = document.createElement('div');
+    card.className = 'pantry-card' + (isHave ? ' have' : '');
+    card.id = 'pc-' + item.id;
+    card.innerHTML = `<div class="pc-icon">${item.icon}</div>
+      <div class="pc-name">${item.name}</div>
+      <div class="pc-note">${item.note}</div>
+      ${isHave ? '<div class="pc-check">✓ Have it</div>' : '<div class="pc-check" style="color:var(--text-muted)">Tap to mark</div>'}`;
+    card.onclick = () => togglePantry(item.id);
+    grid.appendChild(card);
+  });
+
+  el.appendChild(grid);
+}
+
+function togglePantry(id) {
+  const have = S.get('pantry_have') || {};
+  have[id] = !((have[id] !== false));
+  S.set('pantry_have', have);
+  const card = document.getElementById('pc-' + id);
+  if (!card) return;
+  card.classList.toggle('have', have[id]);
+  const check = card.querySelector('.pc-check');
+  if (check) check.textContent = have[id] ? '✓ Have it' : 'Tap to mark';
+  if (have[id]) check.style.color = ''; else check.style.color = 'var(--text-muted)';
+}
+
+// Initialize pantry with "have" as default for everything we saw in photos
+function initPantry() {
+  const have = S.get('pantry_have');
+  if (have === null) {
+    const defaults = {};
+    PANTRY_ITEMS.forEach(item => { defaults[item.id] = true; });
+    S.set('pantry_have', defaults);
+  }
+}
+
+// ── INIT ──
+initPantry();
+buildMenu();
+buildShop();
+buildPantry();
+</script>
+</body>
+</html>
