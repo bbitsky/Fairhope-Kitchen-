@@ -153,6 +153,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <div class="screen active" id="s-menu"><div id="menu-days"></div><div class="note-box">⭐ Tap stars to rate each meal — saved automatically. Check "Made it!" to mark meals you've cooked.</div></div>
 <div class="screen" id="s-recipes"><div id="recipe-list"></div></div>
 <div class="screen" id="s-shop">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:0 2px;">
+    <span id="sync-status" style="font-size:12px;color:var(--text-muted);cursor:pointer;" onclick="showSyncSetup()">⚙️ Tap to set up sync</span>
+    <button onclick="syncPull().then(function(){buildShop();})" style="font-size:11px;padding:4px 10px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text-muted);cursor:pointer;">↓ Pull</button>
+  </div>
   <div class="prog-bar-wrap"><div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div><span class="prog-txt" id="prog-txt">0 / 0</span></div>
   <div id="shop-stores"></div>
   <div class="note-box">🟢 <strong>Lasts</strong> items carry forward week to week automatically.</div>
@@ -188,7 +192,107 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 </div>
 
 <script>
-const S={get:k=>{try{return JSON.parse(localStorage.getItem('fhk_'+k)||'null');}catch(e){return null;}},set:(k,v)=>{try{localStorage.setItem('fhk_'+k,JSON.stringify(v));}catch(e){}}};
+// ── STORAGE + SYNC ──
+const S={
+  get:function(k){try{return JSON.parse(localStorage.getItem('fhk_'+k)||'null');}catch(e){return null;}},
+  set:function(k,v){try{localStorage.setItem('fhk_'+k,JSON.stringify(v));}catch(e){}},
+};
+
+// ── GITHUB GIST SYNC ──
+// Cross-device sync via GitHub Gist (requires one-time token setup)
+var _syncToken = localStorage.getItem('fhk_sync_token') || '';
+var _syncGistId = localStorage.getItem('fhk_sync_gist') || '';
+var _syncTimer = null;
+var _syncStatus = 'idle'; // idle | syncing | ok | error | setup
+
+var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have'];
+
+function syncSetToken(token){
+  _syncToken = token.trim();
+  localStorage.setItem('fhk_sync_token', _syncToken);
+  setSyncStatus('idle');
+  syncPull().then(function(){ setSyncStatus('ok'); }).catch(function(){ setSyncStatus('error'); });
+}
+
+function setSyncStatus(s){
+  _syncStatus = s;
+  var el = document.getElementById('sync-status');
+  var icons = {idle:'☁️',syncing:'⏳',ok:'✅',error:'❌',setup:'⚙️',offline:'📴'};
+  var labels = {idle:'Sync idle',syncing:'Syncing...',ok:'Synced',error:'Sync error — check token',setup:'Tap to set up sync',offline:'Offline'};
+  if(el){ el.textContent = (icons[s]||'?') + ' ' + (labels[s]||s); el.style.color = s==='error'?'var(--coral)':s==='ok'?'var(--teal)':'var(--text-muted)'; }
+}
+
+function syncGetHeaders(){
+  return {'Authorization':'token '+_syncToken,'Content-Type':'application/json','Accept':'application/vnd.github+json'};
+}
+
+function syncBuildPayload(){
+  var data = {};
+  SYNC_KEYS.forEach(function(k){ data[k] = S.get(k); });
+  return data;
+}
+
+function syncApplyPayload(data){
+  if(!data) return;
+  SYNC_KEYS.forEach(function(k){ if(data[k] !== undefined) S.set(k, data[k]); });
+}
+
+async function syncPull(){
+  if(!_syncToken) return;
+  setSyncStatus('syncing');
+  try {
+    var url = _syncGistId
+      ? 'https://api.github.com/gists/'+_syncGistId
+      : 'https://api.github.com/gists?per_page=100';
+    var r = await fetch(url, {headers: syncGetHeaders()});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    var body = await r.json();
+    if(!_syncGistId){
+      // Find our gist
+      var found = (body||[]).find(function(g){ return g.description === 'FairhopeKitchenSync'; });
+      if(found){ _syncGistId = found.id; localStorage.setItem('fhk_sync_gist', _syncGistId); }
+      else { await syncPush(); return; } // No gist yet — create it
+    }
+    var fileContent = body.files && body.files['data.json'] && body.files['data.json'].content;
+    if(fileContent){ syncApplyPayload(JSON.parse(fileContent)); }
+    setSyncStatus('ok');
+  } catch(e){ console.warn('Sync pull failed:', e); setSyncStatus('error'); }
+}
+
+async function syncPush(){
+  if(!_syncToken) return;
+  setSyncStatus('syncing');
+  try {
+    var payload = { description:'FairhopeKitchenSync', public:false, files:{'data.json':{content:JSON.stringify(syncBuildPayload())}} };
+    var url = _syncGistId ? 'https://api.github.com/gists/'+_syncGistId : 'https://api.github.com/gists';
+    var method = _syncGistId ? 'PATCH' : 'POST';
+    var r = await fetch(url, {method:method, headers:syncGetHeaders(), body:JSON.stringify(payload)});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    var body = await r.json();
+    if(!_syncGistId){ _syncGistId = body.id; localStorage.setItem('fhk_sync_gist', _syncGistId); }
+    setSyncStatus('ok');
+  } catch(e){ console.warn('Sync push failed:', e); setSyncStatus('error'); }
+}
+
+function syncSchedulePush(){
+  if(!_syncToken) return;
+  clearTimeout(_syncTimer);
+  setSyncStatus('syncing');
+  _syncTimer = setTimeout(function(){ syncPush(); }, 1200);
+}
+
+function showSyncSetup(){
+  var current = _syncToken ? '(token saved — paste new one to update)' : '';
+  var token = prompt('Paste your GitHub Personal Access Token with "gist" scope.\n\nGet one at: github.com/settings/tokens/new\nScopes needed: gist only\n\n'+current);
+  if(token && token.trim()){ syncSetToken(token); }
+}
+
+// Pull on load
+window.addEventListener('load', function(){
+  if(_syncToken){ syncPull().then(function(){ buildShop(); buildMenu(); buildPantry(); }); }
+  setSyncStatus(_syncToken ? 'idle' : 'setup');
+});
+
 
 function goTab(id,btn){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -654,7 +758,7 @@ function makeCustomShopRow(item,checked,storeId){
 function toggleShopItem(id){
   var checked=S.get('shop_checked')||{};
   checked[id]=!checked[id];
-  S.set('shop_checked',checked);
+  S.set('shop_checked',checked);syncSchedulePush();
   var item=shopItems[id];
   if(item&&item.lasting){var l=S.get('shop_lasting')||{};l[id]=checked[id];S.set('shop_lasting',l);}
   var row=document.getElementById('si-'+id);
@@ -672,7 +776,7 @@ function addCustomItem(storeId){
   if(!custom[storeId])custom[storeId]=[];
   var id='c_'+storeId+'_'+Date.now();
   custom[storeId].push({id:id,name:name,note:'',lasting:false});
-  S.set('shop_custom',custom);
+  S.set('shop_custom',custom);syncSchedulePush();
   input.value='';
   buildShop();
   // Scroll to the new item
@@ -688,7 +792,7 @@ function removeCustomItem(storeId,itemId){
   S.set('shop_custom',custom);
   var checked=S.get('shop_checked')||{};
   delete checked[itemId];
-  S.set('shop_checked',checked);
+  S.set('shop_checked',checked);syncSchedulePush();
   buildShop();
 }
 
@@ -703,7 +807,7 @@ function resetStore(storeId){
   });
   var custom=S.get('shop_custom')||{};
   (custom[storeId]||[]).forEach(function(item){checked[item.id]=false;});
-  S.set('shop_checked',checked);
+  S.set('shop_checked',checked);syncSchedulePush();
   buildShop();
 }
 
