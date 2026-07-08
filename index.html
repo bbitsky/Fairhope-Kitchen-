@@ -132,6 +132,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 .note-box{background:var(--sand-dark);border-radius:var(--r-sm);padding:12px 14px;font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:12px;}
 .divider-line{height:1px;background:var(--border);}
 .add-item-row{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--border);background:var(--sand);}.add-item-input{flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);background:var(--white);outline:none;-webkit-appearance:none;}.add-item-input:focus{border-color:var(--teal);}.add-item-btn{padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}.add-item-btn:active{opacity:.85;}
+.keeper-btn{background:transparent;border:none;font-size:20px;line-height:1;cursor:pointer;filter:grayscale(1);opacity:.35;transition:filter .15s,opacity .15s,transform .1s;padding:2px 6px;flex-shrink:0;}.keeper-btn.on{filter:none;opacity:1;}.keeper-btn:active{transform:scale(.85);}
 </style>
 </head>
 <body>
@@ -143,6 +144,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
   </div>
   <nav class="nav-tabs">
     <button class="nav-tab active" onclick="goTab('menu',this)"><span class="nav-tab-icon">🍽</span>Menu</button>
+    <button class="nav-tab" onclick="goTab('next',this)"><span class="nav-tab-icon">📅</span>Next Wk</button>
     <button class="nav-tab" onclick="goTab('recipes',this)"><span class="nav-tab-icon">📋</span>Recipes</button>
     <button class="nav-tab" onclick="goTab('shop',this)"><span class="nav-tab-icon">🛒</span>Shopping</button>
     <button class="nav-tab" onclick="goTab('pantry',this)"><span class="nav-tab-icon">📦</span>Pantry</button>
@@ -151,6 +153,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 </header>
 
 <div class="screen active" id="s-menu"><div id="menu-days"></div><div class="note-box">⭐ Tap stars to rate each meal — saved automatically. Check "Made it!" to mark meals you've cooked.</div></div>
+<div class="screen" id="s-next"><div id="next-days"></div></div>
 <div class="screen" id="s-recipes"><div id="recipe-list"></div></div>
 <div class="screen" id="s-shop">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:0 2px;">
@@ -205,7 +208,7 @@ var _syncGistId = localStorage.getItem('fhk_sync_gist') || '';
 var _syncTimer = null;
 var _syncStatus = 'idle'; // idle | syncing | ok | error | setup
 
-var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have'];
+var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have','keepers','carryover_v3_done'];
 
 function syncSetToken(token){
   _syncToken = token.trim();
@@ -289,7 +292,7 @@ function showSyncSetup(){
 
 // Pull on load
 window.addEventListener('load', function(){
-  if(_syncToken){ syncPull().then(function(){ buildShop(); buildMenu(); buildPantry(); }); }
+  if(_syncToken){ syncPull().then(function(){ runCarryOver(); buildShop(); buildMenu(); buildNext(); buildPantry(); }); }
   setSyncStatus(_syncToken ? 'idle' : 'setup');
 });
 
@@ -345,7 +348,7 @@ const TAG={both:'Works for both',p1:'P1 swap needed',p2:'P2 add-ons',pantry:'Use
 const TAGCLS={both:'mt-both',p1:'mt-p1',p2:'mt-p2',pantry:'mt-pantry'};
 
 function buildMenu(){
-  const el=document.getElementById('menu-days');
+  const el=document.getElementById('menu-days');el.innerHTML='';
   DAYS.forEach((d,i)=>{
     const ratings=S.get('ratings')||{};
     const made=S.get('made')||{};
@@ -387,6 +390,61 @@ function buildMenu(){
 
 function rate(id,stars){const r=S.get('ratings')||{};r[id]=stars;S.set('ratings',r);const el=document.getElementById('stars-'+id);if(el)el.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<stars));}
 function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);const cb=document.getElementById('madecb-'+id);const mb=document.getElementById('mb-'+id);if(cb)cb.classList.toggle('on',m[id]);if(mb)mb.classList.toggle('made-meal',m[id]);}
+
+// ── NEXT WEEK MENU (Jul 13–16 · dinners only) ──
+const NEXTWEEK=[
+  {id:'n_sun',day:'Sunday',date:'Jul 13',color:'#0F6E56',weather:'🥩 Grill night',wc:'w-grill',meal:{id:'n_sun_d',type:'Dinner',name:'Grilled Ribeye + Rice Pilaf & Roasted Broccoli',cal:640,note:"Steaks with Kinder's Butcher's Burger Blend or a Traeger rub · rice pilaf · roasted broccoli. Both love beef — sides adjust per person.",tags:['both','pantry'],hasPantry:'Rubs & blends on hand'}},
+  {id:'n_mon',day:'Monday',date:'Jul 14',color:'#185FA5',weather:'🌊 Coastal',wc:'w-cool',meal:{id:'n_mon_d',type:'Dinner',name:'Shrimp Scampi over Linguine',cal:560,note:'Your one shrimp dinner this week. Garlic butter, lemon, parsley, splash of white wine — no tomatoes, not fishy. Small side salad for P2.',tags:['both','p2']}},
+  {id:'n_tue',day:'Tuesday',date:'Jul 15',color:'#534AB7',weather:'🌿 Light',wc:'w-cool',meal:{id:'n_tue_d',type:'Dinner',name:'Chicken Alfredo (Fettuccine)',cal:620,note:'White sauce keeps the shared base tomato-free. P2 adds cherry tomatoes; veg side gets peas or the leftover broccoli.',tags:['both','p2']}},
+  {id:'n_wed',day:'Wednesday',date:'Jul 16',color:'#993C1D',weather:'🧳 Last night in',wc:'w-hot',meal:{id:'n_wed_d',type:'Dinner',name:'Burgers + Oven Fries',cal:680,note:"Kinder's Butcher's Burger Blend + frozen fries. Uses up the ground beef and empties the fridge before you head out of town.",tags:['both','pantry'],hasPantry:'Burger blends on hand'}}
+];
+
+function buildNext(){
+  const el=document.getElementById('next-days');
+  if(!el)return;
+  el.innerHTML='';
+  const intro=document.createElement('div');
+  intro.className='memory-intro';
+  intro.innerHTML="<strong>Next week · Jul 13–16.</strong> Dinners Sun–Wed only — you're out of town after Wednesday, so the list stays light on anything that spoils. 🦐 One shrimp night (Monday).";
+  el.appendChild(intro);
+  const ratings=S.get('ratings')||{};
+  const made=S.get('made')||{};
+  NEXTWEEK.forEach((d,i)=>{
+    const m=d.meal;
+    const card=document.createElement('div');
+    card.className='card'+(i===0?' open':'');
+    const r=ratings[m.id]||0;
+    const isMade=made[m.id]||false;
+    const stars=[1,2,3,4,5].map(n=>`<span class="star${n<=r?' lit':''}" onclick="rate('${m.id}',${n});event.stopPropagation()">★</span>`).join('');
+    const tags=m.tags.map(t=>`<span class="mtag ${TAGCLS[t]}">${TAG[t]}</span>`).join('');
+    const pnote=m.hasPantry?`<div class="pantry-note">✓ ${m.hasPantry}</div>`:'';
+    card.innerHTML=`<div class="card-hdr" onclick="this.parentElement.classList.toggle('open')">
+      <div class="day-dot" style="background:${d.color}"></div>
+      <div class="card-hdr-info"><div class="card-title">${d.day} <span style="font-size:13px;font-weight:400;color:var(--text-muted)">${d.date}</span></div><div class="card-sub">${m.cal} cal · dinner</div></div>
+      <span class="weather-pill ${d.wc}">${d.weather}</span>
+      <svg class="card-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="card-body"><div class="meal-block${isMade?' made-meal':''}" id="mb-${m.id}">
+      <div class="meal-type">${m.type}</div>
+      <div class="meal-name">${m.name}</div>
+      <div class="meal-note">${m.note}</div>${pnote}
+      <div class="meal-cal">${m.cal} cal / person</div>
+      <div class="meal-tags">${tags}</div>
+      <div class="rating-row">
+        <span class="rating-lbl">Rate it:</span>
+        <div class="stars" id="stars-${m.id}">${stars}</div>
+        <div class="made-toggle" onclick="toggleMade('${m.id}')">
+          <div class="made-cb${isMade?' on':''}" id="madecb-${m.id}"></div>
+          <span>Made it!</span>
+        </div>
+      </div>
+    </div></div>`;
+    el.appendChild(card);
+  });
+}
+
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');}
+function toggleKeeper(id){var k=S.get('keepers')||{};k[id]=!k[id];S.set('keepers',k);syncSchedulePush();var b=document.getElementById('keep-'+id);if(b)b.classList.toggle('on',k[id]);}
+
 
 // ── RECIPES DATA ──
 const RECIPES=[
@@ -505,7 +563,7 @@ const RECIPES=[
 ];
 
 function buildRecipes(){
-  const el=document.getElementById('recipe-list');
+  const el=document.getElementById('recipe-list');el.innerHTML='';const keepers=S.get('keepers')||{};
   RECIPES.forEach(dg=>{
     const dl=document.createElement('div');
     dl.className='recipe-day-label';
@@ -513,7 +571,7 @@ function buildRecipes(){
     el.appendChild(dl);
     dg.items.forEach(r=>{
       const card=document.createElement('div');
-      card.className='card';
+      card.className='card';const rid=slug(r.name);const isKeeper=!!keepers[rid];
       const methodsHTML=r.methods.map(m=>`<span class="r-method">${m}</span>`).join('');
       const ingHTML=r.ing.map(i=>i.startsWith('—')?`<div class="r-divider">${i}</div>`:`<div class="r-ing"><span>${i}</span></div>`).join('');
       const stepsHTML=r.steps.map((s,i)=>`<div class="r-step"><span class="r-step-num">${i+1}</span><span>${s}</span></div>`).join('');
@@ -522,6 +580,7 @@ function buildRecipes(){
       const tip=r.tip?`<div class="r-callout c-tip"><strong>Tip:</strong> ${r.tip}</div>`:'';
       card.innerHTML=`<div class="card-hdr" onclick="this.parentElement.classList.toggle('open')">
         <div class="card-hdr-info"><div class="card-title" style="font-size:15px">${r.name}</div><div class="card-sub">${r.cal} cal / person · ${r.methods.join(' · ')}</div></div>
+        <button class="keeper-btn${isKeeper?' on':''}" id="keep-${rid}" onclick="toggleKeeper('${rid}');event.stopPropagation();" title="Mark as keeper">🏆</button>
         <svg class="card-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="card-body"><div class="r-body-inner">
@@ -536,63 +595,85 @@ function buildRecipes(){
 }
 
 // ── SHOPPING DATA ──
+// ── SHOPPING DATA (Next week · Jul 13–16) ──
 const STORES=[
-  {id:'publix',name:'Publix',color:'#0F6E56',total:'~$55',sections:[
-    {label:'Fresh Produce & Fruit',items:[
-      {id:'si_bananas',name:'Bananas (bunch)',note:'Smoothies & breakfast',lasting:false},
-      {id:'si_mangoes',name:'Mangoes (3 fresh)',note:'Shrimp tacos + smoothies',lasting:false},
-      {id:'si_peaches',name:'Peaches (3–4 fresh)',note:'Parfaits & smoothies — peak season!',lasting:false},
-      {id:'si_pineapple',name:'Pineapple (fresh or chunks)',note:'Smoothie bowl Monday',lasting:false},
-      {id:'si_limes',name:'Limes (6)',note:'Shrimp, tacos, smoothies, sorbet',lasting:false},
-      {id:'si_lemons',name:'Lemons (3)',note:'Fish, dressings, pasta',lasting:false},
-      {id:'si_avocados',name:'Avocados (4)',note:'Tacos, eggs, salad',lasting:false},
-      {id:'si_spinach',name:'Baby spinach (5 oz bag)',note:'Smoothies & eggs',lasting:false},
-      {id:'si_romaine',name:'Romaine (1 head)',note:'Steak salad Friday',lasting:false},
-      {id:'si_tomatoes',name:'Cherry tomatoes (P2 only)',note:'Pasta, salads',lasting:false},
-      {id:'si_basil',name:'Fresh basil (1 bunch)',note:'Caprese dessert + pasta',lasting:false},
-    ]},
+  {id:'publix',name:'Publix',color:'#0F6E56',total:'~$50',sections:[
     {label:'Fresh Meat & Proteins',items:[
-      {id:'si_chicken',name:'Chicken breasts (2 lbs)',note:'Tacos Tuesday, sub on Saturday',lasting:false},
-      {id:'si_ribeye',name:'Ribeye or NY strip steaks (2)',note:'Steak salad Friday night',lasting:false},
+      {id:'nw_ribeye',name:'Ribeye or NY strip steaks (2)',note:'Sunday grill night',lasting:false},
+      {id:'nw_ground',name:'Ground beef (1 lb)',note:'Wednesday burgers',lasting:false},
+      {id:'nw_chicken',name:'Chicken breasts (2)',note:'Tuesday chicken Alfredo',lasting:false},
     ]},
-    {label:'Dairy & Cold',items:[
-      {id:'si_mozz',name:'Fresh mozzarella ball',note:'Caprese dessert Friday',lasting:false},
-      {id:'si_yogurt',name:'Greek yogurt plain (32 oz)',note:'Parfaits & smoothies all week',lasting:true},
-      {id:'si_cream',name:'Heavy cream (small carton)',note:'Chocolate mousse Tuesday',lasting:false},
+    {label:'Fresh Produce',items:[
+      {id:'nw_broccoli',name:'Broccoli (1 crown)',note:'Roasted side Sun · Alfredo add-in Tue',lasting:false},
+      {id:'nw_lemon',name:'Lemon (1)',note:'Shrimp scampi Monday',lasting:false},
+      {id:'nw_salad',name:'Salad greens (small bag)',note:'Side salad Monday',lasting:false},
+    ]},
+    {label:'Dairy & Bread',items:[
+      {id:'nw_cream',name:'Heavy cream (small carton)',note:'Alfredo sauce Tuesday',lasting:false},
+      {id:'nw_cheese',name:'Sliced cheese',note:'Wednesday burgers',lasting:false},
+      {id:'nw_buns',name:'Burger buns (4)',note:'Wednesday burgers',lasting:false},
     ]},
   ]},
-  {id:'walmart',name:'Walmart',color:'#0071CE',total:'~$35',sections:[
+  {id:'walmart',name:'Walmart',color:'#0071CE',total:'~$18',sections:[
     {label:'Frozen',items:[
-      {id:'wm_marshmallows',name:'Mini marshmallows (bag)',note:"S'mores dip Saturday",lasting:true},
-      {id:'wm_coleslaw',name:'Coleslaw mix (bag)',note:'Chicken tacos Tuesday slaw',lasting:false},
-    ]},
-    {label:'Canned & Boxed',items:[
-      {id:'wm_coconutmilk',name:'Coconut milk (1 can)',note:'Tropical smoothie bowl Monday',lasting:true},
-      {id:'wm_vanillapudding',name:'Vanilla instant pudding (2 boxes)',note:'Banana pudding cups Wednesday',lasting:false},
-      {id:'wm_chickbroth',name:'Chicken broth (32 oz carton)',note:'Pantry staple — if low',lasting:true},
+      {id:'nw_fries',name:'Frozen fries (bag)',note:'Wednesday burgers',lasting:true},
     ]},
     {label:'Pantry & Dry Goods',items:[
-      {id:'wm_tortillas',name:'Flour tortillas (small pkg)',note:'Tacos Sunday & Tuesday',lasting:true},
-      {id:'wm_granola',name:'Granola (1 bag)',note:'Parfaits & smoothie bowls — cheaper at Walmart',lasting:true},
-      {id:'wm_balsamicglaze',name:'Balsamic glaze (bottle)',note:'Caprese + steak salad',lasting:true},
-      {id:'wm_oldBay',name:'Old Bay seasoning',note:'Air fryer shrimp Wednesday',lasting:true},
-      {id:'wm_cajun',name:'Cajun seasoning (if low)',note:'Crawfish, shrimp',lasting:true},
-      {id:'wm_parmesan',name:'Parmesan (shredded)',note:'Pasta Thursday — cheaper here than Publix',lasting:true},
-      {id:'wm_almondbuttercheck',name:'Almond butter (check stock)',note:'Smoothies — restock if almost out',lasting:true},
-      {id:'wm_grahams',name:'Honey Maid grahams (if low)',note:"Banana pudding + S'mores",lasting:true},
+      {id:'nw_pasta',name:'Fettuccine + linguine (if pantry low)',note:'Scampi Mon · Alfredo Tue — you have Barilla',lasting:true},
+      {id:'nw_ricepilaf',name:'Rice pilaf mix (or use Minute rice)',note:'Sunday side',lasting:true},
+      {id:'nw_parm',name:'Parmesan (if low)',note:'Alfredo Tuesday',lasting:true},
     ]},
   ]},
-  {id:'lartigues',name:'Lartigue\'s Fish Store',color:'#993C1D',total:'~$40',sections:[
+  {id:'lartigues',name:'Lartigue\'s Fish Store',color:'#993C1D',total:'~$14',sections:[
     {label:'Fresh Gulf Seafood',items:[
-      {id:'si_lagnshrimp',name:'Gulf shrimp raw large (2 lbs)',note:'Sun tacos + Thu pasta — call ahead',lasting:false},
-      {id:'si_lagnfish',name:'Gulf fish of the day (2 filets)',note:"Saturday dinner — ask what's freshest",lasting:false},
+      {id:'nw_shrimp',name:'Gulf shrimp raw (1 lb)',note:'Shrimp scampi Monday — your 1 shrimp night',lasting:false},
     ]},
     {label:'Tips',items:[
-      {id:'si_lagntip1',name:'📞 Call ahead to confirm catch',note:'Availability changes daily',lasting:false},
-      {id:'si_lagntip2',name:'🧊 Bring a cooler',note:'Gulf heat — keep fish cold for drive home',lasting:false},
+      {id:'nw_tip1',name:'📞 Call ahead to confirm catch',note:'Availability changes daily',lasting:false},
+      {id:'nw_tip2',name:'🧊 Bring a cooler',note:'Keep shrimp cold for the drive home',lasting:false},
     ]},
   ]},
 ]
+
+// Items from last week's list — any NOT checked as bought carry over to this week
+const PREV_ITEMS=[
+  {id:'si_bananas',name:'Bananas (bunch)',store:'publix'},
+  {id:'si_mangoes',name:'Mangoes (3 fresh)',store:'publix'},
+  {id:'si_peaches',name:'Peaches (3–4 fresh)',store:'publix'},
+  {id:'si_pineapple',name:'Pineapple',store:'publix'},
+  {id:'si_limes',name:'Limes (6)',store:'publix'},
+  {id:'si_lemons',name:'Lemons (3)',store:'publix'},
+  {id:'si_avocados',name:'Avocados (4)',store:'publix'},
+  {id:'si_spinach',name:'Baby spinach',store:'publix'},
+  {id:'si_romaine',name:'Romaine (1 head)',store:'publix'},
+  {id:'si_tomatoes',name:'Cherry tomatoes',store:'publix'},
+  {id:'si_basil',name:'Fresh basil',store:'publix'},
+  {id:'si_chicken',name:'Chicken breasts',store:'publix'},
+  {id:'si_ribeye',name:'Ribeye/NY strip steaks',store:'publix'},
+  {id:'si_mozz',name:'Fresh mozzarella ball',store:'publix'},
+  {id:'si_cream',name:'Heavy cream',store:'publix'},
+  {id:'wm_coleslaw',name:'Coleslaw mix',store:'walmart'},
+  {id:'wm_vanillapudding',name:'Vanilla instant pudding',store:'walmart'},
+  {id:'si_lagnshrimp',name:'Gulf shrimp',store:'lartigues'},
+  {id:'si_lagnfish',name:'Gulf fish of the day',store:'lartigues'},
+];
+
+function runCarryOver(){
+  if(S.get('carryover_v3_done'))return;
+  var checked=S.get('shop_checked')||{};
+  var custom=S.get('shop_custom')||{};
+  PREV_ITEMS.forEach(function(p){
+    if(checked[p.id])return;              // already bought — don't carry
+    if(!custom[p.store])custom[p.store]=[];
+    var cid='carry_'+p.id;
+    if(custom[p.store].some(function(x){return x.id===cid;}))return; // already added
+    custom[p.store].push({id:cid,name:p.name,note:'Carried from last week — not yet bought',lasting:false});
+  });
+  S.set('shop_custom',custom);
+  S.set('carryover_v3_done',true);
+  syncSchedulePush();
+}
+
 
 let shopItems={};
 
@@ -855,7 +936,7 @@ const PANTRY_ITEMS=[
 function initPantry(){const h=S.get('pantry_have');if(h===null){const d={};PANTRY_ITEMS.forEach(i=>{d[i.id]=true;});S.set('pantry_have',d);}}
 
 function buildPantry(){
-  const el=document.getElementById('pantry-grid');
+  const el=document.getElementById('pantry-grid');el.innerHTML='';
   const have=S.get('pantry_have')||{};
   const grid=document.createElement('div');
   grid.className='pantry-grid';
@@ -880,7 +961,9 @@ function buildPantry(){
 }
 
 initPantry();
+if(!_syncToken){runCarryOver();}
 buildMenu();
+buildNext();
 buildRecipes();
 buildShop();
 buildPantry();
