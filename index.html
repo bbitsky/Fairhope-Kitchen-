@@ -208,7 +208,7 @@ var _syncGistId = localStorage.getItem('fhk_sync_gist') || '';
 var _syncTimer = null;
 var _syncStatus = 'idle'; // idle | syncing | ok | error | setup
 
-var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have','keepers','carryover_v4_done'];
+var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have','keepers','carryover_v5_done'];
 
 function syncSetToken(token){
 _syncToken = token.trim();
@@ -390,15 +390,15 @@ el.appendChild(card);
 function rate(id,stars){const r=S.get('ratings')||{};r[id]=stars;S.set('ratings',r);const el=document.getElementById('stars-'+id);if(el)el.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<stars));}
 function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);const cb=document.getElementById('madecb-'+id);const mb=document.getElementById('mb-'+id);if(cb)cb.classList.toggle('on',m[id]);if(mb)mb.classList.toggle('made-meal',m[id]);}
 
-// ── NEXT WEEK MENU (Jul 19–25 · dinners only) ──
+// ── NEXT WEEK MENU (Aug 9–15 · dinners only) ──
 const NEXTWEEK=[
-{id:'n_sun',day:'Sunday',date:'Jul 19',color:'#0F6E56',weather:'🔥 Roast early',wc:'w-hot',meal:{id:'n_sun_d',type:'Dinner',name:'Lemon-Herb Roast Chicken + Green Beans & Baby Potatoes',cal:560,note:'Simple sheet-pan chicken with olive oil, garlic, lemon & herbs. Roasted baby potatoes and green beans on the side. Easy Sunday reset — both love it.',tags:['both','pantry'],hasPantry:'Olive oil · minced garlic · seasonings on hand'}},
-{id:'n_mon',day:'Monday',date:'Jul 20',color:'#185FA5',weather:'🌊 Coastal',wc:'w-cool',meal:{id:'n_mon_d',type:'Dinner',name:'Shrimp & Sausage Cajun Pasta',cal:600,note:'Your one shrimp night. Gulf shrimp + smoked sausage in a garlic-butter Cajun sauce over Barilla pasta — no tomatoes, not fishy. P1 swap: extra sausage, hold the shrimp. P2 add: a pinch more Cajun heat.',tags:['both','p2']}},
-{id:'n_tue',day:'Tuesday',date:'Jul 21',color:'#534AB7',weather:'🌿 Simmer night',wc:'w-cool',meal:{id:'n_tue_d',type:'Dinner',name:'Red Beans & Rice with Smoked Sausage',cal:620,note:'New Orleans classic over Minute rice — smoked sausage, the pepper/onion/celery trinity. P1 keeps it simple over rice; P2 loads on the veg and a dash of hot sauce.',tags:['both','pantry'],hasPantry:'Minute rice · Cajun seasoning · garlic on hand'}},
-{id:'n_wed',day:'Wednesday',date:'Jul 22',color:'#993C1D',weather:'🥩 Sizzle',wc:'w-grill',meal:{id:'n_wed_d',type:'Dinner',name:'Steak Fajitas',cal:640,note:'Seared flank steak with peppers & onions in warm flour tortillas. P1: steak + cheese, skip the peppers. P2 add: tomato, avocado, extra peppers & a squeeze of lime.',tags:['both','p2']}},
-{id:'n_thu',day:'Thursday',date:'Jul 23',color:'#0F6E56',weather:'🍝 Italian',wc:'w-cool',meal:{id:'n_thu_d',type:'Dinner',name:'Chicken Parmesan',cal:660,note:'Crispy breaded chicken cutlets with melted mozzarella over pasta. P1: cutlet with cheese only, no red sauce (dislikes tomatoes). P2 add: marinara & fresh tomato on top.',tags:['both','p2']}},
-{id:'n_fri',day:'Friday',date:'Jul 24',color:'#854F0B',weather:'🥗 Big salad',wc:'w-hot',meal:{id:'n_fri_d',type:'Dinner',name:'Loaded Beef Taco Salad',cal:580,note:'The hearty dinner salad of the week — seasoned ground beef over romaine with cheddar, avocado, corn & crushed tortilla chips. P1: beef, cheese & chips, no tomato. P2 add: tomato, salsa & extra veg.',tags:['both','p2']}},
-{id:'n_sat',day:'Saturday',date:'Jul 25',color:'#5F5E5A',weather:'🔥 Grill night',wc:'w-grill',meal:{id:'n_sat_d',type:'Dinner',name:'Grilled Bone-In Pork Chops + Roasted Potatoes',cal:600,note:'Thick pork chops grilled outside with roasted baby potatoes. P1: chops & potatoes as-is. P2 add: grilled zucchini on the side.',tags:['both','pantry'],hasPantry:'Olive oil · seasonings on hand'}}
+{id:'n_sun',day:'Sunday',date:'Aug 9',color:'#0F6E56',weather:'🥩 Welcome home',wc:'w-grill',meal:{id:'n_sun_d',type:'Dinner',name:'Grilled Ribeye Steaks with Baked Potatoes & Garlic Butter',cal:720,note:'First night home — easy grill night. Ribeyes outside, russets in the oven, garlic butter over the top. P1: steak & potato as-is. P2 add: grilled asparagus.',tags:['both','p2','pantry'],hasPantry:'Olive oil · minced garlic · seasonings on hand'}},
+{id:'n_mon',day:'Monday',date:'Aug 10',color:'#185FA5',weather:'🍝 Italian',wc:'w-cool',meal:{id:'n_mon_d',type:'Dinner',name:'Chicken Alfredo with Barilla Pasta',cal:640,note:'Creamy homemade Alfredo — butter, heavy cream & parmesan over pantry Barilla. No tomatoes anywhere. P1: classic chicken Alfredo. P2 add: steamed broccoli folded in.',tags:['both','p2','pantry'],hasPantry:'Barilla pasta · butter · minced garlic on hand'}},
+{id:'n_tue',day:'Tuesday',date:'Aug 11',color:'#534AB7',weather:'🦐 Gulf classic',wc:'w-grill',meal:{id:'n_tue_d',type:'Dinner',name:'Gulf Shrimp & Grits with Smoked Sausage',cal:580,note:'Your one shrimp night — Lartigue's fresh Gulf shrimp over creamy Quaker grits with browned smoked sausage. Not fishy, no tomatoes. P1 swap: heavier on sausage, lighter on shrimp. P2 add: sautéed bell pepper & scallions.',tags:['both','p2','pantry'],hasPantry:'Quaker grits · butter · Cajun seasoning on hand'}},
+{id:'n_wed',day:'Wednesday',date:'Aug 12',color:'#993C1D',weather:'🥗 Big salad',wc:'w-hot',meal:{id:'n_wed_d',type:'Dinner',name:'Grilled Chicken Cobb Salad',cal:540,note:'The hearty dinner salad of the week — grilled chicken, freezer thick-cut bacon, boiled eggs & cheddar over romaine with ranch. P1: chicken, bacon, egg & cheese, no tomato. P2 add: tomatoes, avocado & blue cheese crumbles.',tags:['both','p2','pantry'],hasPantry:'Thick-cut bacon (freezer) on hand'}},
+{id:'n_thu',day:'Thursday',date:'Aug 13',color:'#0F6E56',weather:'🍚 Simmer night',wc:'w-cool',meal:{id:'n_thu_d',type:'Dinner',name:'Red Beans & Rice with Smoked Sausage',cal:620,note:'The New Orleans classic that got bumped by the trip — smoked sausage & the pepper/onion/celery trinity over Minute rice. P1: keeps it simple over rice. P2 add: extra veg & a dash of hot sauce.',tags:['both','pantry'],hasPantry:'Minute rice · Cajun seasoning · garlic on hand'}},
+{id:'n_fri',day:'Friday',date:'Aug 14',color:'#854F0B',weather:'🍔 Griddle night',wc:'w-grill',meal:{id:'n_fri_d',type:'Dinner',name:'Smash Burgers with Grilled Corn on the Cob',cal:650,note:'Double-patty smash burgers on the outdoor griddle — Kinder's Butcher's Burger Blend from the spice drawer. Sweet corn for both. P1: burger with cheese & pickles. P2 add: tomato, lettuce & grilled onions.',tags:['both','p2','pantry'],hasPantry:'Kinder's burger blend · condiments on hand'}},
+{id:'n_sat',day:'Saturday',date:'Aug 15',color:'#5F5E5A',weather:'🔥 Grill night',wc:'w-grill',meal:{id:'n_sat_d',type:'Dinner',name:'Grilled Bone-In Pork Chops with Roasted Baby Potatoes',cal:600,note:'Thick chops on the grill with the Traeger Pork & Poultry rub, crispy baby potatoes alongside. P1: chops & potatoes as-is. P2 add: grilled zucchini.',tags:['both','p2','pantry'],hasPantry:'Traeger rub · olive oil on hand'}}
 ];
 
 function buildNext(){
@@ -407,7 +407,7 @@ if(!el)return;
 el.innerHTML='';
 const intro=document.createElement('div');
 intro.className='memory-intro';
-intro.innerHTML="<strong>Next week · Jul 19–25.</strong> Seven dinners, Sunday through Saturday. 🥗 Big taco salad on Friday · 🦐 one shrimp night (Monday). No pasta or same protein back-to-back.";
+intro.innerHTML="<strong>Next week · Aug 9–15 — first week home!</strong> Seven dinners, Sunday through Saturday. 🥗 Cobb salad on Wednesday · 🦐 one shrimp night (Tuesday). No pasta or same protein back-to-back.";
 el.appendChild(intro);
 const ratings=S.get('ratings')||{};
 const made=S.get('made')||{};
@@ -596,50 +596,51 @@ el.appendChild(card);
 }
 
 // ── SHOPPING DATA ──
-// ── SHOPPING DATA (Next week · Jul 19–25) ──
+// ── SHOPPING DATA (Next week · Aug 9–15) ──
 const STORES=[
-{id:'publix',name:'Publix',color:'#0F6E56',total:'~$62',sections:[
+{id:'publix',name:'Publix',color:'#0F6E56',total:'~$82',sections:[
 {label:'Fresh Meat & Proteins',items:[
-{id:'nw_chicken',name:'Chicken thighs/breasts (2)',note:'Sun lemon-herb chicken · Thu chicken Parm (P2)',lasting:false},
-{id:'nw_sausage',name:'Smoked sausage (1 pkg)',note:'Tue red beans & rice',lasting:false},
-{id:'nw_flank',name:'Flank or skirt steak (~1 lb)',note:'Wed steak fajitas',lasting:false},
-{id:'nw_groundbeef',name:'Ground beef (1 lb)',note:'Fri taco salad',lasting:false},
+{id:'nw_ribeye',name:'Ribeye steaks (2)',note:'Sun welcome-home steak night',lasting:false},
+{id:'nw_chicken',name:'Chicken breasts (3)',note:'Mon Alfredo · Wed Cobb salad',lasting:false},
+{id:'nw_sausage',name:'Smoked sausage (1 lb)',note:'Tue shrimp & grits · Thu red beans — two meals',lasting:false},
+{id:'nw_groundbeef',name:'Ground beef (1.5 lb)',note:'Fri smash burgers',lasting:false},
 {id:'nw_porkchops',name:'Bone-in pork chops (2)',note:'Sat grilled chops',lasting:false},
 ]},
 {label:'Fresh Produce',items:[
-{id:'nw_greenbeans',name:'Green beans (small bag)',note:'Sun side',lasting:false},
-{id:'nw_potatoes',name:'Baby potatoes (1 lb)',note:'Sun roast · Sat side',lasting:false},
-{id:'nw_peppers',name:'Bell peppers (3)',note:'Wed fajitas · Tue trinity',lasting:false},
-{id:'nw_onions',name:'Yellow onions (3)',note:'Fajitas · red beans · taco salad',lasting:false},
-{id:'nw_celery',name:'Celery (1 bunch)',note:'Tue red beans trinity',lasting:false},
-{id:'nw_romaine',name:'Romaine hearts (2)',note:'Fri taco salad base',lasting:false},
-{id:'nw_avocado',name:'Avocados (2)',note:'Fajitas · taco salad',lasting:false},
-{id:'nw_tomatoes',name:'Roma tomatoes (3)',note:'P2 add-ons — Parm, taco salad, fajitas',lasting:false},
+{id:'nw_russets',name:'Russet potatoes (2 large)',note:'Sun baked potatoes',lasting:false},
+{id:'nw_potatoes',name:'Baby potatoes (1 lb)',note:'Sat roasted side',lasting:false},
+{id:'nw_romaine',name:'Romaine hearts (2)',note:'Wed Cobb base · Fri burger lettuce',lasting:false},
+{id:'nw_corn',name:'Corn on the cob (4)',note:'Fri griddle night side',lasting:false},
+{id:'nw_broccoli',name:'Broccoli (1 crown)',note:'Mon Alfredo — P2 add-on',lasting:false},
+{id:'nw_asparagus',name:'Asparagus (1 bunch)',note:'Sun steak night — P2 add-on',lasting:false},
+{id:'nw_pepper',name:'Bell pepper (1)',note:'Thu trinity · Tue P2 topper',lasting:false},
+{id:'nw_onions',name:'Yellow onions (2)',note:'Thu red beans · Fri grilled onions',lasting:false},
+{id:'nw_celery',name:'Celery (1 bunch)',note:'Thu red beans trinity',lasting:false},
+{id:'nw_scallions',name:'Scallions (1 bunch)',note:'Tue shrimp & grits topper',lasting:false},
+{id:'nw_tomatoes',name:'Roma tomatoes (2)',note:'P2 add-ons — Cobb & burgers',lasting:false},
+{id:'nw_avocado',name:'Avocado (1)',note:'Wed Cobb — P2 add-on',lasting:false},
 {id:'nw_zucchini',name:'Zucchini (2)',note:'Sat grilled veg for P2',lasting:false},
-{id:'nw_lemon',name:'Lemons (2)',note:'Sun lemon-herb chicken',lasting:false},
 ]},
-{label:'Dairy & Bread',items:[
-{id:'nw_mozz',name:'Shredded mozzarella',note:'Thu chicken Parm',lasting:false},
-{id:'nw_cheddar',name:'Shredded cheddar',note:'Fajitas · taco salad',lasting:false},
-{id:'nw_tortillas',name:'Flour tortillas',note:'Wed fajitas',lasting:false},
+{label:'Dairy, Eggs & Bread',items:[
+{id:'nw_eggs',name:'Eggs (1 dozen)',note:'Restock after the trip · Wed Cobb',lasting:false},
+{id:'nw_cream',name:'Heavy cream (1 pint)',note:'Mon Alfredo sauce',lasting:false},
+{id:'nw_parm',name:'Parmesan wedge',note:'Mon Alfredo — keeps for weeks',lasting:true},
+{id:'nw_cheddar',name:'Shredded cheddar',note:'Wed Cobb salad',lasting:false},
+{id:'nw_slicedcheese',name:'Sliced cheese',note:'Fri smash burgers',lasting:false},
+{id:'nw_bluecheese',name:'Blue cheese crumbles (small)',note:'Wed Cobb — P2 add-on',lasting:false},
+{id:'nw_buns',name:'Burger buns (4)',note:'Fri smash burgers',lasting:false},
 ]},
 ]},
-{id:'walmart',name:'Walmart',color:'#0071CE',total:'~$26',sections:[
+{id:'walmart',name:'Walmart',color:'#0071CE',total:'~$9',sections:[
 {label:'Canned & Dry Goods',items:[
-{id:'nw_redbeans',name:'Red kidney beans (2 cans)',note:'Tue red beans & rice',lasting:true},
-{id:'nw_marinara',name:'Marinara / pasta sauce (jar)',note:'Thu chicken Parm — P2 side',lasting:true},
-{id:'nw_breadcrumbs',name:'Italian breadcrumbs',note:'Thu chicken Parm',lasting:true},
-{id:'nw_fajita',name:'Fajita seasoning',note:'Wed fajitas',lasting:true},
-{id:'nw_taco',name:'Taco seasoning',note:'Fri taco salad',lasting:true},
-{id:'nw_tortillachips',name:'Tortilla chips',note:'Fri taco salad crunch',lasting:true},
-]},
-{label:'Frozen',items:[
-{id:'nw_corn',name:'Frozen corn (bag)',note:'Fajita & taco salad topping',lasting:true},
+{id:'nw_redbeans',name:'Red kidney beans (2 cans)',note:'Thu red beans & rice',lasting:true},
+{id:'nw_ranch',name:'Ranch dressing (bottle)',note:'Wed Cobb salad',lasting:true},
+{id:'nw_pickles',name:'Dill pickle slices (jar)',note:'Fri burgers',lasting:true},
 ]},
 ]},
-{id:'lartigues',name:'Lartigue\'s Fish Store',color:'#993C1D',total:'~$18',sections:[
+{id:'lartigues',name:'Lartigue's Fish Store',color:'#993C1D',total:'~$14',sections:[
 {label:'Fresh Gulf Seafood',items:[
-{id:'nw_shrimp',name:'Gulf shrimp raw (1 lb)',note:'Mon shrimp & andouille pasta — your 1 shrimp night',lasting:false},
+{id:'nw_shrimp',name:'Gulf shrimp raw (1 lb)',note:'Tue shrimp & grits — your 1 shrimp night',lasting:false},
 ]},
 {label:'Tips',items:[
 {id:'nw_tip1',name:'📞 Call ahead to confirm catch',note:'Availability changes daily',lasting:false},
@@ -647,23 +648,12 @@ const STORES=[
 ]},
 ]},
 ]
-
 // Items from last week's list — any NOT checked as bought carry over to this week
-const PREV_ITEMS=[
-{id:'nw_ribeye',name:'Ribeye or NY strip steaks (2)',store:'publix'},
-{id:'nw_ground',name:'Ground beef (1 lb)',store:'publix'},
-{id:'nw_chicken_pw',name:'Chicken breasts (2)',store:'publix'},
-{id:'nw_broccoli',name:'Broccoli (1 crown)',store:'publix'},
-{id:'nw_lemon_pw',name:'Lemon (1)',store:'publix'},
-{id:'nw_salad',name:'Salad greens (small bag)',store:'publix'},
-{id:'nw_cream',name:'Heavy cream (small carton)',store:'publix'},
-{id:'nw_cheese',name:'Sliced cheese',store:'publix'},
-{id:'nw_buns',name:'Burger buns (4)',store:'publix'},
-{id:'nw_shrimp_pw',name:'Gulf shrimp raw (1 lb)',store:'lartigues'},
-];
+// (Trip weeks Jul 19–Aug 1 were skipped — that list was never shopped and those meals aren't planned, so nothing carries over this time.)
+const PREV_ITEMS=[];
 
 function runCarryOver(){
-if(S.get('carryover_v4_done'))return;
+if(S.get('carryover_v5_done'))return;
 var checked=S.get('shop_checked')||{};
 var custom=S.get('shop_custom')||{};
 PREV_ITEMS.forEach(function(p){
@@ -674,7 +664,7 @@ if(custom[p.store].some(function(x){return x.id===cid;}))return; // already adde
 custom[p.store].push({id:cid,name:p.name,note:'Carried from last week — not yet bought',lasting:false});
 });
 S.set('shop_custom',custom);
-S.set('carryover_v4_done',true);
+S.set('carryover_v5_done',true);
 syncSchedulePush();
 }
 
