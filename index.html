@@ -178,7 +178,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <div class="savings-title">Week 2 breakdown</div>
 <div class="savings-row"><span>Publix (fresh meat, produce &amp; dairy)</span><strong>~$55</strong></div>
 <div class="savings-row"><span>Walmart (boxed, canned &amp; frozen)</span><strong>~$35</strong></div>
-<div class="savings-row"><span>Lartigue's Fish Store</span><strong>~$40</strong></div>
+<div class="savings-row"><span>Lartigue\'s Fish Store</span><strong>~$40</strong></div>
 <div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$130</strong></div>
 </div>
 <div class="section-lbl">What your freezer is contributing</div>
@@ -191,7 +191,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Pantry staples (oils, pasta, etc.)</span><span style="color:var(--teal);font-weight:600;">saves ~$68</span></div>
 </div>
 </div>
-<div class="note-box">Prices from June/July 2026 Gulf Coast market rates. Lartigue's varies by daily catch — call ahead. ±10%.</div>
+<div class="note-box">Prices from June/July 2026 Gulf Coast market rates. Lartigue\'s varies by daily catch — call ahead. ±10%.</div>
 </div>
 
 <script>
@@ -338,7 +338,7 @@ const DAYS=[
 ]},
 {id:'sat',day:'Saturday',date:'Jul 12',color:'#5F5E5A',weather:'🌅 Easy morning',wc:'w-cool',meals:[
 {id:'sat_b',type:'Breakfast',name:'Hillshire Farm sausage & egg scramble with grits',cal:510,note:"Hillshire Farm sausage from freezer + eggs + Quaker grits · slice sausage, brown in pan, scramble eggs alongside",tags:['both','pantry'],hasPantry:'Hillshire Farm sausage (freezer) · Eggs · Quaker grits — all on hand'},
-{id:'sat_d',type:'Dinner',name:"Fresh Gulf fish pan-sear with lemon butter & corn",cal:420,note:"Ask Lartigue's what's fresh today · quick 8-min pan-sear · lemon butter · serve with fresh corn · P1 sub: chicken",tags:['both','p2']},
+{id:'sat_d',type:'Dinner',name:"Fresh Gulf fish pan-sear with lemon butter & corn",cal:420,note:"Ask Lartigue\'s what's fresh today · quick 8-min pan-sear · lemon butter · serve with fresh corn · P1 sub: chicken",tags:['both','p2']},
 {id:'sat_ds',type:'Dessert 🍮',name:"S'mores dip — chocolate chips, marshmallows & graham crackers",cal:310,note:'Spread chocolate chips in cast iron skillet · top with mini marshmallows · broil 3 min · dip with Honey Maid grahams',tags:['both','pantry'],hasPantry:"Chocolate chips · Honey Maid grahams — in pantry · buy marshmallows"}
 ]}
 ];
@@ -394,10 +394,10 @@ function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);c
 const NEXTWEEK=[
 {id:'n_sun',day:'Sunday',date:'Aug 9',color:'#0F6E56',weather:'🥩 Welcome home',wc:'w-grill',meal:{id:'n_sun_d',type:'Dinner',name:'Grilled Ribeye Steaks with Baked Potatoes & Garlic Butter',cal:720,note:'First night home — easy grill night. Ribeyes outside, russets in the oven, garlic butter over the top. P1: steak & potato as-is. P2 add: grilled asparagus.',tags:['both','p2','pantry'],hasPantry:'Olive oil · minced garlic · seasonings on hand'}},
 {id:'n_mon',day:'Monday',date:'Aug 10',color:'#185FA5',weather:'🍝 Italian',wc:'w-cool',meal:{id:'n_mon_d',type:'Dinner',name:'Chicken Alfredo with Barilla Pasta',cal:640,note:'Creamy homemade Alfredo — butter, heavy cream & parmesan over pantry Barilla. No tomatoes anywhere. P1: classic chicken Alfredo. P2 add: steamed broccoli folded in.',tags:['both','p2','pantry'],hasPantry:'Barilla pasta · butter · minced garlic on hand'}},
-{id:'n_tue',day:'Tuesday',date:'Aug 11',color:'#534AB7',weather:'🦐 Gulf classic',wc:'w-grill',meal:{id:'n_tue_d',type:'Dinner',name:'Gulf Shrimp & Grits with Smoked Sausage',cal:580,note:'Your one shrimp night — Lartigue's fresh Gulf shrimp over creamy Quaker grits with browned smoked sausage. Not fishy, no tomatoes. P1 swap: heavier on sausage, lighter on shrimp. P2 add: sautéed bell pepper & scallions.',tags:['both','p2','pantry'],hasPantry:'Quaker grits · butter · Cajun seasoning on hand'}},
+{id:'n_tue',day:'Tuesday',date:'Aug 11',color:'#534AB7',weather:'🦐 Gulf classic',wc:'w-grill',meal:{id:'n_tue_d',type:'Dinner',name:'Gulf Shrimp & Grits with Smoked Sausage',cal:580,note:'Your one shrimp night — Lartigue\'s fresh Gulf shrimp over creamy Quaker grits with browned smoked sausage. Not fishy, no tomatoes. P1 swap: heavier on sausage, lighter on shrimp. P2 add: sautéed bell pepper & scallions.',tags:['both','p2','pantry'],hasPantry:'Quaker grits · butter · Cajun seasoning on hand'}},
 {id:'n_wed',day:'Wednesday',date:'Aug 12',color:'#993C1D',weather:'🥗 Big salad',wc:'w-hot',meal:{id:'n_wed_d',type:'Dinner',name:'Grilled Chicken Cobb Salad',cal:540,note:'The hearty dinner salad of the week — grilled chicken, freezer thick-cut bacon, boiled eggs & cheddar over romaine with ranch. P1: chicken, bacon, egg & cheese, no tomato. P2 add: tomatoes, avocado & blue cheese crumbles.',tags:['both','p2','pantry'],hasPantry:'Thick-cut bacon (freezer) on hand'}},
 {id:'n_thu',day:'Thursday',date:'Aug 13',color:'#0F6E56',weather:'🍚 Simmer night',wc:'w-cool',meal:{id:'n_thu_d',type:'Dinner',name:'Red Beans & Rice with Smoked Sausage',cal:620,note:'The New Orleans classic that got bumped by the trip — smoked sausage & the pepper/onion/celery trinity over Minute rice. P1: keeps it simple over rice. P2 add: extra veg & a dash of hot sauce.',tags:['both','pantry'],hasPantry:'Minute rice · Cajun seasoning · garlic on hand'}},
-{id:'n_fri',day:'Friday',date:'Aug 14',color:'#854F0B',weather:'🍔 Griddle night',wc:'w-grill',meal:{id:'n_fri_d',type:'Dinner',name:'Smash Burgers with Grilled Corn on the Cob',cal:650,note:'Double-patty smash burgers on the outdoor griddle — Kinder's Butcher's Burger Blend from the spice drawer. Sweet corn for both. P1: burger with cheese & pickles. P2 add: tomato, lettuce & grilled onions.',tags:['both','p2','pantry'],hasPantry:'Kinder's burger blend · condiments on hand'}},
+{id:'n_fri',day:'Friday',date:'Aug 14',color:'#854F0B',weather:'🍔 Griddle night',wc:'w-grill',meal:{id:'n_fri_d',type:'Dinner',name:'Smash Burgers with Grilled Corn on the Cob',cal:650,note:'Double-patty smash burgers on the outdoor griddle — Kinder\'s Butcher\'s Burger Blend from the spice drawer. Sweet corn for both. P1: burger with cheese & pickles. P2 add: tomato, lettuce & grilled onions.',tags:['both','p2','pantry'],hasPantry:'Kinder\'s burger blend · condiments on hand'}},
 {id:'n_sat',day:'Saturday',date:'Aug 15',color:'#5F5E5A',weather:'🔥 Grill night',wc:'w-grill',meal:{id:'n_sat_d',type:'Dinner',name:'Grilled Bone-In Pork Chops with Roasted Baby Potatoes',cal:600,note:'Thick chops on the grill with the Traeger Pork & Poultry rub, crispy baby potatoes alongside. P1: chops & potatoes as-is. P2 add: grilled zucchini.',tags:['both','p2','pantry'],hasPantry:'Traeger rub · olive oil on hand'}}
 ];
 
@@ -552,8 +552,8 @@ ing:['1 pkg Hillshire Farm sausage links (from freezer), thawed','4 large eggs',
 steps:['Cook grits per package directions. Add butter and season well.','Slice sausage links into rounds. Brown in a skillet over medium heat 3–4 min per side.','Push sausage to the side of the pan. Add eggs and scramble gently on low heat.','Fold everything together or serve side by side.','Plate over or alongside grits. Top with cheddar if desired.'],
 tip:'Thaw sausage in the fridge overnight for best results.'},
 {name:"Fresh Gulf Fish Pan-Sear with Lemon Butter & Corn",cal:420,methods:['Stovetop'],
-ing:["2 fresh Gulf fish filets (Lartigue's — ask what's freshest today)",'2 tbsp butter','Juice of 1 lemon','2 cloves garlic, minced','Salt, pepper, garlic powder','2 ears corn on the cob','Fresh parsley (optional)'],
-steps:["Call Lartigue's ahead to ask what's freshest today.",'Pat fish completely dry with paper towels — essential for a good sear.','Season both sides with salt, pepper, and garlic powder.','Heat 1 tbsp butter in a skillet over medium-high until foaming.','Add fish — cook 3–4 min per side without moving until golden and flaky.','Remove fish. In same pan melt remaining butter, add garlic and lemon juice, swirl 30 sec.','Spoon lemon butter over fish. Serve with steamed corn.'],
+ing:["2 fresh Gulf fish filets (Lartigue\'s — ask what's freshest today)",'2 tbsp butter','Juice of 1 lemon','2 cloves garlic, minced','Salt, pepper, garlic powder','2 ears corn on the cob','Fresh parsley (optional)'],
+steps:["Call Lartigue\'s ahead to ask what's freshest today.",'Pat fish completely dry with paper towels — essential for a good sear.','Season both sides with salt, pepper, and garlic powder.','Heat 1 tbsp butter in a skillet over medium-high until foaming.','Add fish — cook 3–4 min per side without moving until golden and flaky.','Remove fish. In same pan melt remaining butter, add garlic and lemon juice, swirl 30 sec.','Spoon lemon butter over fish. Serve with steamed corn.'],
 p1:'Swap fish for a chicken breast using the same pan and lemon butter. Same method, same time.',
 tip:'Dry fish = perfect sear. Never skip the paper towel step. Flip only once.'},
 {name:"S'mores Dip",cal:310,methods:['Oven Broiler'],
@@ -638,7 +638,7 @@ const STORES=[
 {id:'nw_pickles',name:'Dill pickle slices (jar)',note:'Fri burgers',lasting:true},
 ]},
 ]},
-{id:'lartigues',name:'Lartigue's Fish Store',color:'#993C1D',total:'~$14',sections:[
+{id:'lartigues',name:'Lartigue\'s Fish Store',color:'#993C1D',total:'~$14',sections:[
 {label:'Fresh Gulf Seafood',items:[
 {id:'nw_shrimp',name:'Gulf shrimp raw (1 lb)',note:'Tue shrimp & grits — your 1 shrimp night',lasting:false},
 ]},
