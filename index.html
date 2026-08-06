@@ -217,12 +217,12 @@ setSyncStatus('idle');
 syncPull().then(function(){ setSyncStatus('ok'); }).catch(function(){ setSyncStatus('error'); });
 }
 
-function setSyncStatus(s){
+function setSyncStatus(s, detail){
 _syncStatus = s;
 var el = document.getElementById('sync-status');
 var icons = {idle:'☁️',syncing:'⏳',ok:'✅',error:'❌',setup:'⚙️',offline:'📴'};
 var labels = {idle:'Sync idle',syncing:'Syncing...',ok:'Synced',error:'Sync error — check token',setup:'Tap to set up sync',offline:'Offline'};
-if(el){ el.textContent = (icons[s]||'?') + ' ' + (labels[s]||s); el.style.color = s==='error'?'var(--coral)':s==='ok'?'var(--teal)':'var(--text-muted)'; }
+if(el){ var extra = (s==='error' && detail) ? ' ('+detail+')' : ''; el.textContent = (icons[s]||'?') + ' ' + (labels[s]||s) + extra; el.style.color = s==='error'?'var(--coral)':s==='ok'?'var(--teal)':'var(--text-muted)'; }
 }
 
 function syncGetHeaders(){
@@ -259,7 +259,7 @@ else { await syncPush(); return; } // No gist yet — create it
 var fileContent = body.files && body.files['data.json'] && body.files['data.json'].content;
 if(fileContent){ syncApplyPayload(JSON.parse(fileContent)); }
 setSyncStatus('ok');
-} catch(e){ console.warn('Sync pull failed:', e); setSyncStatus('error'); }
+} catch(e){ console.warn('Sync pull failed:', e); setSyncStatus('error', e.message); }
 }
 
 async function syncPush(){
@@ -274,7 +274,7 @@ if(!r.ok) throw new Error('HTTP '+r.status);
 var body = await r.json();
 if(!_syncGistId){ _syncGistId = body.id; localStorage.setItem('fhk_sync_gist', _syncGistId); }
 setSyncStatus('ok');
-} catch(e){ console.warn('Sync push failed:', e); setSyncStatus('error'); }
+} catch(e){ console.warn('Sync push failed:', e); setSyncStatus('error', e.message); }
 }
 
 function syncSchedulePush(){
