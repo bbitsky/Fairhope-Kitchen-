@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Fairhope Menu">
 <meta name="theme-color" content="#0a4a35">
-<title>Fairhope Kitchen · Week 2</title>
+<title>Fairhope Kitchen · Aug 9–15</title>
 <style>
 :root{--teal:#0F6E56;--teal-dark:#0a4a35;--teal-mid:#1a8a6a;--teal-light:#e0f5ee;--teal-pale:#f0faf6;--amber:#c07a10;--amber-light:#fff4e0;--coral:#b03a1a;--coral-light:#fdf0ec;--blue:#1a5fa0;--blue-light:#e8f2fc;--sand:#f7f5f0;--sand-dark:#ede9e0;--border:#ddd9d0;--text:#1a1a16;--text-mid:#4a4a42;--text-muted:#7a7a70;--white:#ffffff;--shadow:0 1px 4px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);--shadow-sm:0 1px 3px rgba(0,0,0,.07);--r:14px;--r-sm:9px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -138,9 +138,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <body>
 <header class="site-header">
 <div class="header-inner">
-<div class="header-eyebrow">Fairhope, AL · Week 2</div>
+<div class="header-eyebrow">Fairhope, AL · Week of Aug 9</div>
 <div class="header-title">Our Kitchen Dashboard</div>
-<div class="header-sub">July 6–12 · Dinners &amp; Breakfasts · Light desserts 🌴</div>
+<div class="header-sub">Aug 9–15 · Dinners · First week home 🌴</div>
 </div>
 <nav class="nav-tabs">
 <button class="nav-tab active" onclick="goTab('menu',this)"><span class="nav-tab-icon">🍽</span>Menu</button>
@@ -306,40 +306,26 @@ window.scrollTo(0,0);
 
 // ── MENU DATA ──
 const DAYS=[
-{id:'sun',day:'Sunday',date:'Jul 6',color:'#0F6E56',weather:'🔥 Grill early',wc:'w-hot',meals:[
-{id:'sun_b',type:'Breakfast',name:"Bacon & egg griddle scramble with grits",cal:480,note:'Thick-cut bacon + eggs + Quaker grits · outdoor griddle keeps kitchen cool',tags:['both','pantry'],hasPantry:'Bacon · Eggs · Grits · Butter — all on hand'},
-{id:'sun_d',type:'Dinner',name:'Grilled shrimp mango tacos with avocado lime crema',cal:520,note:'The Week 1 hit — remixed as tacos! Flour tortillas, mango salsa, lime crema · grill outside before 7 PM',tags:['both','p2']},
-{id:'sun_ds',type:'Dessert 🍮',name:'Vanilla ice cream with fresh strawberries & Cool Whip',cal:280,note:'Zero cooking · freezer ice cream + fridge Cool Whip + fresh strawberries',tags:['both','pantry'],hasPantry:'Ice cream · Cool Whip · Strawberries — already on hand'}
+{id:'sun',day:'Sunday',date:'Aug 9',color:'#0F6E56',weather:'🥩 Welcome home',wc:'w-grill',meals:[
+{id:'n_sun_d',type:'Dinner',name:"Grilled Ribeye Steaks with Baked Potatoes & Garlic Butter",cal:720,note:"First night home — easy grill night. Ribeyes outside, russets in the oven, garlic butter over the top. P1: steak & potato as-is. P2 add: grilled asparagus.",tags:['both','p2','pantry'],hasPantry:"Olive oil · minced garlic · seasonings on hand"}
 ]},
-{id:'mon',day:'Monday',date:'Jul 7',color:'#185FA5',weather:'🌊 Coastal',wc:'w-grill',meals:[
-{id:'mon_b',type:'Breakfast',name:'Tropical smoothie bowl — mango, pineapple, banana & Greek yogurt',cal:380,note:'Blend frozen mango + pineapple + banana + FAGE yogurt + coconut milk · top with granola · no cooking',tags:['both']},
-{id:'mon_d',type:'Dinner',name:'Crawfish tail Cajun butter rice with corn',cal:560,note:'Your frozen crawfish tails! Sauté in butter + Cajun seasoning + minced garlic · Minute rice · P2 add Ro-Tel',tags:['both','pantry'],hasPantry:'Crawfish tails · Minute rice · Minced garlic · Butter · Cajun seasoning — all on hand'},
-{id:'mon_ds',type:'Dessert 🍮',name:'Fresh peach parfait — Greek yogurt, granola & honey',cal:290,note:'FAGE yogurt + granola + sliced fresh peaches + honey · no cooking · make ahead and chill',tags:['both']}
+{id:'mon',day:'Monday',date:'Aug 10',color:'#185FA5',weather:'🍝 Italian',wc:'w-cool',meals:[
+{id:'n_mon_d',type:'Dinner',name:"Chicken Alfredo with Barilla Pasta",cal:640,note:"Creamy homemade Alfredo — butter, heavy cream & parmesan over pantry Barilla. No tomatoes anywhere. P1: classic chicken Alfredo. P2 add: steamed broccoli folded in.",tags:['both','p2','pantry'],hasPantry:"Barilla pasta · butter · minced garlic on hand"}
 ]},
-{id:'tue',day:'Tuesday',date:'Jul 8',color:'#534AB7',weather:'🌿 Light & cool',wc:'w-cool',meals:[
-{id:'tue_b',type:'Breakfast',name:'Kodiak protein pancakes with fresh berries & honey',cal:420,note:'Kodiak pancake mix from pantry · top with strawberries or blueberries + honey',tags:['both','pantry'],hasPantry:'Kodiak mix · Honey · Berries — all on hand'},
-{id:'tue_d',type:'Dinner',name:'Grilled chicken tacos with avocado, lime & slaw',cal:490,note:'Chicken breasts on outdoor grill · P1: cheddar & sour cream only · P2: tomato, jalapeño, cilantro',tags:['both']},
-{id:'tue_ds',type:'Dessert 🍮',name:'Chocolate mousse cups',cal:240,note:'Whip heavy cream + cocoa powder + sugar + vanilla · chill 1 hr · top with chocolate chips · make ahead!',tags:['both','pantry'],hasPantry:'Cocoa powder · Sugar · Chocolate chips — in pantry'}
+{id:'tue',day:'Tuesday',date:'Aug 11',color:'#534AB7',weather:'🦐 Gulf classic',wc:'w-grill',meals:[
+{id:'n_tue_d',type:'Dinner',name:"Gulf Shrimp & Grits with Smoked Sausage",cal:580,note:"Your one shrimp night — Lartigue's fresh Gulf shrimp over creamy Quaker grits with browned smoked sausage. Not fishy, no tomatoes. P1 swap: heavier on sausage, lighter on shrimp. P2 add: sautéed bell pepper & scallions.",tags:['both','p2','pantry'],hasPantry:"Quaker grits · butter · Cajun seasoning on hand"}
 ]},
-{id:'wed',day:'Wednesday',date:'Jul 9',color:'#993C1D',weather:'🔥 No oven',wc:'w-hot',meals:[
-{id:'wed_b',type:'Breakfast',name:'Strawberry banana spinach smoothie with almond butter',cal:340,note:'Frozen strawberries + banana + spinach + almond butter + milk · zero cooking',tags:['both','pantry'],hasPantry:'Almond butter · Frozen strawberries — on hand; buy bananas & spinach'},
-{id:'wed_d',type:'Dinner',name:'Air fryer butterfly shrimp with Old Bay corn & remoulade',cal:480,note:'Frozen butterfly shrimp bag! Air fryer 400°F 12 min · corn on cob · remoulade = horseradish sauce + mayo',tags:['both','pantry'],hasPantry:'Butterfly shrimp (freezer) · Corn · Horseradish sauce · Mayo — all on hand'},
-{id:'wed_ds',type:'Dessert 🍮',name:'Graham cracker banana pudding cups',cal:260,note:'Layer crushed Honey Maid grahams + vanilla pudding + banana + Cool Whip · chill 2 hrs',tags:['both','pantry'],hasPantry:'Honey Maid grahams · Cool Whip — in pantry/fridge'}
+{id:'wed',day:'Wednesday',date:'Aug 12',color:'#993C1D',weather:'🥗 Big salad',wc:'w-hot',meals:[
+{id:'n_wed_d',type:'Dinner',name:"Grilled Chicken Cobb Salad",cal:540,note:"The hearty dinner salad of the week — grilled chicken, freezer thick-cut bacon, boiled eggs & cheddar over romaine with ranch. P1: chicken, bacon, egg & cheese, no tomato. P2 add: tomatoes, avocado & blue cheese crumbles.",tags:['both','p2','pantry'],hasPantry:"Thick-cut bacon (freezer) on hand"}
 ]},
-{id:'thu',day:'Thursday',date:'Jul 10',color:'#0F6E56',weather:'🌊 Coastal',wc:'w-grill',meals:[
-{id:'thu_b',type:'Breakfast',name:'Fresh peach & yogurt smoothie with honey',cal:320,note:'Fresh peaches + FAGE Greek yogurt + honey + ice · thick and cold · peak peach season!',tags:['both']},
-{id:'thu_d',type:'Dinner',name:'Gulf shrimp over garlic butter pasta with parmesan',cal:580,note:'Fresh Lartigue\'s shrimp · grill or sauté · Barilla pasta + olive oil + garlic + parmesan · P2 add spinach & tomatoes',tags:['both','pantry'],hasPantry:'Barilla pasta · Olive oil · Minced garlic — mostly on hand'},
-{id:'thu_ds',type:'Dessert 🍮',name:'Fresh mango sorbet — blend & freeze',cal:180,note:'Blend 2 ripe mangoes + lime juice + honey + pinch salt · freeze 2 hrs · make in the morning',tags:['both']}
+{id:'thu',day:'Thursday',date:'Aug 13',color:'#0F6E56',weather:'🍚 Simmer night',wc:'w-cool',meals:[
+{id:'n_thu_d',type:'Dinner',name:"Red Beans & Rice with Smoked Sausage",cal:620,note:"The New Orleans classic that got bumped by the trip — smoked sausage & the pepper/onion/celery trinity over Minute rice. P1: keeps it simple over rice. P2 add: extra veg & a dash of hot sauce.",tags:['both','pantry'],hasPantry:"Minute rice · Cajun seasoning · garlic on hand"}
 ]},
-{id:'fri',day:'Friday',date:'Jul 11',color:'#854F0B',weather:'🥩 Grill night',wc:'w-grill',meals:[
-{id:'fri_b',type:'Breakfast',name:"Bacon egg & sharp cheddar on Nature's Own toast",cal:450,note:"Thick-cut bacon + eggs + Sargento sharp cheddar + Nature's Own bread · quick griddle breakfast",tags:['both','pantry'],hasPantry:"Bacon · Eggs · Sargento cheddar · Nature's Own bread — all on hand"},
-{id:'fri_d',type:'Dinner',name:'Grilled ribeye steak salad — romaine, avocado & balsamic',cal:680,note:'Grill steak outside · slice thin over romaine + avocado + Olive Garden croutons (pantry!) · drizzle balsamic glaze',tags:['both','pantry'],hasPantry:'Olive Garden croutons — already in pantry!'},
-{id:'fri_ds',type:'Dessert 🍮',name:'Caprese dessert plate — mozzarella, strawberries & balsamic glaze',cal:200,note:'Fresh mozzarella + halved strawberries + fresh basil + balsamic glaze · no cooking · elegant',tags:['both']}
+{id:'fri',day:'Friday',date:'Aug 14',color:'#854F0B',weather:'🍔 Griddle night',wc:'w-grill',meals:[
+{id:'n_fri_d',type:'Dinner',name:"Smash Burgers with Grilled Corn on the Cob",cal:650,note:"Double-patty smash burgers on the outdoor griddle — Kinder's Butcher's Burger Blend from the spice drawer. Sweet corn for both. P1: burger with cheese & pickles. P2 add: tomato, lettuce & grilled onions.",tags:['both','p2','pantry'],hasPantry:"Kinder's burger blend · condiments on hand"}
 ]},
-{id:'sat',day:'Saturday',date:'Jul 12',color:'#5F5E5A',weather:'🌅 Easy morning',wc:'w-cool',meals:[
-{id:'sat_b',type:'Breakfast',name:'Hillshire Farm sausage & egg scramble with grits',cal:510,note:"Hillshire Farm sausage from freezer + eggs + Quaker grits · slice sausage, brown in pan, scramble eggs alongside",tags:['both','pantry'],hasPantry:'Hillshire Farm sausage (freezer) · Eggs · Quaker grits — all on hand'},
-{id:'sat_d',type:'Dinner',name:"Fresh Gulf fish pan-sear with lemon butter & corn",cal:420,note:"Ask Lartigue\'s what's fresh today · quick 8-min pan-sear · lemon butter · serve with fresh corn · P1 sub: chicken",tags:['both','p2']},
-{id:'sat_ds',type:'Dessert 🍮',name:"S'mores dip — chocolate chips, marshmallows & graham crackers",cal:310,note:'Spread chocolate chips in cast iron skillet · top with mini marshmallows · broil 3 min · dip with Honey Maid grahams',tags:['both','pantry'],hasPantry:"Chocolate chips · Honey Maid grahams — in pantry · buy marshmallows"}
+{id:'sat',day:'Saturday',date:'Aug 15',color:'#5F5E5A',weather:'🔥 Grill night',wc:'w-grill',meals:[
+{id:'n_sat_d',type:'Dinner',name:"Grilled Bone-In Pork Chops with Roasted Baby Potatoes",cal:600,note:"Thick chops on the grill with the Traeger Pork & Poultry rub, crispy baby potatoes alongside. P1: chops & potatoes as-is. P2 add: grilled zucchini.",tags:['both','p2','pantry'],hasPantry:"Traeger rub · olive oil on hand"}
 ]}
 ];
 
@@ -379,7 +365,7 @@ return `<div class="meal-block${isMade?' made-meal':''}" id="mb-${m.id}">
 }).join('<div class="divider-line"></div>');
 card.innerHTML=`<div class="card-hdr" onclick="this.parentElement.classList.toggle('open')">
 <div class="day-dot" style="background:${d.color}"></div>
-<div class="card-hdr-info"><div class="card-title">${d.day} <span style="font-size:13px;font-weight:400;color:var(--text-muted)">${d.date}</span></div><div class="card-sub">${totalCal.toLocaleString()} cal total · 3 meals</div></div>
+<div class="card-hdr-info"><div class="card-title">${d.day} <span style="font-size:13px;font-weight:400;color:var(--text-muted)">${d.date}</span></div><div class="card-sub">${totalCal.toLocaleString()} cal · dinner</div></div>
 <span class="weather-pill ${d.wc}">${d.weather}</span>
 <svg class="card-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
 </div><div class="card-body">${mealsHTML}</div>`;
@@ -390,16 +376,8 @@ el.appendChild(card);
 function rate(id,stars){const r=S.get('ratings')||{};r[id]=stars;S.set('ratings',r);const el=document.getElementById('stars-'+id);if(el)el.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<stars));}
 function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);const cb=document.getElementById('madecb-'+id);const mb=document.getElementById('mb-'+id);if(cb)cb.classList.toggle('on',m[id]);if(mb)mb.classList.toggle('made-meal',m[id]);}
 
-// ── NEXT WEEK MENU (Aug 9–15 · dinners only) ──
-const NEXTWEEK=[
-{id:'n_sun',day:'Sunday',date:'Aug 9',color:'#0F6E56',weather:'🥩 Welcome home',wc:'w-grill',meal:{id:'n_sun_d',type:'Dinner',name:'Grilled Ribeye Steaks with Baked Potatoes & Garlic Butter',cal:720,note:'First night home — easy grill night. Ribeyes outside, russets in the oven, garlic butter over the top. P1: steak & potato as-is. P2 add: grilled asparagus.',tags:['both','p2','pantry'],hasPantry:'Olive oil · minced garlic · seasonings on hand'}},
-{id:'n_mon',day:'Monday',date:'Aug 10',color:'#185FA5',weather:'🍝 Italian',wc:'w-cool',meal:{id:'n_mon_d',type:'Dinner',name:'Chicken Alfredo with Barilla Pasta',cal:640,note:'Creamy homemade Alfredo — butter, heavy cream & parmesan over pantry Barilla. No tomatoes anywhere. P1: classic chicken Alfredo. P2 add: steamed broccoli folded in.',tags:['both','p2','pantry'],hasPantry:'Barilla pasta · butter · minced garlic on hand'}},
-{id:'n_tue',day:'Tuesday',date:'Aug 11',color:'#534AB7',weather:'🦐 Gulf classic',wc:'w-grill',meal:{id:'n_tue_d',type:'Dinner',name:'Gulf Shrimp & Grits with Smoked Sausage',cal:580,note:'Your one shrimp night — Lartigue\'s fresh Gulf shrimp over creamy Quaker grits with browned smoked sausage. Not fishy, no tomatoes. P1 swap: heavier on sausage, lighter on shrimp. P2 add: sautéed bell pepper & scallions.',tags:['both','p2','pantry'],hasPantry:'Quaker grits · butter · Cajun seasoning on hand'}},
-{id:'n_wed',day:'Wednesday',date:'Aug 12',color:'#993C1D',weather:'🥗 Big salad',wc:'w-hot',meal:{id:'n_wed_d',type:'Dinner',name:'Grilled Chicken Cobb Salad',cal:540,note:'The hearty dinner salad of the week — grilled chicken, freezer thick-cut bacon, boiled eggs & cheddar over romaine with ranch. P1: chicken, bacon, egg & cheese, no tomato. P2 add: tomatoes, avocado & blue cheese crumbles.',tags:['both','p2','pantry'],hasPantry:'Thick-cut bacon (freezer) on hand'}},
-{id:'n_thu',day:'Thursday',date:'Aug 13',color:'#0F6E56',weather:'🍚 Simmer night',wc:'w-cool',meal:{id:'n_thu_d',type:'Dinner',name:'Red Beans & Rice with Smoked Sausage',cal:620,note:'The New Orleans classic that got bumped by the trip — smoked sausage & the pepper/onion/celery trinity over Minute rice. P1: keeps it simple over rice. P2 add: extra veg & a dash of hot sauce.',tags:['both','pantry'],hasPantry:'Minute rice · Cajun seasoning · garlic on hand'}},
-{id:'n_fri',day:'Friday',date:'Aug 14',color:'#854F0B',weather:'🍔 Griddle night',wc:'w-grill',meal:{id:'n_fri_d',type:'Dinner',name:'Smash Burgers with Grilled Corn on the Cob',cal:650,note:'Double-patty smash burgers on the outdoor griddle — Kinder\'s Butcher\'s Burger Blend from the spice drawer. Sweet corn for both. P1: burger with cheese & pickles. P2 add: tomato, lettuce & grilled onions.',tags:['both','p2','pantry'],hasPantry:'Kinder\'s burger blend · condiments on hand'}},
-{id:'n_sat',day:'Saturday',date:'Aug 15',color:'#5F5E5A',weather:'🔥 Grill night',wc:'w-grill',meal:{id:'n_sat_d',type:'Dinner',name:'Grilled Bone-In Pork Chops with Roasted Baby Potatoes',cal:600,note:'Thick chops on the grill with the Traeger Pork & Poultry rub, crispy baby potatoes alongside. P1: chops & potatoes as-is. P2 add: grilled zucchini.',tags:['both','p2','pantry'],hasPantry:'Traeger rub · olive oil on hand'}}
-];
+// ── NEXT WEEK MENU (Aug 9–15 promoted to Menu tab — fresh plan lands every Wednesday) ──
+const NEXTWEEK=[];
 
 function buildNext(){
 const el=document.getElementById('next-days');
@@ -407,7 +385,7 @@ if(!el)return;
 el.innerHTML='';
 const intro=document.createElement('div');
 intro.className='memory-intro';
-intro.innerHTML="<strong>Next week · Aug 9–15 — first week home!</strong> Seven dinners, Sunday through Saturday. 🥗 Cobb salad on Wednesday · 🦐 one shrimp night (Tuesday). No pasta or same protein back-to-back.";
+intro.innerHTML="<strong>Next week.</strong> The fresh plan lands here every Wednesday morning — this week’s dinners are on the Menu tab.";
 el.appendChild(intro);
 const ratings=S.get('ratings')||{};
 const made=S.get('made')||{};
