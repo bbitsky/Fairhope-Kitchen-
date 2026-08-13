@@ -318,14 +318,14 @@ const DAYS=[
 {id:'wed',day:'Wednesday',date:'Aug 12',color:'#993C1D',weather:'🥗 Big salad',wc:'w-hot',meals:[
 {id:'n_wed_d',type:'Dinner',name:"Grilled Chicken Cobb Salad",cal:540,note:"The hearty dinner salad of the week — grilled chicken, freezer thick-cut bacon, boiled eggs & cheddar over romaine with ranch. P1: chicken, bacon, egg & cheese, no tomato. P2 add: tomatoes, avocado & blue cheese crumbles.",tags:['both','p2','pantry'],hasPantry:"Thick-cut bacon (freezer) on hand"}
 ]},
-{id:'thu',day:'Thursday',date:'Aug 13',color:'#0F6E56',weather:'🍚 Simmer night',wc:'w-cool',meals:[
-{id:'n_thu_d',type:'Dinner',name:"Red Beans & Rice with Smoked Sausage",cal:620,note:"The New Orleans classic that got bumped by the trip — smoked sausage & the pepper/onion/celery trinity over Minute rice. P1: keeps it simple over rice. P2 add: extra veg & a dash of hot sauce.",tags:['both','pantry'],hasPantry:"Minute rice · Cajun seasoning · garlic on hand"}
+{id:'thu',day:'Thursday',date:'Aug 13',color:'#0F6E56',weather:'🔥 Grill night',wc:'w-grill',meals:[
+{id:'n_sat_d',type:'Dinner',name:"Grilled Bone-In Pork Chops with Roasted Baby Potatoes",cal:600,note:"Thick chops on the grill with the Traeger Pork & Poultry rub, crispy baby potatoes alongside. P1: chops & potatoes as-is. P2 add: grilled zucchini.",tags:['both','p2','pantry'],hasPantry:"Traeger rub · olive oil on hand"}
 ]},
 {id:'fri',day:'Friday',date:'Aug 14',color:'#854F0B',weather:'🍔 Griddle night',wc:'w-grill',meals:[
 {id:'n_fri_d',type:'Dinner',name:"Smash Burgers with Grilled Corn on the Cob",cal:650,note:"Double-patty smash burgers on the outdoor griddle — Kinder's Butcher's Burger Blend from the spice drawer. Sweet corn for both. P1: burger with cheese & pickles. P2 add: tomato, lettuce & grilled onions.",tags:['both','p2','pantry'],hasPantry:"Kinder's burger blend · condiments on hand"}
 ]},
-{id:'sat',day:'Saturday',date:'Aug 15',color:'#5F5E5A',weather:'🔥 Grill night',wc:'w-grill',meals:[
-{id:'n_sat_d',type:'Dinner',name:"Grilled Bone-In Pork Chops with Roasted Baby Potatoes",cal:600,note:"Thick chops on the grill with the Traeger Pork & Poultry rub, crispy baby potatoes alongside. P1: chops & potatoes as-is. P2 add: grilled zucchini.",tags:['both','p2','pantry'],hasPantry:"Traeger rub · olive oil on hand"}
+{id:'sat',day:'Saturday',date:'Aug 15',color:'#5F5E5A',weather:'🍚 Simmer night',wc:'w-cool',meals:[
+{id:'n_thu_d',type:'Dinner',name:"Red Beans & Rice with Smoked Sausage",cal:620,note:"The New Orleans classic that got bumped by the trip — smoked sausage & the pepper/onion/celery trinity over Minute rice. P1: keeps it simple over rice. P2 add: extra veg & a dash of hot sauce.",tags:['both','pantry'],hasPantry:"Minute rice · Cajun seasoning · garlic on hand"}
 ]}
 ];
 
@@ -467,13 +467,13 @@ p1:"Chicken, bacon, egg & cheddar with ranch — no tomato, no blue cheese.",
 p2:"Tomato, avocado & blue cheese rows on your half.",
 tip:"This is the dinner salad of the week — do not skimp the chicken and bacon; that is what makes it a meal."},
 ]},
-{day:"Thursday Aug 13 · Simmer night",items:[
-{name:"Red Beans & Rice with Smoked Sausage",cal:620,methods:["Stovetop"],
-ing:["2 cans red kidney beans (drain one, keep liquid in the other)","8 oz smoked sausage, sliced","Half bell pepper, half onion & 1 celery stalk, diced (the trinity)","2 cloves garlic, minced (or from jar)","1½ tsp Cajun seasoning","1 bay leaf (spice drawer)","2 cups Minute white rice (from pantry)","P2: hot sauce"],
-steps:["Brown sausage in a pot over medium-high, 3–4 min. Remove.","Sauté the trinity in the drippings 5 min until soft.","Add garlic and Cajun seasoning; cook 1 min.","Add both cans of beans and the bay leaf. Simmer 15–20 min.","Mash a few beans against the pot to thicken — return the sausage for the last 5 min.","Cook Minute rice per package.","Serve beans over rice. P2: a dash of hot sauce on top."],
-p1:"Serve it simple over rice — the trinity cooks down soft and mild.",
-p2:"Extra trinity and a dash of hot sauce.",
-tip:"Mashing a few beans against the side of the pot is the New Orleans move — instant creaminess, no cream."},
+{day:"Thursday Aug 13 · Grill night",items:[
+{name:"Grilled Bone-In Pork Chops with Roasted Baby Potatoes",cal:600,methods:["Outdoor Grill","Oven"],
+ing:["2 thick bone-in pork chops","Traeger Pork & Poultry rub (spice drawer)","1 lb baby potatoes, halved","2 tbsp olive oil","Salt & pepper","1 tbsp butter","P2: 2 zucchini, sliced into planks"],
+steps:["Toss potatoes with olive oil, salt & pepper. Roast at 425°F for 25–30 min until crispy, cut side down.","Coat chops with the Traeger rub and let sit 20 min while the grill heats.","Grill over medium-high 4–5 min per side to 145°F.","Rest chops 5 min with a little butter on top.","P2: brush zucchini planks with olive oil and grill 3 min per side.","Serve chops with the crispy potatoes."],
+p1:"Chops & potatoes as-is.",
+p2:"Grilled zucchini planks on the side.",
+tip:"145°F with a blush of pink is a juicy chop — well-done is where pork goes to dry out."},
 ]},
 {day:"Friday Aug 14 · Griddle night",items:[
 {name:"Smash Burgers with Grilled Corn on the Cob",cal:650,methods:["Outdoor Griddle"],
@@ -483,13 +483,13 @@ p1:"Double cheese & pickles — keep it clean.",
 p2:"Tomato, lettuce & griddled onions.",
 tip:"Smash once, hard, at the start — then never press again or the juices end up on the griddle instead of in the burger."},
 ]},
-{day:"Saturday Aug 15 · Grill night",items:[
-{name:"Grilled Bone-In Pork Chops with Roasted Baby Potatoes",cal:600,methods:["Outdoor Grill","Oven"],
-ing:["2 thick bone-in pork chops","Traeger Pork & Poultry rub (spice drawer)","1 lb baby potatoes, halved","2 tbsp olive oil","Salt & pepper","1 tbsp butter","P2: 2 zucchini, sliced into planks"],
-steps:["Toss potatoes with olive oil, salt & pepper. Roast at 425°F for 25–30 min until crispy, cut side down.","Coat chops with the Traeger rub and let sit 20 min while the grill heats.","Grill over medium-high 4–5 min per side to 145°F.","Rest chops 5 min with a little butter on top.","P2: brush zucchini planks with olive oil and grill 3 min per side.","Serve chops with the crispy potatoes."],
-p1:"Chops & potatoes as-is.",
-p2:"Grilled zucchini planks on the side.",
-tip:"145°F with a blush of pink is a juicy chop — well-done is where pork goes to dry out."},
+{day:"Saturday Aug 15 · Simmer night",items:[
+{name:"Red Beans & Rice with Smoked Sausage",cal:620,methods:["Stovetop"],
+ing:["2 cans red kidney beans (drain one, keep liquid in the other)","8 oz smoked sausage, sliced","Half bell pepper, half onion & 1 celery stalk, diced (the trinity)","2 cloves garlic, minced (or from jar)","1½ tsp Cajun seasoning","1 bay leaf (spice drawer)","2 cups Minute white rice (from pantry)","P2: hot sauce"],
+steps:["Brown sausage in a pot over medium-high, 3–4 min. Remove.","Sauté the trinity in the drippings 5 min until soft.","Add garlic and Cajun seasoning; cook 1 min.","Add both cans of beans and the bay leaf. Simmer 15–20 min.","Mash a few beans against the pot to thicken — return the sausage for the last 5 min.","Cook Minute rice per package.","Serve beans over rice. P2: a dash of hot sauce on top."],
+p1:"Serve it simple over rice — the trinity cooks down soft and mild.",
+p2:"Extra trinity and a dash of hot sauce.",
+tip:"Mashing a few beans against the side of the pot is the New Orleans move — instant creaminess, no cream."},
 ]}
 ];
 
