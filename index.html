@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Fairhope Menu">
 <meta name="theme-color" content="#0a4a35">
-<title>Fairhope Kitchen · Aug 9–15</title>
+<title>Fairhope Kitchen · Aug 16–22</title>
 <style>
 :root{--teal:#0F6E56;--teal-dark:#0a4a35;--teal-mid:#1a8a6a;--teal-light:#e0f5ee;--teal-pale:#f0faf6;--amber:#c07a10;--amber-light:#fff4e0;--coral:#b03a1a;--coral-light:#fdf0ec;--blue:#1a5fa0;--blue-light:#e8f2fc;--sand:#f7f5f0;--sand-dark:#ede9e0;--border:#ddd9d0;--text:#1a1a16;--text-mid:#4a4a42;--text-muted:#7a7a70;--white:#ffffff;--shadow:0 1px 4px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);--shadow-sm:0 1px 3px rgba(0,0,0,.07);--r:14px;--r-sm:9px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -138,9 +138,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <body>
 <header class="site-header">
 <div class="header-inner">
-<div class="header-eyebrow">Fairhope, AL · Week of Aug 9</div>
+<div class="header-eyebrow">Fairhope, AL · Week of Aug 16</div>
 <div class="header-title">Our Kitchen Dashboard</div>
-<div class="header-sub">Aug 9–15 · Dinners · First week home 🌴</div>
+<div class="header-sub">Aug 16–22 · Dinners · Settling into the routine 🌴</div>
 </div>
 <nav class="nav-tabs">
 <button class="nav-tab active" onclick="goTab('menu',this)"><span class="nav-tab-icon">🍽</span>Menu</button>
@@ -306,29 +306,29 @@ window.scrollTo(0,0);
 
 // ── MENU DATA ──
 const DAYS=[
-{id:'sun',day:'Sunday',date:'Aug 9',color:'#0F6E56',weather:'🥩 Welcome home',wc:'w-grill',meals:[
-{id:'n_sun_d',type:'Dinner',name:"Grilled Ribeye Steaks with Baked Potatoes & Garlic Butter",cal:720,note:"First night home — easy grill night. Ribeyes outside, russets in the oven, garlic butter over the top. P1: steak & potato as-is. P2 add: grilled asparagus.",tags:['both','p2','pantry'],hasPantry:"Olive oil · minced garlic · seasonings on hand"}
-]},
-{id:'mon',day:'Monday',date:'Aug 10',color:'#185FA5',weather:'🍝 Italian',wc:'w-cool',meals:[
-{id:'n_mon_d',type:'Dinner',name:"Chicken Alfredo with Barilla Pasta",cal:640,note:"Creamy homemade Alfredo — butter, heavy cream & parmesan over pantry Barilla. No tomatoes anywhere. P1: classic chicken Alfredo. P2 add: steamed broccoli folded in.",tags:['both','p2','pantry'],hasPantry:"Barilla pasta · butter · minced garlic on hand"}
-]},
-{id:'tue',day:'Tuesday',date:'Aug 11',color:'#534AB7',weather:'🦐 Gulf classic',wc:'w-grill',meals:[
-{id:'n_tue_d',type:'Dinner',name:"Gulf Shrimp & Grits with Smoked Sausage",cal:580,note:"Your one shrimp night — Lartigue's fresh Gulf shrimp over creamy Quaker grits with browned smoked sausage. Not fishy, no tomatoes. P1 swap: heavier on sausage, lighter on shrimp. P2 add: sautéed bell pepper & scallions.",tags:['both','p2','pantry'],hasPantry:"Quaker grits · butter · Cajun seasoning on hand"}
-]},
-{id:'wed',day:'Wednesday',date:'Aug 12',color:'#993C1D',weather:'🥗 Big salad',wc:'w-hot',meals:[
-{id:'n_wed_d',type:'Dinner',name:"Grilled Chicken Cobb Salad",cal:540,note:"The hearty dinner salad of the week — grilled chicken, freezer thick-cut bacon, boiled eggs & cheddar over romaine with ranch. P1: chicken, bacon, egg & cheese, no tomato. P2 add: tomatoes, avocado & blue cheese crumbles.",tags:['both','p2','pantry'],hasPantry:"Thick-cut bacon (freezer) on hand"}
-]},
-{id:'thu',day:'Thursday',date:'Aug 13',color:'#0F6E56',weather:'🔥 Grill night',wc:'w-grill',meals:[
-{id:'n_sat_d',type:'Dinner',name:"Grilled Bone-In Pork Chops with Roasted Baby Potatoes",cal:600,note:"Thick chops on the grill with the Traeger Pork & Poultry rub, crispy baby potatoes alongside. P1: chops & potatoes as-is. P2 add: grilled zucchini.",tags:['both','p2','pantry'],hasPantry:"Traeger rub · olive oil on hand"}
-]},
-{id:'fri',day:'Friday',date:'Aug 14',color:'#854F0B',weather:'🍔 Griddle night',wc:'w-grill',meals:[
-{id:'n_fri_d',type:'Dinner',name:"Smash Burgers with Grilled Corn on the Cob",cal:650,note:"Double-patty smash burgers on the outdoor griddle — Kinder's Butcher's Burger Blend from the spice drawer. Sweet corn for both. P1: burger with cheese & pickles. P2 add: tomato, lettuce & grilled onions.",tags:['both','p2','pantry'],hasPantry:"Kinder's burger blend · condiments on hand"}
-]},
-{id:'sat',day:'Saturday',date:'Aug 15',color:'#5F5E5A',weather:'🍚 Simmer night',wc:'w-cool',meals:[
-{id:'n_thu_d',type:'Dinner',name:"Red Beans & Rice with Smoked Sausage",cal:620,note:"The New Orleans classic that got bumped by the trip — smoked sausage & the pepper/onion/celery trinity over Minute rice. P1: keeps it simple over rice. P2 add: extra veg & a dash of hot sauce.",tags:['both','pantry'],hasPantry:"Minute rice · Cajun seasoning · garlic on hand"}
-]}
-];
-
+  {id:'sun',day:'Sunday',date:'Aug 16',color:'#0F6E56',weather:'🍝 Italian night',wc:'w-cool',meals:[
+    {id:'w4_sun_d',type:'Dinner',name:"Crispy Chicken Parmesan with Garlic Bread",cal:680,note:"Panko-and-parmesan crusted chicken breasts baked with melted mozzarella, bakery garlic bread alongside. P1 swap: the white version — no marinara, just mozzarella and a garlic-butter drizzle. P2: classic marinara on top plus a small side salad.",tags:['both','p1','p2','pantry'],hasPantry:"Parmesan wedge · Italian seasoning · minced garlic · olive oil on hand"}
+    ]},
+  {id:'mon',day:'Monday',date:'Aug 17',color:'#185FA5',weather:'🍚 Rice bowls',wc:'w-cool',meals:[
+    {id:'w4_mon_d',type:'Dinner',name:"Beef Teriyaki Rice Bowls",cal:620,note:"Seared sirloin strips glazed in teriyaki over fluffy Minute rice. P1: beef and rice, sauce on the lighter side. P2 add: stir-fried broccoli and bell pepper folded in.",tags:['both','p2','pantry'],hasPantry:"Minute rice · minced garlic · sesame seeds on hand"}
+    ]},
+  {id:'tue',day:'Tuesday',date:'Aug 18',color:'#534AB7',weather:'🐟 Fresh catch',wc:'w-grill',meals:[
+    {id:'w4_tue_d',type:'Dinner',name:"Traeger-Grilled Gulf Catch with Roasted Baby Potatoes",cal:540,note:"Whatever looks best at Lartigue's — triggerfish or snapper are the mild picks. Lemon-pepper butter over the top, crispy baby potatoes alongside. P1 swap: triggerfish is the least fishy fish there is, grilled with extra lemon pepper. P2 add: sautéed spinach.",tags:['both','p1','p2','pantry'],hasPantry:"Lemon pepper · butter · olive oil on hand"}
+    ]},
+  {id:'wed',day:'Wednesday',date:'Aug 19',color:'#993C1D',weather:'🥗 Big salad',wc:'w-hot',meals:[
+    {id:'w4_wed_d',type:'Dinner',name:"Grilled Steak Salad with Blue Cheese & Croutons",cal:580,note:"The hearty dinner salad of the week — sliced grilled sirloin over romaine with Olive Garden croutons, steakhouse style. P1: steak, cheddar, croutons and ranch — no tomato. P2 add: tomatoes, cucumber and blue cheese crumbles.",tags:['both','p1','p2','pantry'],hasPantry:"Olive Garden croutons · ranch · Sargento cheddar on hand"}
+    ]},
+  {id:'thu',day:'Thursday',date:'Aug 20',color:'#0F6E56',weather:'🍝 Pasta night',wc:'w-cool',meals:[
+    {id:'w4_thu_d',type:'Dinner',name:"Creamy Cajun Sausage Pasta",cal:640,note:"Freezer Hillshire sausage browned and tossed with Barilla in a Cajun cream sauce — no tomatoes anywhere. P1: as-is. P2 add: bell pepper and spinach folded in.",tags:['both','p2','pantry'],hasPantry:"Hillshire sausage (freezer) · Barilla pasta · Cajun seasoning · parmesan on hand"}
+    ]},
+  {id:'fri',day:'Friday',date:'Aug 21',color:'#854F0B',weather:'🦐 Shrimp night',wc:'w-grill',meals:[
+    {id:'w4_fri_d',type:'Dinner',name:"Cajun Grilled Shrimp Skewers with Yellow Rice & Corn",cal:600,note:"The one shrimp night — fresh Lartigue's Gulf shrimp on skewers with Cajun butter, yellow rice and fridge-drawer corn on the grill. P1 swap: lighter shrimp portion with extra corn and rice. P2 add: an extra skewer.",tags:['both','p1','p2','pantry'],hasPantry:"Corn on the cob (fridge) · Cajun seasoning · butter on hand"}
+    ]},
+  {id:'sat',day:'Saturday',date:'Aug 22',color:'#5F5E5A',weather:'🔥 Traeger night',wc:'w-grill',meals:[
+    {id:'w4_sat_d',type:'Dinner',name:"Traeger Pork Tenderloin with Garlic Mashed Potatoes",cal:620,note:"Tenderloin with the Apple & Honey Pork rub, rested and sliced over garlic mashed potatoes. P1: pork and potatoes as-is. P2 add: roasted green beans.",tags:['both','p2','pantry'],hasPantry:"Traeger Pork & Poultry rub · butter · sour cream · minced garlic on hand"}
+    ]}
+  ];
+  
 const TAG={both:'Works for both',p1:'P1 swap needed',p2:'P2 add-ons',pantry:'Uses what you have'};
 const TAGCLS={both:'mt-both',p1:'mt-p1',p2:'mt-p2',pantry:'mt-pantry'};
 
