@@ -208,7 +208,7 @@ var _syncGistId = localStorage.getItem('fhk_sync_gist') || '';
 var _syncTimer = null;
 var _syncStatus = 'idle'; // idle | syncing | ok | error | setup
 
-var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have','keepers','carryover_v8_done'];
+var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have','keepers','carryover_v9_done'];
 
 function syncSetToken(token){
 _syncToken = token.trim();
@@ -376,16 +376,16 @@ el.appendChild(card);
 function rate(id,stars){const r=S.get('ratings')||{};r[id]=stars;S.set('ratings',r);const el=document.getElementById('stars-'+id);if(el)el.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<stars));}
 function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);const cb=document.getElementById('madecb-'+id);const mb=document.getElementById('mb-'+id);if(cb)cb.classList.toggle('on',m[id]);if(mb)mb.classList.toggle('made-meal',m[id]);}
 
-// ── NEXT WEEK MENU (Aug 30–Sep 5 promoted to Menu tab — fresh plan lands every Wednesday) ──
+// ── NEXT WEEK MENU (Sep 6–12 promoted to Menu tab — fresh plan lands every Wednesday) ──
 const NEXTWEEK=[
-  {id:'zsun',day:'Sunday',date:'Aug 30',color:'#0F6E56',weather:'🧄 Garlic & herb',wc:'w-cool',meal:{id:'w6_sun_d',type:'Dinner',name:"Herb-Crusted Pork Chops with Garlic Mashed Potatoes",cal:570,note:"Bone-in pork chops seared and finished with garlic and rosemary, creamy garlic mashed Yukons alongside. P1: chops and potatoes only. P2 add: roasted green beans with a squeeze of lemon.",tags:['both','p1','p2','pantry'],hasPantry:"Minced garlic jar · butter · sour cream on hand"}},
-  {id:'zmon',day:'Monday',date:'Aug 31',color:'#185FA5',weather:'🌮 Taco night',wc:'w-hot',meal:{id:'w6_mon_d',type:'Dinner',name:"Beef Taco Night with Cheddar & Sour Cream",cal:610,note:"Seasoned ground beef in warm tortillas with all the fixings set out on the side. P1: beef, cheddar and sour cream in a tortilla, no lettuce or tomato. P2 add: shredded lettuce, diced tomato, avocado and a squeeze of lime.",tags:['both','p1','p2','pantry'],hasPantry:"Sargento cheddar · sour cream on hand"}},
-  {id:'ztue',day:'Tuesday',date:'Sep 1',color:'#534AB7',weather:'🍝 Pasta night',wc:'w-cool',meal:{id:'w6_tue_d',type:'Dinner',name:"Garlic Butter Shrimp Scampi over Linguine",cal:650,note:"The one shrimp night — Gulf shrimp from Lartigue's simmered in garlic, butter and lemon, tossed with linguine. No tomato, so it's a scampi, not a marinara. P1: shrimp and pasta in the garlic-butter sauce only. P2 add: cherry tomatoes and arugula folded in at the end.",tags:['both','p1','p2','pantry'],hasPantry:"Barilla pasta · olive oil · minced garlic on hand"}},
-  {id:'zwed',day:'Wednesday',date:'Sep 2',color:'#993C1D',weather:'🥗 Big salad',wc:'w-hot',meal:{id:'w6_wed_d',type:'Dinner',name:"Steakhouse Cobb Salad with Bacon, Egg & Blue Cheese",cal:560,note:"This week's hearty dinner salad — grilled sirloin sliced over romaine with crispy bacon, hard-boiled egg and blue cheese crumbles. P1: steak, bacon, egg and cheddar instead of blue cheese, ranch on the side, no tomato. P2 add: blue cheese, avocado and tomato.",tags:['both','p1','p2','pantry'],hasPantry:"Thick cut bacon · eggs on hand"}},
-  {id:'zthu',day:'Thursday',date:'Sep 3',color:'#0F6E56',weather:'🐟 Fresh catch',wc:'w-cool',meal:{id:'w6_thu_d',type:'Dinner',name:"Lemon Butter Baked Gulf Fish with Rice Pilaf",cal:470,note:"Whatever's mildest at Lartigue's today — flounder or tilapia both work — baked in lemon butter with a boxed rice pilaf alongside. P1: the mildest fish they have, plain with rice, no vegetables. P2 add: sautéed spinach with garlic.",tags:['both','p1','p2','pantry'],hasPantry:"Butter · olive oil on hand"}},
-  {id:'zfri',day:'Friday',date:'Sep 4',color:'#854F0B',weather:'🍳 Skillet night',wc:'w-hot',meal:{id:'w6_fri_d',type:'Dinner',name:"Loaded Cheesy Grits with Bacon & Fried Eggs",cal:540,note:"Breakfast-for-dinner, Southern style — creamy Quaker grits with sharp cheddar, crispy bacon crumbled in, fried eggs on top. Pantry-heavy and easy on the budget. P1: grits, cheddar, bacon and eggs as-is. P2 add: diced tomato and hot sauce stirred in.",tags:['both','p1','p2','pantry'],hasPantry:"Quaker grits · Sargento cheddar · thick cut bacon · eggs on hand"}},
-  {id:'zsat',day:'Saturday',date:'Sep 5',color:'#5F5E5A',weather:'🔥 Traeger night',wc:'w-grill',meal:{id:'w6_sat_d',type:'Dinner',name:"Traeger BBQ Chicken Quarters with Grilled Corn & Coleslaw",cal:590,note:"Smoked low and slow with a BBQ rub, glazed at the end, fridge corn on the grill alongside. P1: chicken and corn, no coleslaw. P2 add: coleslaw with a vinegar-based dressing.",tags:['both','p1','p2','pantry'],hasPantry:"Corn on the cob (fridge) on hand"}}
-  ];
+{id:'zsun',day:'Sunday',date:'Sep 6',color:'#0F6E56',weather:'🍲 Sunday roast',wc:'w-cool',meal:{id:'w7_sun_d',type:'Dinner',name:"Slow-Cooker Beef Pot Roast with Yukon Potatoes & Carrots",cal:590,note:"Chuck roast braised low and slow with beef broth and herbs until fork-tender, potatoes and carrots cooked right in the pot. P1: beef and potatoes only, carrots pushed to the side. P2 add: extra carrots and a spoonful of pan jus over everything.",tags:['both','p1','p2','pantry'],hasPantry:"Minced garlic jar · olive oil on hand"}},
+{id:'zmon',day:'Monday',date:'Sep 7',color:'#185FA5',weather:'🍄 Skillet night',wc:'w-hot',meal:{id:'w7_mon_d',type:'Dinner',name:"Chicken Marsala with Rice Pilaf",cal:560,note:"Chicken cutlets seared and simmered in a marsala wine and mushroom sauce, boxed rice pilaf alongside. P1 swap: chicken plain with butter, no mushrooms or wine sauce. P2 add: extra mushrooms and a sprinkle of parsley.",tags:['both','p1','p2','pantry'],hasPantry:"Olive oil · minced garlic jar on hand"}},
+{id:'ztue',day:'Tuesday',date:'Sep 8',color:'#534AB7',weather:'🍝 Pasta night',wc:'w-cool',meal:{id:'w7_tue_d',type:'Dinner',name:"Baked Ziti with Italian Sausage",cal:650,note:"Barilla ziti baked with browned Hillshire sausage, mozzarella and marinara until bubbly. P1 swap: a marinara-free white ziti with mozzarella, ricotta and garlic butter instead. P2: the classic marinara version with fresh basil on top.",tags:['both','p1','p2','pantry'],hasPantry:"Hillshire sausage (freezer) · Barilla pasta · minced garlic jar on hand"}},
+{id:'zwed',day:'Wednesday',date:'Sep 9',color:'#993C1D',weather:'🥗 Big salad',wc:'w-hot',meal:{id:'w7_wed_d',type:'Dinner',name:"Grilled Steak Caesar Salad",cal:570,note:"This week's hearty dinner salad — grilled sirloin sliced over romaine tossed in Caesar dressing with parmesan and croutons. P1: steak, romaine, parmesan and croutons with ranch instead of Caesar, no tomato. P2 add: cherry tomatoes, extra parmesan and a squeeze of lemon.",tags:['both','p1','p2','pantry'],hasPantry:"Olive Garden croutons · Parmesan wedge on hand"}},
+{id:'zthu',day:'Thursday',date:'Sep 10',color:'#0F6E56',weather:'🍤 Takeout night',wc:'w-cool',meal:{id:'w7_thu_d',type:'Dinner',name:"Shrimp Fried Rice with Scrambled Egg",cal:540,note:"Gulf shrimp from Lartigue's stir-fried with rice, scrambled egg and soy sauce — the one shrimp night, done takeout-style at home. P1: shrimp, rice, egg and a light drizzle of soy sauce only. P2 add: peas, carrots and scallion folded in.",tags:['both','p1','p2','pantry'],hasPantry:"Minute rice · eggs · minced garlic jar on hand"}},
+{id:'zfri',day:'Friday',date:'Sep 11',color:'#854F0B',weather:'🐟 Fresh catch',wc:'w-grill',meal:{id:'w7_fri_d',type:'Dinner',name:"Blackened Gulf Fish with Roasted Baby Potatoes",cal:470,note:"Whatever's mildest at Lartigue's — flounder or triggerfish both work — blackened in a Cajun-spiced skillet, crispy roasted baby potatoes alongside. P1 swap: the mildest fish they have, plain with just a little seasoning and lemon, no heat. P2 add: a squeeze of lemon and hot sauce at the table.",tags:['both','p1','p2','pantry'],hasPantry:"Cajun seasoning · olive oil on hand"}},
+{id:'zsat',day:'Saturday',date:'Sep 12',color:'#5F5E5A',weather:'🔥 Traeger night',wc:'w-grill',meal:{id:'w7_sat_d',type:'Dinner',name:"Traeger Smoked Turkey Breast with Herb Butter & Roasted Sweet Potatoes",cal:540,note:"Bone-in turkey breast smoked low and slow with herb butter under the skin, roasted sweet potato wedges alongside. P1: turkey and sweet potatoes plain, no herbs on his portion. P2 add: a drizzle of honey and cracked pepper on the sweet potatoes.",tags:['both','p1','p2','pantry'],hasPantry:"Butter · honey on hand"}}
+];
   
 function buildNext(){
 const el=document.getElementById('next-days');
@@ -393,7 +393,7 @@ if(!el)return;
 el.innerHTML='';
 const intro=document.createElement('div');
 intro.className='memory-intro';
-intro.innerHTML="<strong>Next week · Aug 30–Sep 5.</strong> The fresh plan lands here every Wednesday morning — this week’s dinners are on the Menu tab.";
+intro.innerHTML="<strong>Next week · Sep 6–12.</strong> The fresh plan lands here every Wednesday morning — this week’s dinners are on the Menu tab.";
 el.appendChild(intro);
 const ratings=S.get('ratings')||{};
 const made=S.get('made')||{};
@@ -528,70 +528,75 @@ el.appendChild(card);
 // ── SHOPPING DATA ──
 // ── SHOPPING DATA (Week of Aug 23–29) ──
 const STORES=[
-  {id:'publix',name:'Publix',color:'#0F6E56',total:'~$71',sections:[
-    {label:'Fresh Meat & Proteins',items:[
-      {id:'zp_porkchops',name:'Bone-in pork chops (2, ~1.5 lb)',note:'Sun pork chops',lasting:false},
-      {id:'zp_groundbeef',name:'Ground beef (1.5 lb)',note:'Mon tacos',lasting:false},
-      {id:'zp_sirloin',name:'Sirloin steak (1 lb)',note:'Wed cobb salad',lasting:false},
-      {id:'zp_chickenquarters',name:'Chicken leg quarters (4)',note:'Sat Traeger',lasting:false},
-      ]},
-    {label:'Fresh Produce',items:[
-      {id:'zp_yukons',name:'Yukon gold potatoes (2 lb)',note:'Sun mash',lasting:false},
-      {id:'zp_greenbeans',name:'Green beans (3/4 lb)',note:'Sun — P2 add-on',lasting:false},
-      {id:'zp_lettuceshred',name:'Shredded lettuce (1 bag)',note:'Mon — P2 add-on',lasting:false},
-      {id:'zp_tomatoes',name:'Roma tomatoes (3)',note:'Mon tacos · Wed salad · Fri grits — P2 add-ons',lasting:false},
-      {id:'zp_avocado',name:'Avocado (1)',note:'Mon — P2 add-on',lasting:false},
-      {id:'zp_limes',name:'Limes (3)',note:'Mon tacos',lasting:false},
-      {id:'zp_romaine',name:'Romaine hearts (2)',note:'Wed cobb salad',lasting:false},
-      {id:'zp_spinach',name:'Baby spinach (small bag)',note:'Thu — P2 add-on',lasting:false},
-      {id:'zp_lemons',name:'Lemons (3)',note:'Tue scampi · Thu fish',lasting:false},
-      {id:'zp_cherrytom',name:'Cherry tomatoes (1 pint)',note:'Tue — P2 add-on',lasting:false},
-      {id:'zp_arugula',name:'Arugula (1 bag)',note:'Tue — P2 add-on',lasting:false},
-      {id:'zp_coleslawmix',name:'Coleslaw mix (1 bag)',note:'Sat — P2 add-on',lasting:false},
-      ]},
-    {label:'Dairy & Bread',items:[
-      {id:'zp_bluecheese',name:'Blue cheese crumbles (small)',note:'Wed — P2 add-on',lasting:false},
-      {id:'zp_tortillas',name:'Flour tortillas',note:'Mon tacos',lasting:false},
-      ]},
-    ]},
-  {id:'walmart',name:'Walmart',color:'#0071CE',total:'~$14',sections:[
-    {label:'Canned & Dry Goods',items:[
-      {id:'zw_tacoseasoning',name:'Taco seasoning packet',note:'Mon tacos',lasting:false},
-      {id:'zw_ricepilaf',name:'Rice pilaf mix (box)',note:'Thu fish',lasting:false},
-      {id:'zw_hotsauce',name:'Hot sauce (bottle)',note:'Fri — P2 add-on',lasting:true},
-      {id:'zw_bbqrub',name:'BBQ rub (bottle)',note:'Sat Traeger chicken',lasting:true},
-      {id:'zw_coleslawdressing',name:'Coleslaw dressing (bottle)',note:'Sat — P2 add-on',lasting:true},
-      ]},
-    ]},
-  {id:'lartigues',name:"Lartigue's Fish Store",color:'#993C1D',total:'~$30',sections:[
-    {label:'Gulf Seafood',items:[
-      {id:'zl_shrimp',name:'Gulf shrimp, raw (1 lb)',note:'Tue scampi — the one shrimp night',lasting:false},
-      {id:'zl_fish',name:'Fresh Gulf fish fillets (2, mild)',note:'Thu baked fish',lasting:false},
-      ]},
-    ]},
-  ]
+{id:'publix',name:'Publix',color:'#0F6E56',total:'~$86',sections:[
+{label:'Fresh Meat & Proteins',items:[
+{id:'zp_chuckroast',name:'Chuck roast (2.5–3 lb)',note:'Sun pot roast',lasting:false},
+{id:'zp_chickenbreast',name:'Boneless chicken breasts (1.5 lb)',note:'Mon marsala',lasting:false},
+{id:'zp_sirloin',name:'Sirloin steak (1 lb)',note:'Wed Caesar salad',lasting:false},
+{id:'zp_turkeybreast',name:'Bone-in turkey breast (~6 lb)',note:'Sat Traeger',lasting:false},
+]},
+{label:'Fresh Produce',items:[
+{id:'zp_carrots',name:'Carrots (1 lb)',note:'Sun pot roast',lasting:false},
+{id:'zp_mushrooms',name:'Baby bella mushrooms (8 oz)',note:'Mon marsala',lasting:false},
+{id:'zp_romaine',name:'Romaine hearts (2)',note:'Wed Caesar salad',lasting:false},
+{id:'zp_cherrytom',name:'Cherry tomatoes (1 pint)',note:'Wed — P2 add-on',lasting:false},
+{id:'zp_babypotatoes',name:'Baby potatoes (1.5 lb)',note:'Fri fish',lasting:false},
+{id:'zp_greenbeans',name:'Green beans (3/4 lb)',note:'Fri — P2 add-on',lasting:false},
+{id:'zp_sweetpotatoes',name:'Sweet potatoes (2 lb)',note:'Sat Traeger turkey',lasting:false},
+{id:'zp_scallions',name:'Scallions (1 bunch)',note:'Thu — P2 add-on',lasting:false},
+{id:'zp_lemons',name:'Lemons (3)',note:'Fri fish',lasting:false},
+]},
+{label:'Dairy & Bread',items:[
+{id:'zp_mozz',name:'Shredded mozzarella (8 oz)',note:'Tue baked ziti',lasting:false},
+{id:'zp_ricotta',name:'Ricotta cheese (small tub)',note:'Tue — P1 white ziti swap',lasting:false},
+]},
+]},
+{id:'walmart',name:'Walmart',color:'#0071CE',total:'~$13',sections:[
+{label:'Canned & Dry Goods',items:[
+{id:'zw_marinara',name:'Marinara sauce (jar)',note:'Tue baked ziti — P2 portion',lasting:false},
+{id:'zw_ricepilaf',name:'Rice pilaf mix (box)',note:'Mon marsala',lasting:false},
+{id:'zw_beefbroth',name:'Beef broth (carton)',note:'Sun pot roast',lasting:false},
+{id:'zw_peascarrots',name:'Frozen peas & carrots (small bag)',note:'Thu — P2 add-on',lasting:false},
+{id:'zw_soysauce',name:'Soy sauce (bottle)',note:'Thu fried rice',lasting:true},
+]},
+]},
+{id:'lartigues',name:"Lartigue's Fish Store",color:'#993C1D',total:'~$30',sections:[
+{label:'Gulf Seafood',items:[
+{id:'zl_shrimp',name:'Gulf shrimp, raw (1 lb)',note:'Thu fried rice — the one shrimp night',lasting:false},
+{id:'zl_fish',name:'Fresh Gulf fish fillets (2, mild)',note:'Fri blackened fish',lasting:false},
+]},
+]},
+]
   
 // Items from last week's list — any NOT checked as bought carry over to this week
 // (Fresh items from the Aug 23–29 list; lasting staples like rice, Caesar dressing, soy sauce and sriracha are remembered as bought and not re-added.)
 const PREV_ITEMS=[
-  {id:'nx_chickenthighs',name:'Boneless chicken thighs (1.5 lb)',store:'publix'},
-  {id:'nx_chickenbreast',name:'Chicken breasts (2)',store:'publix'},
-  {id:'nx_sirloin',name:'Sirloin steak, thin-sliced (1.5 lb)',store:'publix'},
-  {id:'nx_flank',name:'Flank steak (1.5 lb)',store:'publix'},
-  {id:'nx_corn',name:'Corn on the cob (4 ears)',store:'publix'},
-  {id:'nx_cucumber',name:'Cucumber (1)',store:'publix'},
-  {id:'nx_broccoli',name:'Broccoli (1 crown)',store:'publix'},
-  {id:'nx_butterlettuce',name:'Butter lettuce (2 heads)',store:'publix'},
-  {id:'nx_arugula',name:'Arugula (1 bag)',store:'publix'},
-  {id:'nx_zucchini',name:'Zucchini (2)',store:'publix'},
-  {id:'nx_cilantro',name:'Fresh cilantro or parsley (1 bunch)',store:'publix'},
-  {id:'nx_limes',name:'Limes (4)',store:'publix'},
-  {id:'nx_lemons',name:'Lemons (4)',store:'publix'},
-  {id:'nx_tortillas',name:'Flour tortillas',store:'publix'},
-  ];
+{id:'nx_porkchops',name:'Bone-in pork chops (2, ~1.5 lb)',store:'publix'},
+{id:'nx_groundbeef',name:'Ground beef (1.5 lb)',store:'publix'},
+{id:'nx_sirloin',name:'Sirloin steak (1 lb)',store:'publix'},
+{id:'nx_chickenquarters',name:'Chicken leg quarters (4)',store:'publix'},
+{id:'nx_yukons',name:'Yukon gold potatoes (2 lb)',store:'publix'},
+{id:'nx_greenbeans',name:'Green beans (3/4 lb)',store:'publix'},
+{id:'nx_lettuceshred',name:'Shredded lettuce (1 bag)',store:'publix'},
+{id:'nx_tomatoes',name:'Roma tomatoes (3)',store:'publix'},
+{id:'nx_avocado',name:'Avocado (1)',store:'publix'},
+{id:'nx_limes',name:'Limes (3)',store:'publix'},
+{id:'nx_romaine',name:'Romaine hearts (2)',store:'publix'},
+{id:'nx_spinach',name:'Baby spinach (small bag)',store:'publix'},
+{id:'nx_lemons',name:'Lemons (3)',store:'publix'},
+{id:'nx_cherrytom',name:'Cherry tomatoes (1 pint)',store:'publix'},
+{id:'nx_arugula',name:'Arugula (1 bag)',store:'publix'},
+{id:'nx_coleslawmix',name:'Coleslaw mix (1 bag)',store:'publix'},
+{id:'nx_bluecheese',name:'Blue cheese crumbles (small)',store:'publix'},
+{id:'nx_tortillas',name:'Flour tortillas',store:'publix'},
+{id:'nx_ricepilaf',name:'Rice pilaf mix (box)',store:'walmart'},
+{id:'nx_tacoseasoning',name:'Taco seasoning packet',store:'walmart'},
+{id:'nx_shrimp',name:'Gulf shrimp, raw (1 lb)',store:'lartigues'},
+{id:'nx_fish',name:'Fresh Gulf fish fillets (2, mild)',store:'lartigues'},
+];
   
 function runCarryOver(){
-if(S.get('carryover_v8_done'))return;
+if(S.get('carryover_v9_done'))return;
 var checked=S.get('shop_checked')||{};
 var custom=S.get('shop_custom')||{};
 PREV_ITEMS.forEach(function(p){
@@ -602,7 +607,7 @@ if(custom[p.store].some(function(x){return x.id===cid;}))return; // already adde
 custom[p.store].push({id:cid,name:p.name,note:'Carried from last week — not yet bought',lasting:false});
 });
 S.set('shop_custom',custom);
-S.set('carryover_v8_done',true);
+S.set('carryover_v9_done',true);
 syncSchedulePush();
 }
 
