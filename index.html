@@ -178,7 +178,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <div class="savings-title">Week of Sep 20–26 breakdown</div>
 <div class="savings-row"><span>Publix (fresh meat, produce &amp; eggs)</span><strong>~$62</strong></div>
 <div class="savings-row"><span>Walmart (boxed, canned &amp; frozen)</span><strong>~$16</strong></div>
-<div class="savings-row"><span>Lartigue\'s Fish Store</span><strong>~$28</strong></div>
+<div class="savings-row"><span>Lartigue's Fish Store</span><strong>~$28</strong></div>
 <div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$106</strong></div>
 </div>
 <div class="section-lbl">What your pantry is contributing</div>
@@ -190,7 +190,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Olive oil, garlic &amp; the spice drawer</span><span style="color:var(--teal);font-weight:600;">saves ~$12</span></div>
 </div>
 </div>
-<div class="note-box">Estimates from September 2026 Gulf Coast market rates. Lartigue\'s varies by daily catch — call ahead. ±10%.</div>
+<div class="note-box">Estimates from September 2026 Gulf Coast market rates. Lartigue's varies by daily catch — call ahead. ±10%.</div>
 </div>
 
 <script>
@@ -327,7 +327,7 @@ const DAYS=[
 {id:'w9_sat_d',type:'Dinner',name:"Grilled Lemon-Oregano Chicken Skewers with Rice",cal:460,note:"Chicken breast cubed and marinated in lemon, garlic and oregano, grilled on skewers with rice alongside. P1: chicken and rice, no cucumber salad. P2 add: cucumber-yogurt salad with dill.",tags:['both','p1','p2','pantry'],hasPantry:"FAGE Greek yogurt · dill weed · oregano on hand"}
 ]}
 ];
-  
+
 const TAG={both:'Works for both',p1:'P1 swap needed',p2:'P2 add-ons',pantry:'Uses what you have'};
 const TAGCLS={both:'mt-both',p1:'mt-p1',p2:'mt-p2',pantry:'mt-pantry'};
 
@@ -375,17 +375,24 @@ el.appendChild(card);
 function rate(id,stars){const r=S.get('ratings')||{};r[id]=stars;S.set('ratings',r);const el=document.getElementById('stars-'+id);if(el)el.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<stars));}
 function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);const cb=document.getElementById('madecb-'+id);const mb=document.getElementById('mb-'+id);if(cb)cb.classList.toggle('on',m[id]);if(mb)mb.classList.toggle('made-meal',m[id]);}
 
-// ── NEXT WEEK MENU (Sep 6–12 promoted to Menu tab — fresh plan lands every Wednesday) ──
+// ── NEXT WEEK MENU (Sep 27–Oct 3 — fresh plan for the coming week) ──
 const NEXTWEEK=[
+{id:'sun',day:'Sunday',date:'Sep 27',color:'#0F6E56',weather:'🔥 Smoker night',wc:'w-grill',meal:{id:'w10_sun_d',type:'Dinner',name:"Traeger Smoked Pork Tenderloin with Roasted Sweet Potatoes & Green Beans",cal:460,note:"Pork tenderloin smoked low and slow on the Traeger with a simple dry rub, sweet potatoes roasted alongside. P1: pork and sweet potatoes only, no green beans. P2 add: green beans sautéed with garlic and a squeeze of lemon.",tags:['both','p1','p2','pantry'],hasPantry:"Traeger Pork & Poultry Rub · olive oil · minced garlic jar on hand"}},
+{id:'mon',day:'Monday',date:'Sep 28',color:'#185FA5',weather:'🍤 Shrimp skewers',wc:'w-grill',meal:{id:'w10_mon_d',type:'Dinner',name:"Grilled Shrimp & Pineapple Skewers with Coconut Rice",cal:420,note:"The one shrimp night — Gulf shrimp and pineapple chunks grilled on skewers, rice cooked with a little coconut milk. P1: shrimp and plain rice, kept simple, no pineapple. P2 add: coconut rice and grilled pineapple alongside.",tags:['both','p1','p2','pantry'],hasPantry:"Rice · skewers on hand"}},
+{id:'tue',day:'Tuesday',date:'Sep 29',color:'#534AB7',weather:'🥩 Stir-fry night',wc:'w-hot',meal:{id:'w10_tue_d',type:'Dinner',name:"Beef & Broccoli Stir-Fry over Rice",cal:480,note:"Thin-sliced flank steak seared hot with broccoli in a light soy-garlic sauce over rice — the week's only red meat. P1: beef and rice only, sauce light, no broccoli. P2 add: extra broccoli and a drizzle of sesame oil.",tags:['both','p1','p2','pantry'],hasPantry:"Rice · soy sauce · minced garlic jar · sesame seed on hand"}},
+{id:'wed',day:'Wednesday',date:'Sep 30',color:'#993C1D',weather:'🥗 Cobb salad',wc:'w-cool',meal:{id:'w10_wed_d',type:'Dinner',name:"Air-Fryer Chicken Cobb Salad with Corn & Avocado",cal:470,note:"This week's hearty dinner salad — air-fried chicken breast sliced over greens with corn, avocado and a hard-boiled egg. P1: chicken, greens, corn and egg, dressing on the side, no tomato or avocado. P2 add: avocado, cherry tomatoes and a heavier pour of dressing.",tags:['both','p1','p2','pantry'],hasPantry:"Olive oil · mustard on hand"}},
+{id:'thu',day:'Thursday',date:'Oct 1',color:'#B45309',weather:'🐟 Fresh catch',wc:'w-cool',meal:{id:'w10_thu_d',type:'Dinner',name:"Baked Lemon-Herb Gulf Fish with Couscous & Roasted Zucchini",cal:410,note:"Mild Gulf fillets baked with lemon, garlic and herbs, served over couscous. P1: the mildest fillet they have, plain with couscous, no zucchini. P2 add: roasted zucchini with a little parmesan.",tags:['both','p1','p2','pantry'],hasPantry:"Olive oil · minced garlic jar · Italian seasoning on hand"}},
+{id:'fri',day:'Friday',date:'Oct 2',color:'#854F0B',weather:'🍝 Pasta bake',wc:'w-hot',meal:{id:'w10_fri_d',type:'Dinner',name:"Baked Turkey & Spinach Ziti Bake",cal:510,note:"This week's pasta night — ground turkey and ziti baked with a light marinara and melted mozzarella. P1: ziti and turkey with a little sauce and cheese, no spinach. P2 add: spinach folded in and extra parmesan on top.",tags:['both','p1','p2','pantry'],hasPantry:"Minced garlic jar · Italian seasoning · basil on hand"}},
+{id:'sat',day:'Saturday',date:'Oct 3',color:'#5F5E5A',weather:'🌮 Griddle night',wc:'w-hot',meal:{id:'w10_sat_d',type:'Dinner',name:"Black Bean & Cheddar Griddle Quesadillas with Corn Salsa",cal:430,note:"Griddle-crisped flour tortillas filled with black beans and cheddar — a meatless, budget-friendly night to close the week. P1: black beans and cheddar only, no salsa. P2 add: corn salsa with lime and cilantro on top.",tags:['both','p1','p2','pantry'],hasPantry:"Cheddar · olive oil on hand"}}
 ];
-  
+
 function buildNext(){
 const el=document.getElementById('next-days');
 if(!el)return;
 el.innerHTML='';
 const intro=document.createElement('div');
 intro.className='memory-intro';
-intro.innerHTML="<strong>Next week · Sep 27–Oct 3.</strong> The fresh plan lands here Wednesday morning — this week’s dinners are on the Menu tab.";
+intro.innerHTML="<strong>Next week · Sep 27–Oct 3.</strong> The fresh plan lands here Wednesday morning — this week's dinners are on the Menu tab.";
 el.appendChild(intro);
 const ratings=S.get('ratings')||{};
 const made=S.get('made')||{};
@@ -561,12 +568,12 @@ const STORES=[
 ]},
 ]},
 ]
-  
+
 // Items from last week's list — any NOT checked as bought carry over to this week
 // (Fresh items from the Aug 23–29 list; lasting staples like rice, Caesar dressing, soy sauce and sriracha are remembered as bought and not re-added.)
 const PREV_ITEMS=[
 ];
-  
+
 function cleanupStaleCarry(){
 if(S.get('carry_cleanup_v1'))return;
 var custom=S.get('shop_custom')||{};
@@ -842,7 +849,6 @@ const PANTRY_ITEMS=[
 {id:'p_hillshire',icon:'🌭',name:'Hillshire sausage',note:'Freezer'},
 {id:'p_icecream',icon:'🍦',name:'Vanilla ice cream',note:'Freezer'},
 {id:'p_coolwhip',icon:'🍦',name:'Cool Whip',note:'Fridge'},
-
 {id:'p_barilla',icon:'🍝',name:'Barilla pasta',note:'Pantry'},
 {id:'p_oliveoil',icon:'🫙',name:'Olive oil (Pompeian)',note:'Pantry'},
 {id:'p_garlic',icon:'🧄',name:'Minced garlic jar',note:'Fridge'},
