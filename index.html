@@ -156,6 +156,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <div class="screen" id="s-next"><div id="next-days"></div></div>
 <div class="screen" id="s-recipes"><div id="recipe-list"></div></div>
 <div class="screen" id="s-shop">
+<div class="note-box" style="margin-bottom:12px;">🛒 <strong>This list covers Sep 27–Oct 3</strong> — the seven dinners on the 📅 Next Wk tab. This week's meals (Sep 20–26) are on the Menu and Recipes tabs.</div>
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:0 2px;">
 <span id="sync-status" style="font-size:12px;color:var(--text-muted);cursor:pointer;" onclick="showSyncSetup()">⚙️ Tap to set up sync</span>
 <button onclick="syncPull().then(function(){buildShop();})" style="font-size:11px;padding:4px 10px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text-muted);cursor:pointer;">↓ Pull</button>
@@ -169,25 +170,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <div id="pantry-grid"></div>
 </div>
 <div class="screen" id="s-costs">
+<div class="note-box" style="margin-bottom:12px;">💰 These numbers cover the <strong>Sep 27–Oct 3</strong> shopping list — the week on the 📅 Next Wk tab.</div>
 <div class="cost-grid">
-<div class="cost-card"><div class="cost-num">$106</div><div class="cost-lbl">est. total groceries</div></div>
-<div class="cost-card"><div class="cost-num">$53</div><div class="cost-lbl">per person / week</div></div>
-<div class="cost-card full"><div class="cost-num" style="color:var(--teal)">447 cal</div><div class="cost-lbl">average dinner this week — nothing over 520</div></div>
+<div class="cost-card"><div class="cost-num">$124</div><div class="cost-lbl">est. total groceries</div></div>
+<div class="cost-card"><div class="cost-num">$62</div><div class="cost-lbl">per person / week</div></div>
+<div class="cost-card full"><div class="cost-num" style="color:var(--teal)">454 cal</div><div class="cost-lbl">average dinner next week — nothing over 510</div></div>
 </div>
 <div class="savings-bar">
-<div class="savings-title">Week of Sep 20–26 breakdown</div>
-<div class="savings-row"><span>Publix (fresh meat, produce &amp; eggs)</span><strong>~$62</strong></div>
-<div class="savings-row"><span>Walmart (boxed, canned &amp; frozen)</span><strong>~$16</strong></div>
+<div class="savings-title">Week of Sep 27–Oct 3 breakdown</div>
+<div class="savings-row"><span>Publix (fresh meat, produce &amp; cheese)</span><strong>~$74</strong></div>
+<div class="savings-row"><span>Walmart (boxed, canned &amp; frozen)</span><strong>~$22</strong></div>
 <div class="savings-row"><span>Lartigue's Fish Store</span><strong>~$28</strong></div>
-<div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$106</strong></div>
+<div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$124</strong></div>
 </div>
 <div class="section-lbl">What your pantry is contributing</div>
 <div class="card">
 <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Barilla pasta &amp; panko</span><span style="color:var(--teal);font-weight:600;">saves ~$6</span></div>
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Sargento cheddar &amp; FAGE yogurt</span><span style="color:var(--teal);font-weight:600;">saves ~$8</span></div>
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Parmesan, bread &amp; sour cream</span><span style="color:var(--teal);font-weight:600;">saves ~$9</span></div>
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Olive oil, garlic &amp; the spice drawer</span><span style="color:var(--teal);font-weight:600;">saves ~$12</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Soy sauce, vinegar &amp; skewers from last week</span><span style="color:var(--teal);font-weight:600;">saves ~$7</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Bacon, eggs &amp; Daisy sour cream</span><span style="color:var(--teal);font-weight:600;">saves ~$8</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Parmesan, Barilla pasta &amp; bread</span><span style="color:var(--teal);font-weight:600;">saves ~$6</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Olive oil, garlic jar, Traeger rubs &amp; the spice drawer</span><span style="color:var(--teal);font-weight:600;">saves ~$14</span></div>
 </div>
 </div>
 <div class="note-box">Estimates from September 2026 Gulf Coast market rates. Lartigue's varies by daily catch — call ahead. ±10%.</div>
@@ -207,7 +209,7 @@ var _syncGistId = localStorage.getItem('fhk_sync_gist') || '';
 var _syncTimer = null;
 var _syncStatus = 'idle'; // idle | syncing | ok | error | setup
 
-var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have','keepers','carryover_v11_done','carry_cleanup_v1'];
+var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have','keepers','carryover_v12_done','carry_cleanup_v2'];
 
 function syncSetToken(token){
 _syncToken = token.trim();
@@ -378,12 +380,12 @@ function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);c
 // ── NEXT WEEK MENU (Sep 27–Oct 3 — fresh plan for the coming week) ──
 const NEXTWEEK=[
 {id:'sun',day:'Sunday',date:'Sep 27',color:'#0F6E56',weather:'🔥 Smoker night',wc:'w-grill',meal:{id:'w10_sun_d',type:'Dinner',name:"Traeger Smoked Pork Tenderloin with Roasted Sweet Potatoes & Green Beans",cal:460,note:"Pork tenderloin smoked low and slow on the Traeger with a simple dry rub, sweet potatoes roasted alongside. P1: pork and sweet potatoes only, no green beans. P2 add: green beans sautéed with garlic and a squeeze of lemon.",tags:['both','p1','p2','pantry'],hasPantry:"Traeger Pork & Poultry Rub · olive oil · minced garlic jar on hand"}},
-{id:'mon',day:'Monday',date:'Sep 28',color:'#185FA5',weather:'🍤 Shrimp skewers',wc:'w-grill',meal:{id:'w10_mon_d',type:'Dinner',name:"Grilled Shrimp & Pineapple Skewers with Coconut Rice",cal:420,note:"The one shrimp night — Gulf shrimp and pineapple chunks grilled on skewers, rice cooked with a little coconut milk. P1: shrimp and plain rice, kept simple, no pineapple. P2 add: coconut rice and grilled pineapple alongside.",tags:['both','p1','p2','pantry'],hasPantry:"Rice · skewers on hand"}},
-{id:'tue',day:'Tuesday',date:'Sep 29',color:'#534AB7',weather:'🥩 Stir-fry night',wc:'w-hot',meal:{id:'w10_tue_d',type:'Dinner',name:"Beef & Broccoli Stir-Fry over Rice",cal:480,note:"Thin-sliced flank steak seared hot with broccoli in a light soy-garlic sauce over rice — the week's only red meat. P1: beef and rice only, sauce light, no broccoli. P2 add: extra broccoli and a drizzle of sesame oil.",tags:['both','p1','p2','pantry'],hasPantry:"Rice · soy sauce · minced garlic jar · sesame seed on hand"}},
-{id:'wed',day:'Wednesday',date:'Sep 30',color:'#993C1D',weather:'🥗 Cobb salad',wc:'w-cool',meal:{id:'w10_wed_d',type:'Dinner',name:"Air-Fryer Chicken Cobb Salad with Corn & Avocado",cal:470,note:"This week's hearty dinner salad — air-fried chicken breast sliced over greens with corn, avocado and a hard-boiled egg. P1: chicken, greens, corn and egg, dressing on the side, no tomato or avocado. P2 add: avocado, cherry tomatoes and a heavier pour of dressing.",tags:['both','p1','p2','pantry'],hasPantry:"Olive oil · mustard on hand"}},
-{id:'thu',day:'Thursday',date:'Oct 1',color:'#B45309',weather:'🐟 Fresh catch',wc:'w-cool',meal:{id:'w10_thu_d',type:'Dinner',name:"Baked Lemon-Herb Gulf Fish with Couscous & Roasted Zucchini",cal:410,note:"Mild Gulf fillets baked with lemon, garlic and herbs, served over couscous. P1: the mildest fillet they have, plain with couscous, no zucchini. P2 add: roasted zucchini with a little parmesan.",tags:['both','p1','p2','pantry'],hasPantry:"Olive oil · minced garlic jar · Italian seasoning on hand"}},
+{id:'mon',day:'Monday',date:'Sep 28',color:'#185FA5',weather:'🍤 Shrimp skewers',wc:'w-grill',meal:{id:'w10_mon_d',type:'Dinner',name:"Grilled Shrimp & Pineapple Skewers with Coconut Rice",cal:420,note:"The one shrimp night — Gulf shrimp and pineapple chunks grilled on skewers, rice cooked with a little coconut milk. P1: shrimp and plain rice, kept simple, no pineapple. P2 add: coconut rice and grilled pineapple alongside.",tags:['both','p1','p2','pantry'],hasPantry:"Wooden skewers · olive oil on hand"}},
+{id:'tue',day:'Tuesday',date:'Sep 29',color:'#534AB7',weather:'🥩 Stir-fry night',wc:'w-hot',meal:{id:'w10_tue_d',type:'Dinner',name:"Beef & Broccoli Stir-Fry over Rice",cal:480,note:"Thin-sliced flank steak seared hot with broccoli in a light soy-garlic sauce over rice — the week's only red meat. P1: beef and rice only, sauce light, no broccoli. P2 add: extra broccoli and a drizzle of sesame oil.",tags:['both','p1','p2','pantry'],hasPantry:"Soy sauce · minced garlic jar · ground ginger on hand"}},
+{id:'wed',day:'Wednesday',date:'Sep 30',color:'#993C1D',weather:'🥗 Cobb salad',wc:'w-cool',meal:{id:'w10_wed_d',type:'Dinner',name:"Air-Fryer Chicken Cobb Salad with Corn & Avocado",cal:470,note:"This week's hearty dinner salad — air-fried chicken breast sliced over greens with corn, avocado and a hard-boiled egg. P1: chicken, greens, corn and egg, dressing on the side, no tomato or avocado. P2 add: avocado, cherry tomatoes and a heavier pour of dressing.",tags:['both','p1','p2','pantry'],hasPantry:"Olive oil · mustard · red wine vinegar · bacon · eggs on hand"}},
+{id:'thu',day:'Thursday',date:'Oct 1',color:'#B45309',weather:'🐟 Fresh catch',wc:'w-cool',meal:{id:'w10_thu_d',type:'Dinner',name:"Broiled Gulf Fish with Old Bay, Couscous & Roasted Zucchini",cal:410,note:"Mild Gulf fillets run under the broiler with a light Old Bay dusting and a squeeze of lemon — no breading, no butter bath. P1: the mildest fillet they have, plain with couscous, no zucchini. P2 add: roasted zucchini with a little parmesan.",tags:['both','p1','p2','pantry'],hasPantry:"Old Bay · olive oil · parmesan on hand"}},
 {id:'fri',day:'Friday',date:'Oct 2',color:'#854F0B',weather:'🍝 Pasta bake',wc:'w-hot',meal:{id:'w10_fri_d',type:'Dinner',name:"Baked Turkey & Spinach Ziti Bake",cal:510,note:"This week's pasta night — ground turkey and ziti baked with a light marinara and melted mozzarella. P1: ziti and turkey with a little sauce and cheese, no spinach. P2 add: spinach folded in and extra parmesan on top.",tags:['both','p1','p2','pantry'],hasPantry:"Minced garlic jar · Italian seasoning · basil on hand"}},
-{id:'sat',day:'Saturday',date:'Oct 3',color:'#5F5E5A',weather:'🌮 Griddle night',wc:'w-hot',meal:{id:'w10_sat_d',type:'Dinner',name:"Black Bean & Cheddar Griddle Quesadillas with Corn Salsa",cal:430,note:"Griddle-crisped flour tortillas filled with black beans and cheddar — a meatless, budget-friendly night to close the week. P1: black beans and cheddar only, no salsa. P2 add: corn salsa with lime and cilantro on top.",tags:['both','p1','p2','pantry'],hasPantry:"Cheddar · olive oil on hand"}}
+{id:'sat',day:'Saturday',date:'Oct 3',color:'#5F5E5A',weather:'🌮 Griddle night',wc:'w-hot',meal:{id:'w10_sat_d',type:'Dinner',name:"Black Bean & Cheddar Griddle Quesadillas with Corn Salsa",cal:430,note:"Griddle-crisped flour tortillas filled with black beans and cheddar — a meatless, budget-friendly night to close the week. P1: black beans and cheddar only, no salsa. P2 add: corn salsa with lime and cilantro on top.",tags:['both','p1','p2','pantry'],hasPantry:"Daisy sour cream · olive oil on hand"}}
 ];
 
 function buildNext(){
@@ -392,7 +394,7 @@ if(!el)return;
 el.innerHTML='';
 const intro=document.createElement('div');
 intro.className='memory-intro';
-intro.innerHTML="<strong>Next week · Sep 27–Oct 3.</strong> The fresh plan lands here Wednesday morning — this week's dinners are on the Menu tab.";
+intro.innerHTML="<strong>Next week · Sep 27–Oct 3.</strong> The 🛒 Shopping tab now covers these seven dinners — this week's meals stay on the Menu and Recipes tabs.";
 el.appendChild(intro);
 const ratings=S.get('ratings')||{};
 const made=S.get('made')||{};
@@ -524,58 +526,67 @@ el.appendChild(card);
 });
 }
 
-// ── SHOPPING DATA ──
-// ── SHOPPING DATA (Week of Sep 20–26) ──
+// ── SHOPPING DATA (Week of Sep 27–Oct 3 — matches the 📅 Next Wk tab) ──
 const STORES=[
-{id:'publix',name:"Publix",color:'#0F6E56',total:'~$62',sections:[
+{id:'publix',name:"Publix",color:'#0F6E56',total:'~$74',sections:[
 {label:'Fresh Meat & Proteins',items:[
-{id:'zp_chickenbreast',name:"Boneless chicken breasts (2.5 lb)",note:"Sun roast & Sat skewers",lasting:false},
-{id:'zp_groundturkey',name:"Ground turkey, 93% lean (1 lb)",note:"Tue meatballs",lasting:false},
-{id:'zp_sirloin',name:"Sirloin steak (3/4 lb)",note:"Wed salad — the week's only red meat",lasting:false},
+{id:'ap_pork',name:"Pork tenderloin (1.25 lb)",note:"Sun — Traeger smoked",lasting:false},
+{id:'ap_flank',name:"Flank steak (1 lb)",note:"Tue stir-fry — the week's only red meat",lasting:false},
+{id:'ap_chicken',name:"Boneless chicken breasts (1 lb)",note:"Wed cobb salad",lasting:false},
+{id:'ap_turkey',name:"Ground turkey, 93% lean (1 lb)",note:"Fri ziti bake",lasting:false},
 ]},
 {label:'Fresh Produce',items:[
-{id:'zp_babypotatoes',name:"Baby potatoes (3 lb)",note:"Sun roast & Fri frittata",lasting:false},
-{id:'zp_onions',name:"Yellow onions (2)",note:"Mon stir-fry & Fri frittata",lasting:false},
-{id:'zp_corn',name:"Corn on the cob (2 ears)",note:"Wed salad",lasting:false},
-{id:'zp_asparagus',name:"Asparagus (1 bunch)",note:"Sun — P2 add-on",lasting:false},
-{id:'zp_zucchini',name:"Zucchini (2)",note:"Mon stir-fry — P2 add-on",lasting:false},
-{id:'zp_bellpeppers',name:"Bell peppers (2)",note:"Mon stir-fry — P2 add-on",lasting:false},
-{id:'zp_greens',name:"Salad greens (1 large bag)",note:"Wed salad & Fri side",lasting:false},
-{id:'zp_cucumbers',name:"Cucumbers (3)",note:"Wed salad & Sat yogurt salad",lasting:false},
-{id:'zp_cherrytomatoes',name:"Cherry tomatoes (1 pint)",note:"Wed & Fri — P2 add-ons",lasting:false},
-{id:'zp_greenbeans',name:"Green beans (3/4 lb)",note:"Thu — P2 add-on",lasting:false},
-{id:'zp_spinach',name:"Baby spinach (1 bag)",note:"Fri frittata — P2 add-on",lasting:false},
-{id:'zp_lemons',name:"Lemons (4)",note:"Sun, Wed, Thu & Sat",lasting:false},
+{id:'ap_sweetpotatoes',name:"Sweet potatoes (3)",note:"Sun roast",lasting:false},
+{id:'ap_greenbeans',name:"Green beans (3/4 lb)",note:"Sun — P2 add-on",lasting:false},
+{id:'ap_pineapple',name:"Fresh pineapple (1)",note:"Mon skewers — P2 add-on",lasting:false},
+{id:'ap_broccoli',name:"Broccoli (2 crowns)",note:"Tue stir-fry",lasting:false},
+{id:'ap_greens',name:"Salad greens (1 large bag)",note:"Wed cobb salad",lasting:false},
+{id:'ap_corn',name:"Corn on the cob (3 ears)",note:"Wed salad & Sat corn salsa",lasting:false},
+{id:'ap_avocado',name:"Avocados (2)",note:"Wed — P2 add-on",lasting:false},
+{id:'ap_cherrytomatoes',name:"Cherry tomatoes (1 pint)",note:"Wed — P2 add-on",lasting:false},
+{id:'ap_zucchini',name:"Zucchini (2)",note:"Thu — P2 add-on",lasting:false},
+{id:'ap_spinach',name:"Baby spinach (1 bag)",note:"Fri ziti — P2 add-on",lasting:false},
+{id:'ap_onions',name:"Yellow onions (2)",note:"Tue stir-fry & Fri ziti bake",lasting:false},
+{id:'ap_redonion',name:"Red onion (1)",note:"Sat corn salsa — P2 add-on",lasting:false},
+{id:'ap_lemons',name:"Lemons (3)",note:"Sun green beans & Thu fish",lasting:false},
+{id:'ap_limes',name:"Limes (2)",note:"Sat corn salsa",lasting:false},
+{id:'ap_cilantro',name:"Cilantro (1 bunch)",note:"Sat corn salsa — P2 add-on",lasting:false},
 ]},
-{label:'Dairy & Eggs',items:[
-{id:'zp_eggs',name:"Eggs (18 ct)",note:"Fri frittata takes 8 — tops up the fridge",lasting:false},
+{label:'Dairy & Cheese',items:[
+{id:'ap_mozzarella',name:"Shredded mozzarella (8 oz)",note:"Fri ziti bake",lasting:false},
+{id:'ap_cheddar',name:"Shredded sharp cheddar (8 oz)",note:"Sat quesadillas",lasting:false},
 ]},
 ]},
-{id:'walmart',name:"Walmart",color:'#185FA5',total:'~$16',sections:[
+{id:'walmart',name:"Walmart",color:'#185FA5',total:'~$22',sections:[
 {label:'Boxed, Canned & Frozen',items:[
-{id:'zw_rice',name:"Rice (2 lb bag)",note:"Mon, Thu & Sat — pantry staple",lasting:true},
-{id:'zw_soysauce',name:"Low-sodium soy sauce",note:"Mon stir-fry — pantry staple",lasting:true},
-{id:'zw_vinegar',name:"Red wine vinegar",note:"Wed vinaigrette — pantry staple",lasting:true},
-{id:'zw_skewers',name:"Wooden skewers",note:"Sat — pantry staple",lasting:true},
-{id:'zw_snappeas',name:"Frozen snap peas (small bag)",note:"Mon stir-fry — P2 add-on",lasting:true},
-{id:'zw_marinara',name:"Marinara sauce (jar)",note:"Tue — P2 topping",lasting:false},
+{id:'aw_rice',name:"Jasmine rice (2 lb bag)",note:"Mon coconut rice & Tue stir-fry — last week's bag fed three dinners",lasting:true},
+{id:'aw_coconutmilk',name:"Coconut milk (1 can)",note:"Mon coconut rice",lasting:false},
+{id:'aw_sesameoil',name:"Toasted sesame oil (small bottle)",note:"Tue — P2 drizzle · pantry staple",lasting:true},
+{id:'aw_cornstarch',name:"Cornstarch (small box)",note:"Tue stir-fry sauce · pantry staple",lasting:true},
+{id:'aw_couscous',name:"Couscous (1 box)",note:"Thu fish",lasting:false},
+{id:'aw_ziti',name:"Ziti or penne (1 box)",note:"Fri bake",lasting:false},
+{id:'aw_marinara',name:"Marinara sauce (jar)",note:"Fri ziti bake",lasting:false},
+{id:'aw_blackbeans',name:"Black beans (2 cans)",note:"Sat quesadillas",lasting:false},
+{id:'aw_tortillas',name:"Flour tortillas, 8 inch (1 pack)",note:"Sat quesadillas",lasting:false},
 ]},
 ]},
 {id:'lartigues',name:"Lartigue's Fish Store",color:'#993C1D',total:'~$28',sections:[
 {label:'Gulf Seafood',items:[
-{id:'zl_shrimp',name:"Gulf shrimp, raw & peeled (3/4 lb)",note:"Mon stir-fry — the one shrimp night",lasting:false},
-{id:'zl_fish',name:"Fresh Gulf fish fillets (2, mild)",note:"Thu lemon-pepper baked",lasting:false},
+{id:'al_shrimp',name:"Gulf shrimp, raw & peeled (3/4 lb)",note:"Mon skewers — the one shrimp night",lasting:false},
+{id:'al_fish',name:"Fresh Gulf fish fillets (2, mild)",note:"Thu broiled with Old Bay",lasting:false},
 ]},
 ]},
 ]
 
-// Items from last week's list — any NOT checked as bought carry over to this week
-// (Fresh items from the Aug 23–29 list; lasting staples like rice, Caesar dressing, soy sauce and sriracha are remembered as bought and not re-added.)
+// Items from last week's list — any NOT checked as bought carry over to this week.
+// Deliberately empty for the Sep 27–Oct 3 cycle: the Sep 20–26 perishables were all
+// bought for meals that are now cooked, so carrying them forward would only add junk.
+// cleanupStaleCarry() (flag carry_cleanup_v2) strips any leftover carry_* rows first.
 const PREV_ITEMS=[
 ];
 
 function cleanupStaleCarry(){
-if(S.get('carry_cleanup_v1'))return;
+if(S.get('carry_cleanup_v2'))return;
 var custom=S.get('shop_custom')||{};
 var checked=S.get('shop_checked')||{};
 var removed=0;
@@ -587,12 +598,12 @@ return true;
 });
 S.set('shop_custom',custom);
 S.set('shop_checked',checked);
-S.set('carry_cleanup_v1',true);
+S.set('carry_cleanup_v2',true);
 if(removed)syncSchedulePush();
 }
 
 function runCarryOver(){
-if(S.get('carryover_v11_done'))return;
+if(S.get('carryover_v12_done'))return;
 var checked=S.get('shop_checked')||{};
 var custom=S.get('shop_custom')||{};
 PREV_ITEMS.forEach(function(p){
@@ -603,7 +614,7 @@ if(custom[p.store].some(function(x){return x.id===cid;}))return; // already adde
 custom[p.store].push({id:cid,name:p.name,note:'Carried from last week — not yet bought',lasting:false});
 });
 S.set('shop_custom',custom);
-S.set('carryover_v11_done',true);
+S.set('carryover_v12_done',true);
 syncSchedulePush();
 }
 
