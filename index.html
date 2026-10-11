@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Fairhope Menu">
 <meta name="theme-color" content="#0a4a35">
-<title>Fairhope Kitchen · Oct 4–10</title>
+<title>Fairhope Kitchen · Oct 11–17</title>
 <style>
 :root{--teal:#0F6E56;--teal-dark:#0a4a35;--teal-mid:#1a8a6a;--teal-light:#e0f5ee;--teal-pale:#f0faf6;--amber:#c07a10;--amber-light:#fff4e0;--coral:#b03a1a;--coral-light:#fdf0ec;--blue:#1a5fa0;--blue-light:#e8f2fc;--sand:#f7f5f0;--sand-dark:#ede9e0;--border:#ddd9d0;--text:#1a1a16;--text-mid:#4a4a42;--text-muted:#7a7a70;--white:#ffffff;--shadow:0 1px 4px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);--shadow-sm:0 1px 3px rgba(0,0,0,.07);--r:14px;--r-sm:9px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -138,9 +138,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <body>
 <header class="site-header">
 <div class="header-inner">
-<div class="header-eyebrow">Fairhope, AL · Week of Oct 4</div>
+<div class="header-eyebrow">Fairhope, AL · Week of Oct 11</div>
 <div class="header-title">Our Kitchen Dashboard</div>
-<div class="header-sub">Oct 4–10 · Dinners · Fall flavors, still light 🍂</div>
+<div class="header-sub">Oct 11–17 · Dinners · Cozy fall flavors, still light 🍂</div>
 </div>
 <nav class="nav-tabs">
 <button class="nav-tab active" onclick="goTab('menu',this)"><span class="nav-tab-icon">🍽</span>Menu</button>
@@ -156,7 +156,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <div class="screen" id="s-next"><div id="next-days"></div></div>
 <div class="screen" id="s-recipes"><div id="recipe-list"></div></div>
 <div class="screen" id="s-shop">
-<div class="note-box" style="margin-bottom:12px;">🛒 <strong>This list covers Oct 4–10</strong> — the same seven dinners on the Menu and Recipes tabs.</div>
+<div class="note-box" style="margin-bottom:12px;">🛒 <strong>This list covers Oct 11–17</strong> — the same seven dinners on the Menu and Recipes tabs.</div>
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:0 2px;">
 <span id="sync-status" style="font-size:12px;color:var(--text-muted);cursor:pointer;" onclick="showSyncSetup()">⚙️ Tap to set up sync</span>
 <button onclick="syncPull().then(function(){buildShop();})" style="font-size:11px;padding:4px 10px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text-muted);cursor:pointer;">↓ Pull</button>
@@ -170,26 +170,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <div id="pantry-grid"></div>
 </div>
 <div class="screen" id="s-costs">
-<div class="note-box" style="margin-bottom:12px;">💰 These numbers cover the <strong>Oct 4–10</strong> shopping list — the week on the Menu tab.</div>
+<div class="note-box" style="margin-bottom:12px;">💰 These numbers cover the <strong>Oct 11–17</strong> shopping list — the week on the Menu tab.</div>
 <div class="cost-grid">
-<div class="cost-card"><div class="cost-num">$118</div><div class="cost-lbl">est. total groceries</div></div>
-<div class="cost-card"><div class="cost-num">$59</div><div class="cost-lbl">per person / week</div></div>
-<div class="cost-card full"><div class="cost-num" style="color:var(--teal)">481 cal</div><div class="cost-lbl">average dinner this week — nothing over 520</div></div>
+<div class="cost-card"><div class="cost-num">$121</div><div class="cost-lbl">est. total groceries</div></div>
+<div class="cost-card"><div class="cost-num">$61</div><div class="cost-lbl">per person / week</div></div>
+<div class="cost-card full"><div class="cost-num" style="color:var(--teal)">467 cal</div><div class="cost-lbl">average dinner this week — nothing over 490</div></div>
 </div>
 <div class="savings-bar">
-<div class="savings-title">Week of Oct 4–10 breakdown</div>
-<div class="savings-row"><span>Publix (fresh meat, produce &amp; cheese)</span><strong>~$78</strong></div>
-<div class="savings-row"><span>Walmart (boxed, canned &amp; frozen)</span><strong>~$12</strong></div>
-<div class="savings-row"><span>Lartigue's Fish Store</span><strong>~$28</strong></div>
-<div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$118</strong></div>
+<div class="savings-title">Week of Oct 11–17 breakdown</div>
+<div class="savings-row"><span>Publix (fresh meat, produce &amp; cheese)</span><strong>~$79</strong></div>
+<div class="savings-row"><span>Walmart (boxed, canned &amp; frozen)</span><strong>~$18</strong></div>
+<div class="savings-row"><span>Lartigue's Fish Store</span><strong>~$24</strong></div>
+<div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$121</strong></div>
 </div>
 <div class="section-lbl">What your pantry is contributing</div>
 <div class="card">
 <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Couscous, rice &amp; red wine vinegar from last week</span><span style="color:var(--teal);font-weight:600;">saves ~$6</span></div>
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Daisy sour cream &amp; butter</span><span style="color:var(--teal);font-weight:600;">saves ~$8</span></div>
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Parmesan &amp; Barilla pasta</span><span style="color:var(--teal);font-weight:600;">saves ~$6</span></div>
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Olive oil, garlic jar, Traeger rubs &amp; the spice drawer</span><span style="color:var(--teal);font-weight:600;">saves ~$14</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Jasmine rice, Barilla spaghetti &amp; parmesan</span><span style="color:var(--teal);font-weight:600;">saves ~$6</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Quaker grits, butter &amp; croutons</span><span style="color:var(--teal);font-weight:600;">saves ~$7</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Honey, Italian seasoning &amp; minced garlic jar</span><span style="color:var(--teal);font-weight:600;">saves ~$5</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Olive oil, Traeger rub, Kinder's blend &amp; the spice drawer</span><span style="color:var(--teal);font-weight:600;">saves ~$12</span></div>
 </div>
 </div>
 <div class="note-box">Estimates from October 2026 Gulf Coast market rates. Lartigue's varies by daily catch — call ahead. ±10%.</div>
@@ -209,7 +209,7 @@ var _syncGistId = localStorage.getItem('fhk_sync_gist') || '';
 var _syncTimer = null;
 var _syncStatus = 'idle'; // idle | syncing | ok | error | setup
 
-var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have','keepers','carryover_v12_done','carry_cleanup_v2'];
+var SYNC_KEYS = ['shop_checked','shop_custom','ratings','made','pantry_have','keepers','carryover_v13_done','carry_cleanup_v3'];
 
 function syncSetToken(token){
 _syncToken = token.trim();
@@ -307,26 +307,26 @@ window.scrollTo(0,0);
 
 // ── MENU DATA ──
 const DAYS=[
-{id:'sun',day:'Sunday',date:'Oct 4',color:'#0F6E56',weather:'🔥 Grill night',wc:'w-grill',meals:[
-{id:'w11_sun_d',type:'Dinner',name:"Grilled Flank Steak with Roasted Baby Potatoes",cal:520,note:"Flank steak seasoned with Kinder's The Blend, grilled hot and sliced thin against the grain, with crispy roasted baby potatoes. P1: steak and potatoes only. P2 add: grilled asparagus with lemon.",tags:['both','p1','p2','pantry'],hasPantry:"Kinder's The Blend 1946 · olive oil on hand"}
+{id:'sun',day:'Sunday',date:'Oct 11',color:'#0F6E56',weather:'🍲 Slow-cooker night',wc:'w-cool',meals:[
+{id:'w12_sun_d',type:'Dinner',name:"Slow-Cooker Apple-Cider Pulled Chicken Sandwiches",cal:460,note:"Lean chicken breasts slow-cooked in apple cider, a little BBQ sauce and smoked paprika until they shred, piled on soft potato buns. P1: chicken and bun only, no onion. P2 add: steamed broccoli on the side.",tags:['both','p1','p2','pantry'],hasPantry:"Honey · garlic powder · olive oil on hand"}
 ]},
-{id:'mon',day:'Monday',date:'Oct 5',color:'#185FA5',weather:'🍤 Shrimp night',wc:'w-cool',meals:[
-{id:'w11_mon_d',type:'Dinner',name:"Lemon-Garlic Shrimp Scampi over Angel Hair",cal:480,note:"Gulf shrimp from Lartigue's sautéed in olive oil, a little butter, garlic and lemon, tossed with angel hair and parmesan. P1: shrimp and pasta only. P2 add: cherry tomatoes and baby spinach wilted in.",tags:['both','p1','p2','pantry'],hasPantry:"Barilla pasta · parmesan · minced garlic jar · red pepper flakes on hand"}
+{id:'mon',day:'Monday',date:'Oct 12',color:'#185FA5',weather:'🍤 Shrimp night',wc:'w-cool',meals:[
+{id:'w12_mon_d',type:'Dinner',name:"Griddle Shrimp Fried Rice",cal:480,note:"Gulf shrimp and scrambled egg tossed with day-old rice, soy sauce and sesame oil on the hot griddle. P1: shrimp, egg and rice only. P2 add: frozen peas and carrots tossed in at the end.",tags:['both','p1','p2','pantry'],hasPantry:"Jasmine rice · olive oil · minced garlic jar on hand"}
 ]},
-{id:'tue',day:'Tuesday',date:'Oct 6',color:'#534AB7',weather:'⚡ Air fryer night',wc:'w-cool',meals:[
-{id:'w11_tue_d',type:'Dinner',name:"Air-Fryer Honey-Mustard Chicken Thighs with Rice",cal:470,note:"Boneless thighs brushed with a honey-Dijon glaze and air-fried until the edges caramelize, over jasmine rice. P1: chicken and rice only. P2 add: garlicky green beans.",tags:['both','p1','p2','pantry'],hasPantry:"Jasmine rice · garlic powder on hand"}
+{id:'tue',day:'Tuesday',date:'Oct 13',color:'#534AB7',weather:'🥗 Hearty salad night',wc:'w-grill',meals:[
+{id:'w12_tue_d',type:'Dinner',name:"Grilled Sirloin Steak Salad with Cheddar & Croutons",cal:480,note:"Grilled top sirloin sliced over crisp romaine with sharp cheddar, crunchy croutons and ranch. This is the week's hearty salad — a real dinner. P1: all of it, no tomato. P2 add: cherry tomatoes and cucumber.",tags:['both','p1','p2','pantry'],hasPantry:"Kinder's The Blend · Olive Garden croutons on hand"}
 ]},
-{id:'wed',day:'Wednesday',date:'Oct 7',color:'#993C1D',weather:'🌮 Griddle night',wc:'w-grill',meals:[
-{id:'w11_wed_d',type:'Dinner',name:"Griddle Turkey Taco Rice Bowls",cal:490,note:"Lean ground turkey seasoned with cumin and chili powder on the griddle, over rice with cheddar and sour cream. P1: turkey, rice, cheddar and sour cream only. P2 add: diced cherry tomatoes with lime, and avocado.",tags:['both','p1','p2','pantry'],hasPantry:"Cumin · chili powder · Daisy sour cream · jasmine rice on hand"}
+{id:'wed',day:'Wednesday',date:'Oct 14',color:'#993C1D',weather:'⚡ Air fryer night',wc:'w-cool',meals:[
+{id:'w12_wed_d',type:'Dinner',name:"Air-Fryer Turkey Meatballs with Spaghetti",cal:490,note:"Tender turkey-parmesan meatballs air-fried until golden, over spaghetti. P1: meatballs and spaghetti with butter and parmesan, no sauce. P2 add: marinara over everything.",tags:['both','p1','p2','pantry'],hasPantry:"Barilla pasta · parmesan · Italian seasoning · minced garlic jar on hand"}
 ]},
-{id:'thu',day:'Thursday',date:'Oct 8',color:'#0F6E56',weather:'🐟 Fresh catch',wc:'w-cool',meals:[
-{id:'w11_thu_d',type:'Dinner',name:"Lemon-Dill Gulf Fish in Parchment with Couscous",cal:410,note:"Mild Gulf fillets from Lartigue's steamed in parchment packets with lemon, dill and a little butter, over couscous. P1: the mildest fillet, plain packet, no vegetables. P2 add: zucchini ribbons in the packet.",tags:['both','p1','p2','pantry'],hasPantry:"Dill weed · couscous (likely left from last week) on hand"}
+{id:'thu',day:'Thursday',date:'Oct 15',color:'#0F6E56',weather:'🐟 Fresh catch',wc:'w-cool',meals:[
+{id:'w12_thu_d',type:'Dinner',name:"Pan-Seared Gulf Fish with Lemon-Butter and Rice",cal:420,note:"Mild Gulf fillets seared golden in a hot pan and finished with a quick lemon-butter sauce, over jasmine rice. P1: the mildest fillet, plain, no vegetables. P2 add: garlicky green beans.",tags:['both','p1','p2','pantry'],hasPantry:"Jasmine rice · olive oil · butter · minced garlic jar on hand"}
 ]},
-{id:'fri',day:'Friday',date:'Oct 9',color:'#854F0B',weather:'🔥 Smoker night',wc:'w-grill',meals:[
-{id:'w11_fri_d',type:'Dinner',name:"Traeger Pork Chops with Grilled Corn on the Cob",cal:500,note:"Thick bone-in chops coated in the Traeger Pork & Poultry rub (Apple & Honey), smoked then seared, with buttered corn. P1: chops and corn as-is. P2 add: a quick cherry tomato and cucumber salad.",tags:['both','p2','pantry'],hasPantry:"Traeger Pork & Poultry Rub on hand"}
+{id:'fri',day:'Friday',date:'Oct 16',color:'#854F0B',weather:'🔥 Smoker night',wc:'w-grill',meals:[
+{id:'w12_fri_d',type:'Dinner',name:"Traeger Pork Tenderloin with Cheesy Grits",cal:460,note:"Pork tenderloin coated in the Traeger Pork & Poultry rub, smoked, then served over creamy cheddar grits. P1: pork and grits as-is. P2 add: garlicky wilted spinach.",tags:['both','p1','p2','pantry'],hasPantry:"Traeger Pork & Poultry Rub · Quaker grits · butter on hand"}
 ]},
-{id:'sat',day:'Saturday',date:'Oct 10',color:'#5F5E5A',weather:'🍕 Pizza night',wc:'w-cool',meals:[
-{id:'w11_sat_d',type:'Dinner',name:"Flatbread Pizza Night",cal:500,note:"Crispy flatbread pizzas in a hot oven, one each. P1: cheese or pepperoni, no tomato pieces. P2: margherita-style with sliced tomato and fresh basil.",tags:['both','p1','p2','pantry'],hasPantry:"Italian seasoning · olive oil · parmesan on hand"}
+{id:'sat',day:'Saturday',date:'Oct 17',color:'#5F5E5A',weather:'🌮 Fiesta night',wc:'w-grill',meals:[
+{id:'w12_sat_d',type:'Dinner',name:"Sheet-Pan Chicken Fajitas",cal:480,note:"Chili-lime chicken strips roasted on a sheet pan and tucked into warm flour tortillas with cheddar. P1: chicken, cheese and tortilla, no peppers. P2 add: roasted peppers and onions from their side of the pan.",tags:['both','p1','p2','pantry'],hasPantry:"Chili powder · cumin · garlic powder · olive oil on hand"}
 ]}
 ];
 
@@ -377,8 +377,15 @@ el.appendChild(card);
 function rate(id,stars){const r=S.get('ratings')||{};r[id]=stars;S.set('ratings',r);const el=document.getElementById('stars-'+id);if(el)el.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<stars));}
 function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);const cb=document.getElementById('madecb-'+id);const mb=document.getElementById('mb-'+id);if(cb)cb.classList.toggle('on',m[id]);if(mb)mb.classList.toggle('made-meal',m[id]);}
 
-// ── NEXT WEEK MENU (Oct 11–17 — not planned yet) ──
+// ── NEXT WEEK MENU (Oct 18–24 — preview) ──
 const NEXTWEEK=[
+{id:'sun',day:'Sunday',date:'Oct 18',color:'#0F6E56',weather:'🔥 Smoker night',wc:'w-grill',meal:{id:'w13_sun_d',type:'Dinner',name:"Traeger Reverse-Seared Top Sirloin with Roasted Baby Potatoes",cal:480,note:"Top sirloin smoked low on the Traeger, then seared hot, with crispy roasted baby potatoes. P1: steak and potatoes only. P2 add: grilled asparagus with lemon.",tags:['both','p1','p2','pantry'],hasPantry:"Kinder's The Blend · olive oil on hand"}},
+{id:'mon',day:'Monday',date:'Oct 19',color:'#185FA5',weather:'⚡ Air fryer night',wc:'w-cool',meal:{id:'w13_mon_d',type:'Dinner',name:"Air-Fryer Chicken Parmesan with Spaghetti",cal:490,note:"Crispy panko chicken cutlets air-fried and topped with mozzarella, over spaghetti. P1: cutlet and buttered noodles, no sauce. P2 add: marinara over everything.",tags:['both','p1','p2','pantry'],hasPantry:"Barilla pasta · parmesan · Italian seasoning on hand"}},
+{id:'tue',day:'Tuesday',date:'Oct 20',color:'#534AB7',weather:'🍤 Shrimp night',wc:'w-grill',meal:{id:'w13_tue_d',type:'Dinner',name:"Griddle Shrimp Tacos with Lime Crema",cal:450,note:"Chili-lime Gulf shrimp seared on the griddle in warm tortillas with a lime-sour cream drizzle. P1: shrimp and cheddar only. P2 add: diced tomato, avocado and cabbage.",tags:['both','p1','p2','pantry'],hasPantry:"Chili powder · cumin · Daisy sour cream on hand"}},
+{id:'wed',day:'Wednesday',date:'Oct 21',color:'#993C1D',weather:'🥗 Hearty salad night',wc:'w-cool',meal:{id:'w13_wed_d',type:'Dinner',name:"Skillet Chicken Cobb Salad",cal:480,note:"Seared chicken over romaine with bacon, hard-boiled egg, avocado and cheddar. This is next week's hearty salad. P1: no tomato or avocado. P2 add: tomatoes and extra avocado.",tags:['both','p1','p2','pantry'],hasPantry:"Thick cut bacon · eggs on hand"}},
+{id:'thu',day:'Thursday',date:'Oct 22',color:'#0F6E56',weather:'🔥 Grill night',wc:'w-grill',meal:{id:'w13_thu_d',type:'Dinner',name:"Grilled Teriyaki Steak Kabobs over Rice",cal:480,note:"Sirloin cubes in a light teriyaki marinade grilled on skewers over jasmine rice. P1: steak and rice only. P2 add: peppers and pineapple on their skewers.",tags:['both','p1','p2','pantry'],hasPantry:"Jasmine rice on hand"}},
+{id:'fri',day:'Friday',date:'Oct 23',color:'#854F0B',weather:'🐟 Fresh catch',wc:'w-cool',meal:{id:'w13_fri_d',type:'Dinner',name:"Oven-Baked Parmesan-Crusted Gulf Fish with Sweet Potato Wedges",cal:440,note:"Mild Gulf fillets under a thin parmesan-panko crust baked until golden, with roasted sweet potato wedges. P1: the mildest fillet and wedges. P2 add: lemon-garlic asparagus.",tags:['both','p1','p2','pantry'],hasPantry:"Parmesan · olive oil on hand"}},
+{id:'sat',day:'Saturday',date:'Oct 24',color:'#5F5E5A',weather:'🌮 Slow-cooker night',wc:'w-cool',meal:{id:'w13_sat_d',type:'Dinner',name:"Slow-Cooker Salsa Verde Turkey Tacos",cal:470,note:"Turkey breast simmered all day in salsa verde until it shreds, piled into warm tortillas with cheddar. P1: turkey, cheddar and tortilla. P2 add: avocado, lime and cilantro.",tags:['both','p1','p2','pantry'],hasPantry:"Cumin · chili powder on hand"}}
 ];
 
 function buildNext(){
@@ -387,7 +394,7 @@ if(!el)return;
 el.innerHTML='';
 const intro=document.createElement('div');
 intro.className='memory-intro';
-intro.innerHTML="<strong>Next week · Oct 11–17.</strong> Not planned yet. The Menu, Recipes and Shopping tabs all cover this week, Oct 4–10.";
+intro.innerHTML="<strong>Next week · Oct 18–24.</strong> A preview of the plan. The Menu, Recipes and Shopping tabs all cover this week, Oct 11–17, and everything switches over when the week rolls.";
 el.appendChild(intro);
 const ratings=S.get('ratings')||{};
 const made=S.get('made')||{};
@@ -429,61 +436,61 @@ function toggleKeeper(id){var k=S.get('keepers')||{};k[id]=!k[id];S.set('keepers
 
 // ── RECIPES DATA ──
 const RECIPES=[
-{day:"Sunday Oct 4 · Grill night",items:[
-{name:"Grilled Flank Steak with Roasted Baby Potatoes",cal:520,methods:["Outdoor Grill","Oven"],
-ing:["1.25 lb flank steak","Kinder's The Blend 1946 (spice drawer)","1.5 lb baby potatoes, halved","2 tbsp olive oil","Salt & pepper","P2: 1 bunch asparagus, trimmed, half a lemon"],
-steps:["Potatoes first: toss with 1 tbsp olive oil, salt & pepper. Roast cut-side down at 425°F for 25–30 min until crispy.","Season the steak generously with Kinder's The Blend. Let it sit at room temp 20 min while the grill heats.","Grill over high heat 4–5 min per side to 130–135°F for medium-rare.","P2: toss asparagus with the remaining olive oil and grill 4–5 min alongside, turning once. Squeeze lemon over it.","Rest the steak a full 10 minutes.","Slice thin and against the grain. Serve with the potatoes."],
-p1:"Steak and potatoes only.",
-p2:"Grilled asparagus with lemon.",
-tip:"Against the grain is everything with flank — look for the long lines in the meat and cut across them."},
+{day:"Sunday Oct 11 · Slow-cooker night",items:[
+{name:"Slow-Cooker Apple-Cider Pulled Chicken Sandwiches",cal:460,methods:["Slow Cooker"],
+ing:["1.75 lb boneless skinless chicken breasts","1 cup apple cider","1/3 cup BBQ sauce","2 tbsp apple cider vinegar","1 tbsp honey","1 tsp smoked paprika","1/2 tsp garlic powder","1/2 yellow onion, sliced","Salt & pepper","2–4 potato buns","P2: 1 broccoli crown, cut into florets"],
+steps:["Scatter the sliced onion in the bottom of the slow cooker and lay the chicken breasts on top.","Whisk the cider, BBQ sauce, vinegar, honey, smoked paprika, garlic powder, salt and pepper. Pour over the chicken.","Cook on low 4–5 hours (or high 2.5–3) until the chicken hits 165°F and shreds easily.","Shred right in the cooker with two forks, then let it soak in the juices for 10 minutes.","P1: lift shredded chicken out with a slotted spoon, leaving the onion behind.","Toast the buns in a dry pan or the oven for 2 minutes.","P2: steam broccoli florets 5 minutes until bright green and just tender.","Pile the chicken on the buns."],
+p1:"Chicken and bun only — pick the onion out.",
+p2:"Steamed broccoli on the side.",
+tip:"Pull the chicken as soon as it shreds easily. Breasts go dry if they cook all day; the 10-minute soak in the juices fixes it."},
 ]},
-{day:"Monday Oct 5 · Shrimp night",items:[
-{name:"Lemon-Garlic Shrimp Scampi over Angel Hair",cal:480,methods:["Stovetop"],
-ing:["3/4 lb Gulf shrimp, raw & peeled (Lartigue's)","8 oz angel hair (Barilla)","2 tbsp olive oil","2 tbsp butter","1 tbsp minced garlic (jar)","Juice & zest of 1 lemon","Pinch of red pepper flakes","1/2 cup reserved pasta water","Parmesan","P2: 1 cup cherry tomatoes (halved), 2 handfuls baby spinach"],
-steps:["Boil angel hair in well-salted water — it only needs 3–4 min. Save 1/2 cup pasta water before draining.","Pat shrimp dry, season with salt and pepper.","Warm olive oil and butter over medium. Add garlic and red pepper flakes, 1 min — don't brown the garlic.","Add shrimp, cook 1–2 min per side until just pink and curled into a loose C.","Add lemon juice, zest and a splash of pasta water. Toss in the pasta, adding water until glossy.","Plate P1 now. P2: toss cherry tomatoes and spinach into the pan off the heat until the spinach wilts.","Parmesan over both."],
-p1:"Shrimp and pasta only — plate before the tomatoes and spinach go in.",
-p2:"Cherry tomatoes and spinach wilted in.",
-tip:"Angel hair overcooks fast — pull it a minute early, it finishes in the pan."},
+{day:"Monday Oct 12 · Shrimp night",items:[
+{name:"Griddle Shrimp Fried Rice",cal:480,methods:["Outdoor Griddle","Stovetop"],
+ing:["3/4 lb Gulf shrimp, raw & peeled (Lartigue's)","2 cups cooked jasmine rice, chilled (about 2/3 cup dry — cook it Sunday)","2 eggs","3 tbsp low-sodium soy sauce","1 tbsp toasted sesame oil","2 tsp minced garlic (jar)","3 green onions, sliced","1 tbsp olive oil","P2: 1 cup frozen peas & carrots"],
+steps:["Cook the rice Sunday (or this morning) and chill it — cold rice fries up fluffy instead of mushy.","Heat the griddle to medium-high with the olive oil.","Pat the shrimp dry and cook 1–2 minutes per side until pink. Move to a plate.","Scramble the eggs on the griddle, breaking them into small pieces.","Add the garlic for 30 seconds, then the rice, pressing it flat so it crisps. Toss and repeat for 3–4 minutes.","Add the soy sauce and sesame oil, then return the shrimp. Fold in the green onion tops.","Plate P1 now. P2: stir the frozen peas & carrots into the remaining rice for 1–2 minutes until hot."],
+p1:"Shrimp, egg and rice only — plate before the peas and carrots go in.",
+p2:"Peas and carrots stirred in.",
+tip:"Day-old, cold rice is the secret — fresh rice steams instead of frying."},
 ]},
-{day:"Tuesday Oct 6 · Air fryer night",items:[
-{name:"Air-Fryer Honey-Mustard Chicken Thighs with Rice",cal:470,methods:["Air Fryer","Stovetop"],
-ing:["1.5 lb boneless skinless chicken thighs","2 tbsp Dijon mustard","1.5 tbsp honey","1 tbsp olive oil","1/2 tsp garlic powder","Salt & pepper","1 cup jasmine rice","P2: 3/4 lb green beans, 1 tsp minced garlic (jar)"],
-steps:["Rice: rinse 1 cup, cook with 1.5 cups water, covered on low 18 min, then rest 5 min off the heat.","Whisk Dijon, honey, olive oil, garlic powder, salt & pepper.","Brush thighs all over with half the glaze.","Air fry at 380°F for 12–14 min, flipping halfway, to 165°F.","Brush on the rest of the glaze and air fry 2 more min to caramelize.","P2: sauté green beans in a hot pan 4–5 min, garlic the last minute.","Serve over rice."],
-p1:"Chicken and rice only.",
-p2:"Garlicky green beans on the side.",
-tip:"Save half the glaze for the end — honey burns if it goes on too early."},
+{day:"Tuesday Oct 13 · Hearty salad night",items:[
+{name:"Grilled Sirloin Steak Salad with Cheddar & Croutons",cal:480,methods:["Outdoor Grill"],
+ing:["1 top sirloin steak (3/4–1 lb)","Kinder's The Blend 1946 (spice drawer)","2 romaine hearts, chopped","1/3 cup shredded sharp cheddar","1 cup croutons","Ranch dressing","Salt & pepper","P2: 1/2 cup cherry tomatoes (halved), 1/2 cucumber (sliced)"],
+steps:["Season the steak generously with Kinder's The Blend. Let it sit at room temp 20 minutes while the grill heats.","Grill over high heat 4–5 minutes per side to 130–135°F for medium-rare.","Rest the steak a full 10 minutes, then slice thin against the grain.","Pile chopped romaine in two big bowls and add the cheddar and croutons.","P2: add the cherry tomatoes and cucumber to their bowl.","Fan the steak slices over the top and drizzle with ranch."],
+p1:"Steak, romaine, cheddar, croutons and ranch — no tomato.",
+p2:"Cherry tomatoes and cucumber.",
+tip:"Dress the salad right before eating so the croutons stay crunchy."},
 ]},
-{day:"Wednesday Oct 7 · Griddle night",items:[
-{name:"Griddle Turkey Taco Rice Bowls",cal:490,methods:["Outdoor Griddle","Stovetop"],
-ing:["1 lb ground turkey, 93% lean","1.5 tsp cumin (spice drawer)","1 tsp chili powder (spice drawer)","1/2 tsp garlic powder","Salt","1 cup jasmine rice","1 cup shredded cheddar","Daisy sour cream","P2: 1/2 cup cherry tomatoes (diced), 1 lime, 1 avocado"],
-steps:["Cook the rice (1 cup rice, 1.5 cups water, covered low 18 min, rest 5).","Heat the griddle to medium-high with a little oil.","Add turkey, break it up, cook 6–7 min until browned.","Season with cumin, chili powder, garlic powder and salt, plus a splash of water to coat. 1 more minute.","P2: toss diced tomatoes with lime juice and a pinch of salt.","Build bowls: rice, turkey, cheddar, sour cream. P2 adds the tomato-lime and sliced avocado."],
-p1:"Turkey, rice, cheddar and sour cream only.",
-p2:"Tomato-lime topping and avocado.",
-tip:"That splash of water at the end turns dry spices into a coating instead of dust."},
+{day:"Wednesday Oct 14 · Air fryer night",items:[
+{name:"Air-Fryer Turkey Meatballs with Spaghetti",cal:490,methods:["Air Fryer","Stovetop"],
+ing:["1 lb ground turkey, 93% lean","1/3 cup panko","1 egg","1/4 cup grated parmesan, plus more for serving","1 tsp Italian seasoning","1 tsp minced garlic (jar)","1/2 tsp salt","5 oz spaghetti (Barilla)","P1: 1 tbsp butter","P2: 1.5 cups marinara"],
+steps:["Mix turkey, panko, egg, parmesan, Italian seasoning, garlic and salt gently — overmixing makes them tough.","Roll into about 16 meatballs, roughly 1 1/2 inches.","Air fry at 375°F for 10–12 minutes, shaking once, until 165°F inside. Work in two batches if needed.","Boil the spaghetti in well-salted water until al dente.","P1: toss a portion of spaghetti with the butter and a big handful of parmesan.","P2: warm the marinara and toss it with the rest of the spaghetti.","Serve about 5 meatballs each. The extras make a great lunch."],
+p1:"Meatballs on buttered, parmesan spaghetti — no sauce.",
+p2:"Marinara over the spaghetti and meatballs.",
+tip:"A little panko keeps lean turkey meatballs tender and juicy."},
 ]},
-{day:"Thursday Oct 8 · Fresh catch",items:[
-{name:"Lemon-Dill Gulf Fish in Parchment with Couscous",cal:410,methods:["Oven"],
-ing:["2 mild Gulf fish fillets (Lartigue's — ask for the mildest catch)","1 lemon, thinly sliced","1 tsp dill weed (spice drawer)","2 tsp butter","Salt & pepper","Parchment paper","1 cup couscous","P2: 1 zucchini, shaved into ribbons"],
-steps:["Call Lartigue's in the morning — flounder, triggerfish or snapper are all mild and work well.","Heat oven to 400°F. Cut two big rectangles of parchment.","P2 packet: lay zucchini ribbons down first. P1 packet: no vegetables.","Set each fillet on the parchment. Season with salt, pepper and dill, top with lemon slices and a teaspoon of butter.","Fold the parchment over and crimp the edges tightly to seal.","Bake on a sheet pan 12–15 min. Fish should flake easily.","Couscous: pour 1 cup boiling water over 1 cup couscous, cover 5 min, fluff.","Open the packets at the table — careful, the steam is hot."],
-p1:"Mildest fillet, plain packet, no vegetables.",
-p2:"Zucchini ribbons steamed in the packet.",
-tip:"Parchment steams the fish gently — the mildest, least fishy way to cook it."},
+{day:"Thursday Oct 15 · Fresh catch",items:[
+{name:"Pan-Seared Gulf Fish with Lemon-Butter and Rice",cal:420,methods:["Stovetop"],
+ing:["2 mild Gulf fish fillets, about 6 oz each (Lartigue's — ask for the mildest catch)","1 tbsp olive oil","2 tbsp butter","1 lemon","Salt & pepper","1/2 cup jasmine rice","P2: 1/2 lb green beans, 1 tsp minced garlic (jar)"],
+steps:["Call Lartigue's in the morning — flounder, triggerfish or snapper are all mild and work well.","Cook the rice: 1/2 cup rice, 3/4 cup plus 2 tbsp water, covered on low 18 minutes, then rest 5.","Pat the fillets very dry and season with salt and pepper.","Heat the olive oil in a skillet over medium-high. Sear the fillets 3–4 minutes per side until golden and flaky. Move to plates.","Lower the heat, add the butter, then the juice of half the lemon. Swirl for 30 seconds and spoon over the fish.","P2: sauté green beans in a hot pan 4–5 minutes, adding the garlic the last minute.","Serve over rice with a lemon wedge."],
+p1:"Mildest fillet, plain lemon butter, no vegetables.",
+p2:"Garlicky green beans.",
+tip:"A dry fillet and a hot pan give a golden crust and a mild flavor."},
 ]},
-{day:"Friday Oct 9 · Smoker night",items:[
-{name:"Traeger Pork Chops with Grilled Corn on the Cob",cal:500,methods:["Traeger"],
-ing:["2 thick bone-in pork chops","Traeger Pork & Poultry Rub — Apple & Honey (spice drawer)","4 ears corn","1 tbsp butter","Salt","P2: 1/2 cup cherry tomatoes, 1/2 cucumber, splash of red wine vinegar, olive oil"],
-steps:["Coat chops generously with the rub. Let sit 20 min.","Traeger at 250°F. Smoke the chops about 40–50 min to 135°F internal.","Turn the Traeger up to 450°F (or move to a hot grill). Corn on now, turning every few minutes, about 12–15 min.","Sear the chops 2–3 min per side to 145°F.","Rest the chops 5 min. Butter and salt the corn.","P2: toss halved tomatoes and diced cucumber with vinegar, olive oil and salt."],
-p1:"Chops and corn as-is.",
-p2:"Quick tomato-cucumber salad.",
-tip:"Smoke low, then sear hot — the apple-honey rub burns if it sits over high heat too long."},
+{day:"Friday Oct 16 · Smoker night",items:[
+{name:"Traeger Pork Tenderloin with Cheesy Grits",cal:460,methods:["Traeger","Stovetop"],
+ing:["1 pork tenderloin (about 1.25 lb)","Traeger Pork & Poultry Rub — Apple & Honey (spice drawer)","1/2 cup Quaker grits","2 cups water","1/3 cup shredded sharp cheddar","1 tbsp butter","Salt","P2: 5 oz baby spinach, 1 tsp minced garlic (jar), 1 tsp olive oil"],
+steps:["Pat the tenderloin dry and coat generously with the rub. Let sit 20 minutes.","Traeger at 225°F. Smoke the pork 40–50 minutes until it reads 135°F.","Turn the Traeger up to 450°F and cook another 8–10 minutes to 145°F.","Rest the pork 10 minutes, then slice into medallions.","Grits: bring the water and a pinch of salt to a boil, whisk in the grits, and cook per the package until thick.","Stir in the cheddar and butter.","P2: wilt the spinach with the garlic and olive oil in a pan, about 1 minute.","Spoon grits onto plates and fan the pork over the top."],
+p1:"Pork and grits as-is.",
+p2:"Garlicky wilted spinach.",
+tip:"Pull the tenderloin at 145°F and rest it — it carries over and stays juicy and pink."},
 ]},
-{day:"Saturday Oct 10 · Pizza night",items:[
-{name:"Flatbread Pizza Night",cal:500,methods:["Oven"],
-ing:["2–4 flatbreads or naan","1/2 cup pizza sauce","2 cups shredded mozzarella","Parmesan","1/2 tsp Italian seasoning (spice drawer)","Olive oil","P1: pepperoni (optional)","P2: 2 Roma tomatoes (thinly sliced), fresh basil"],
-steps:["Heat oven to 450°F with a sheet pan inside.","Brush flatbreads lightly with olive oil.","Spread a thin layer of pizza sauce — thin keeps them crispy.","P1: mozzarella and pepperoni if you like. P2: mozzarella with Roma slices.","Sprinkle Italian seasoning and a little parmesan.","Slide onto the hot sheet pan. Bake 8–10 min until the cheese bubbles and the edges brown.","P2: tear fresh basil over the top after it comes out."],
-p1:"Cheese or pepperoni — no tomato slices.",
-p2:"Margherita-style with Roma tomato and fresh basil.",
-tip:"Preheat the sheet pan — that's what crisps the bottom."},
+{day:"Saturday Oct 17 · Fiesta night",items:[
+{name:"Sheet-Pan Chicken Fajitas",cal:480,methods:["Oven"],
+ing:["3/4 lb chicken breast, sliced into strips","1 tbsp olive oil","1 tsp chili powder","1/2 tsp cumin","1/2 tsp smoked paprika","1/2 tsp garlic powder","Salt","2 limes","4–6 small flour tortillas (6-inch)","1/3 cup shredded sharp cheddar","P2: 2 bell peppers (sliced), 1/2 yellow onion (sliced)"],
+steps:["Heat the oven to 425°F.","Toss the chicken strips with half the olive oil, the chili powder, cumin, smoked paprika, garlic powder, salt and the juice of 1 lime.","P2: toss the peppers and onion with the remaining oil and a pinch of salt.","Spread the chicken on one half of a big sheet pan and the vegetables on the other half, so P1 stays veggie-free.","Roast 15–18 minutes, stirring once, until the chicken is 165°F and the edges brown.","Warm the tortillas for 20 seconds in a dry pan or wrapped in foil in the oven.","Fill the tortillas, add cheddar, and squeeze lime over everything."],
+p1:"Chicken, cheddar and tortilla — keep it off the pepper side.",
+p2:"Roasted peppers and onions.",
+tip:"Keeping the veggies on their own half of the pan means one pan, two dinners."},
 ]}
 ];
 
@@ -519,65 +526,69 @@ el.appendChild(card);
 });
 }
 
-// ── SHOPPING DATA (Week of Oct 4–10 — matches the Menu tab) ──
+// ── SHOPPING DATA (Week of Oct 11–17 — matches the Menu tab) ──
 const STORES=[
-{id:'publix',name:"Publix",color:'#0F6E56',total:'~$78',sections:[
-{label:'Fresh Meat & Proteins',items:[
-{id:'bp_flank',name:"Flank steak (1.25 lb)",note:"Sun — grilled",lasting:false},
-{id:'bp_thighs',name:"Boneless skinless chicken thighs (1.5 lb)",note:"Tue — air fryer",lasting:false},
-{id:'bp_turkey',name:"Ground turkey, 93% lean (1 lb)",note:"Wed taco bowls",lasting:false},
-{id:'bp_chops',name:"Bone-in pork chops (2, thick-cut)",note:"Fri — Traeger",lasting:false},
-{id:'bp_pepperoni',name:"Pepperoni (small pack)",note:"Sat pizza — P1, optional",lasting:false},
+{id:'publix',name:"Publix",color:'#0F6E56',total:'~$79',sections:[
+{label:"Fresh Meat & Proteins",items:[
+{id:'x12_chicken',name:"Boneless skinless chicken breasts (2.5 lb)",note:"Sun pulled chicken 1.75 lb · Sat fajitas 3/4 lb",lasting:false},
+{id:'x12_sirloin',name:"Top sirloin steak (3/4–1 lb)",note:"Tue — steak salad",lasting:false},
+{id:'x12_turkey',name:"Ground turkey, 93% lean (1 lb)",note:"Wed — meatballs",lasting:false},
+{id:'x12_pork',name:"Pork tenderloin (about 1.25 lb)",note:"Fri — Traeger",lasting:false}
 ]},
-{label:'Fresh Produce',items:[
-{id:'bp_babypotatoes',name:"Baby potatoes (1.5 lb)",note:"Sun",lasting:false},
-{id:'bp_asparagus',name:"Asparagus (1 bunch)",note:"Sun — P2 add-on",lasting:false},
-{id:'bp_spinach',name:"Baby spinach (small bag)",note:"Mon — P2 add-on",lasting:false},
-{id:'bp_cherrytom',name:"Cherry tomatoes (1 pint)",note:"Mon, Wed & Fri — P2 add-ons",lasting:false},
-{id:'bp_greenbeans',name:"Green beans (3/4 lb)",note:"Tue — P2 add-on",lasting:false},
-{id:'bp_avocado',name:"Avocado (1)",note:"Wed — P2 add-on",lasting:false},
-{id:'bp_zucchini',name:"Zucchini (1)",note:"Thu — P2 add-on",lasting:false},
-{id:'bp_cucumber',name:"Cucumber (1)",note:"Fri — P2 add-on",lasting:false},
-{id:'bp_corn',name:"Corn on the cob (4 ears)",note:"Fri",lasting:false},
-{id:'bp_roma',name:"Roma tomatoes (2)",note:"Sat — P2 pizza",lasting:false},
-{id:'bp_basil',name:"Fresh basil (1 pack)",note:"Sat — P2 pizza",lasting:false},
-{id:'bp_lemons',name:"Lemons (3)",note:"Sun asparagus, Mon scampi, Thu fish",lasting:false},
-{id:'bp_lime',name:"Lime (1)",note:"Wed — P2 tomato-lime",lasting:false},
+{label:"Fresh Produce",items:[
+{id:'x12_onions',name:"Yellow onions (2)",note:"Sun slow-cooker (1/2) · Sat fajitas P2 (1/2) · spare",lasting:false},
+{id:'x12_broccoli',name:"Broccoli crown (1)",note:"Sun — P2 add-on",lasting:false},
+{id:'x12_greenonions',name:"Green onions (1 bunch)",note:"Mon — fried rice",lasting:false},
+{id:'x12_romaine',name:"Romaine hearts (2)",note:"Tue — steak salad",lasting:false},
+{id:'x12_cherrytom',name:"Cherry tomatoes (small pint)",note:"Tue — P2 add-on",lasting:false},
+{id:'x12_cucumber',name:"Cucumber (1)",note:"Tue — P2 add-on",lasting:false},
+{id:'x12_greenbeans',name:"Green beans (1/2 lb)",note:"Thu — P2 add-on",lasting:false},
+{id:'x12_spinach',name:"Baby spinach (5 oz bag)",note:"Fri — P2 add-on",lasting:false},
+{id:'x12_peppers',name:"Bell peppers (2, any color)",note:"Sat — P2 fajitas",lasting:false},
+{id:'x12_lemon',name:"Lemon (1)",note:"Thu — lemon-butter",lasting:false},
+{id:'x12_limes',name:"Limes (2)",note:"Sat — fajitas",lasting:false}
 ]},
-{label:'Dairy & Cheese',items:[
-{id:'bp_cheddar',name:"Shredded sharp cheddar (8 oz)",note:"Wed bowls",lasting:false},
-{id:'bp_mozzarella',name:"Shredded mozzarella (8 oz)",note:"Sat pizza",lasting:false},
+{label:"Dairy, Cheese & Cider",items:[
+{id:'x12_cheddar',name:"Shredded sharp cheddar (8 oz)",note:"Tue salad, Fri grits, Sat fajitas",lasting:false},
+{id:'x12_eggs',name:"Eggs (1 dozen)",note:"Mon fried rice (2) · Wed meatballs (1)",lasting:false},
+{id:'x12_cider',name:"Apple cider (1 quart)",note:"Sun — slow cooker",lasting:false},
+{id:'bp_butter',name:"Butter (if low)",note:"Wed, Thu & Fri",lasting:true}
+]}
 ]},
+{id:'walmart',name:"Walmart",color:'#185FA5',total:'~$18',sections:[
+{label:"Boxed, Canned & Pantry",items:[
+{id:'aw_rice',name:"Jasmine rice (if low)",note:"Mon & Thu · pantry staple",lasting:true},
+{id:'bw_spaghetti',name:"Spaghetti, Barilla (if out)",note:"Wed meatballs",lasting:true},
+{id:'bw_panko',name:"Panko breadcrumbs (if out)",note:"Wed meatballs",lasting:true},
+{id:'bw_marinara',name:"Marinara, 24 oz jar (if out)",note:"Wed — P2",lasting:true},
+{id:'bw_bbq',name:"BBQ sauce (if low)",note:"Sun pulled chicken",lasting:true},
+{id:'bw_acv',name:"Apple cider vinegar (if out)",note:"Sun pulled chicken",lasting:true},
+{id:'bw_paprika',name:"Smoked paprika (if out)",note:"Sun & Sat",lasting:true},
+{id:'bw_soy',name:"Low-sodium soy sauce (if out)",note:"Mon fried rice",lasting:true},
+{id:'bw_sesame',name:"Toasted sesame oil (if out)",note:"Mon fried rice",lasting:true},
+{id:'bw_ranch',name:"Ranch dressing (if out)",note:"Tue steak salad",lasting:true},
+{id:'x12_buns',name:"Potato buns (1 pack)",note:"Sun pulled chicken",lasting:false},
+{id:'x12_tortillas',name:"Flour tortillas, 6-inch (1 pack)",note:"Sat fajitas",lasting:false},
+{id:'x12_peascarrots',name:"Frozen peas & carrots (1 bag)",note:"Mon — P2 add-on",lasting:false}
+]}
 ]},
-{id:'walmart',name:"Walmart",color:'#185FA5',total:'~$12',sections:[
-{label:'Boxed, Canned & Pantry',items:[
-{id:'aw_rice',name:"Jasmine rice (if low)",note:"Tue & Wed · pantry staple",lasting:true},
-{id:'bw_angelhair',name:"Angel hair pasta (if out)",note:"Mon scampi",lasting:true},
-{id:'bw_couscous',name:"Couscous (if out — likely left from last week)",note:"Thu fish",lasting:true},
-{id:'bw_dijon',name:"Dijon mustard (small jar)",note:"Tue glaze",lasting:true},
-{id:'bw_honey',name:"Honey (if low)",note:"Tue glaze",lasting:true},
-{id:'bw_parchment',name:"Parchment paper (1 roll)",note:"Thu fish packets",lasting:true},
-{id:'bw_flatbread',name:"Flatbreads or naan (4-pack)",note:"Sat pizza",lasting:false},
-{id:'bw_pizzasauce',name:"Pizza sauce (small jar)",note:"Sat pizza",lasting:false},
-]},
-]},
-{id:'lartigues',name:"Lartigue's Fish Store",color:'#993C1D',total:'~$28',sections:[
-{label:'Gulf Seafood',items:[
-{id:'bl_shrimp',name:"Gulf shrimp, raw & peeled (3/4 lb)",note:"Mon scampi",lasting:false},
-{id:'bl_fish',name:"Fresh Gulf fish fillets (2, mild)",note:"Thu parchment — call ahead",lasting:false},
-]},
-]},
+{id:'lartigues',name:"Lartigue's Fish Store",color:'#993C1D',total:'~$24',sections:[
+{label:"Gulf Seafood",items:[
+{id:'x12_shrimp',name:"Gulf shrimp, raw & peeled (3/4 lb)",note:"Mon — fried rice",lasting:false},
+{id:'x12_fish',name:"Fresh Gulf fish fillets (2, mild, ~6 oz each)",note:"Thu — pan-seared · call ahead",lasting:false}
+]}
+]}
 ]
 
 // Items from last week's list — any NOT checked as bought carry over to this week.
-// Deliberately empty for the Oct 4–10 cycle: last week's perishables were bought for
+// Deliberately empty for the Oct 11–17 cycle: last week's perishables were bought for
 // meals that are now cooked, so carrying them forward would only add junk.
-// cleanupStaleCarry() (flag carry_cleanup_v2) strips any leftover carry_* rows first.
+// cleanupStaleCarry() (flag carry_cleanup_v3) strips any leftover carry_* rows first.
 const PREV_ITEMS=[
 ];
 
 function cleanupStaleCarry(){
-if(S.get('carry_cleanup_v2'))return;
+if(S.get('carry_cleanup_v3'))return;
 var custom=S.get('shop_custom')||{};
 var checked=S.get('shop_checked')||{};
 var removed=0;
@@ -589,12 +600,12 @@ return true;
 });
 S.set('shop_custom',custom);
 S.set('shop_checked',checked);
-S.set('carry_cleanup_v2',true);
+S.set('carry_cleanup_v3',true);
 if(removed)syncSchedulePush();
 }
 
 function runCarryOver(){
-if(S.get('carryover_v12_done'))return;
+if(S.get('carryover_v13_done'))return;
 var checked=S.get('shop_checked')||{};
 var custom=S.get('shop_custom')||{};
 PREV_ITEMS.forEach(function(p){
@@ -605,7 +616,7 @@ if(custom[p.store].some(function(x){return x.id===cid;}))return; // already adde
 custom[p.store].push({id:cid,name:p.name,note:'Carried from last week — not yet bought',lasting:false});
 });
 S.set('shop_custom',custom);
-S.set('carryover_v12_done',true);
+S.set('carryover_v13_done',true);
 syncSchedulePush();
 }
 
@@ -863,7 +874,6 @@ const PANTRY_ITEMS=[
 {id:'p_fage',icon:'🥛',name:'FAGE Greek yogurt',note:'Fridge'},
 {id:'p_horseradish',icon:'🫙',name:'Horseradish sauce',note:'Fridge'},
 {id:'p_naturesown',icon:'🍞',name:"Nature's Own bread",note:'Pantry'},
-{id:'p_corn',icon:'🌽',name:'Corn on the cob',note:'Fridge drawer'},
 ];
 
 function initPantry(){const h=S.get('pantry_have');if(h===null){const d={};PANTRY_ITEMS.forEach(i=>{d[i.id]=true;});S.set('pantry_have',d);}}
