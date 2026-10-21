@@ -482,10 +482,10 @@ function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);s
 const NEXTWEEK=[
 {id:'sun',day:'Sunday',date:'Oct 25',color:'#0F6E56',weather:'🔥 Smoker night',wc:'w-grill',meal:{id:'w14_sun_d',type:'Dinner',name:"Traeger Lemon-Herb Smoked Chicken Breasts with Roasted Sweet Potatoes",cal:450,note:"Chicken breasts smoked low on the Traeger with lemon, garlic and herbs, with oven-roasted sweet potato cubes. P1: chicken and sweet potatoes only. P2 + guest add: roasted green beans.",tags:['both','p1','p2','pantry'],hasPantry:"Olive oil · minced garlic jar · dried parsley on hand"}},
 {id:'mon',day:'Monday',date:'Oct 26',color:'#185FA5',weather:'🍝 Pasta night',wc:'w-cool',meal:{id:'w14_mon_d',type:'Dinner',name:"Skillet Italian Beef Rigatoni",cal:490,note:"Lean ground beef browned in the skillet with Italian seasoning and garlic, tossed with rigatoni and parmesan. P1: beef and buttered parmesan noodles, no sauce. P2 + guest add: marinara and baby spinach stirred in.",tags:['both','p1','p2','pantry'],hasPantry:"Barilla pasta · Italian seasoning · parmesan · minced garlic on hand"}},
-{id:'tue',day:'Tuesday',date:'Oct 27',color:'#534AB7',weather:'🍤 Shrimp night',wc:'w-grill',meal:{id:'w14_tue_d',type:'Dinner',name:"Foil-Packet Garlic-Butter Shrimp with Corn and Garlic Toast",cal:430,note:"Gulf shrimp, sweet corn and garlic butter sealed in foil and baked until steaming, with toasted garlic bread. P1: shrimp, corn and toast. P2 + guest add: sliced bell pepper and tomato in the packet.",tags:['both','p1','p2','pantry'],hasPantry:"Butter · minced garlic jar · Old Bay · Nature's Own bread on hand"}},
+{id:'tue',day:'Tuesday',date:'Oct 27',color:'#534AB7',weather:'🍤 Shrimp night',wc:'w-grill',meal:{id:'w14_tue_d',type:'Dinner',name:"Foil-Packet Garlic-Butter Shrimp with Corn and Garlic Toast",cal:430,note:"Gulf shrimp from Lartigue's, sweet corn and garlic butter sealed in foil packets and cooked on the outdoor grill until steaming, with garlic toast off the grill. P1: shrimp, corn and toast. P2 + guest add: sliced bell pepper and tomato in the packet.",tags:['both','p1','p2','pantry'],hasPantry:"Butter · minced garlic jar · Old Bay · Nature's Own bread on hand"}},
 {id:'wed',day:'Wednesday',date:'Oct 28',color:'#993C1D',weather:'🥗 Hearty salad night',wc:'w-cool',meal:{id:'w14_wed_d',type:'Dinner',name:"Crispy Air-Fryer Chicken Chopped Salad with Honey-Mustard",cal:470,note:"Panko air-fried chicken strips over chopped romaine with sweet corn, cheddar and croutons, finished with honey-mustard — this week's hearty salad. P1: no tomato or cucumber. P2 + guest add: cherry tomatoes, cucumber and avocado.",tags:['both','p1','p2','pantry'],hasPantry:"Panko · eggs · honey · croutons · Sargento cheddar on hand"}},
-{id:'thu',day:'Thursday',date:'Oct 29',color:'#0F6E56',weather:'🐟 Fresh catch',wc:'w-cool',meal:{id:'w14_thu_d',type:'Dinner',name:"Parmesan-Herb Crusted Baked Gulf Fish with Roasted Potatoes",cal:440,note:"Mild Gulf fillets with a light panko-parmesan herb crust, baked until golden, with crisp roasted baby potatoes. P1: the mildest fillet and potatoes. P2 + guest add: lemon and roasted asparagus.",tags:['both','p1','p2','pantry'],hasPantry:"Panko · parmesan · olive oil · dried parsley on hand"}},
-{id:'fri',day:'Friday',date:'Oct 30',color:'#854F0B',weather:'🌮 Slow-cooker night',wc:'w-cool',meal:{id:'w14_fri_d',type:'Dinner',name:"Slow-Cooker Pork Carnitas Bowls with Cilantro-Lime Rice",cal:460,note:"Lean pork loin slow-cooked with cumin, chili and orange juice until it shreds, over lime rice with cheddar. P1: pork, rice and cheddar. P2 + guest add: black beans, avocado, salsa and cilantro.",tags:['both','p1','p2','pantry'],hasPantry:"Jasmine rice · cumin · chili powder · Daisy sour cream on hand"}},
+{id:'thu',day:'Thursday',date:'Oct 29',color:'#0F6E56',weather:'🐟 Fresh catch',wc:'w-cool',meal:{id:'w14_thu_d',type:'Dinner',name:"Parmesan-Herb Crusted Baked Gulf Fish with Roasted Potatoes",cal:440,note:"Mild Gulf fillets from Lartigue's with a light panko-parmesan herb crust, baked until golden, with crisp roasted baby potatoes. P1: the mildest fillet and potatoes. P2 + guest add: lemon and roasted asparagus.",tags:['both','p1','p2','pantry'],hasPantry:"Panko · parmesan · olive oil · dried parsley on hand"}},
+{id:'fri',day:'Friday',date:'Oct 30',color:'#854F0B',weather:'🌮 Slow-cooker night',wc:'w-cool',meal:{id:'w14_fri_d',type:'Dinner',name:"Slow-Cooker Pork Carnitas Bowls with Cilantro-Lime Rice",cal:460,note:"Lean pork loin slow-cooked with cumin, chili and orange juice until it shreds, over lime rice with cheddar. P1: pork, rice and cheddar. P2 + guest add: black beans, avocado, fresh Vitamix salsa and cilantro.",tags:['both','p1','p2','pantry'],hasPantry:"Jasmine rice · cumin · chili powder · Daisy sour cream on hand"}},
 {id:'sat',day:'Saturday',date:'Oct 31',color:'#5F5E5A',weather:'🎃 Halloween griddle',wc:'w-grill',meal:{id:'w14_sat_d',type:'Dinner',name:"Griddle Turkey Cheeseburgers with Baked Tater Tots",cal:470,note:"Lean turkey smash burgers seared on the griddle with melted cheddar on toasted buns, with oven-baked tater tots. P1: burger, cheese and tots. P2 + guest add: lettuce, tomato and pickles.",tags:['both','p1','p2','pantry'],hasPantry:"Sargento cheddar · butter · Kinder's The Blend on hand"}}
 ];
 
@@ -589,6 +589,66 @@ steps:["Lay the onion in the slow cooker and set the turkey on top. Rub the turk
 p1:"Turkey, cheddar and tortilla — no salsa, no onion.",
 p2:"Salsa verde, avocado and cilantro.",
 tip:"Leftover turkey freezes well for a quick lunch."},
+]}
+];
+
+// ── NEXT WEEK RECIPES (Oct 25–31, for 3) — not rendered yet; Sunday's rollover promotes this to RECIPES as-is ──
+const NEXT_RECIPES=[
+{day:"Sunday Oct 25 · Smoker night",items:[
+{name:"Traeger Lemon-Herb Smoked Chicken Breasts with Roasted Sweet Potatoes",cal:450,methods:["Traeger","Oven"],
+ing:["2 lb boneless skinless chicken breasts (3 large)","1 lemon (zest and juice)","3 tbsp olive oil","1 tbsp minced garlic (jar)","1 tsp dried parsley","1/2 tsp dried thyme","Salt & pepper","3 medium sweet potatoes, peeled and cut in 1-inch cubes","1/2 tsp paprika","P2 + guest: 12 oz green beans (trimmed), 1/2 tsp garlic powder"],
+steps:["Whisk 2 tbsp olive oil with the lemon zest and juice, garlic, parsley, thyme, 1 tsp salt and 1/2 tsp pepper. Pound the chicken to an even 3/4 inch, coat it in the marinade and refrigerate 30 minutes to 4 hours.","Heat the Traeger to 250°F. Heat the oven to 425°F.","Smoke the chicken at 250°F until it reads 160°F inside, about 50–65 minutes. Tent with foil and rest 10 minutes — it finishes at 165°F.","While the chicken smokes, toss the sweet potatoes with 1/2 tbsp olive oil, the paprika, salt and pepper and roast on a sheet pan 25–30 minutes, flipping once, until browned at the edges.","P2 + guest: toss the green beans with the last 1/2 tbsp oil, the garlic powder and a pinch of salt and roast on a second pan for the last 15 minutes with the sweet potatoes.","Slice the chicken and serve with the sweet potatoes."],
+p1:"Chicken and sweet potatoes only — no green beans.",
+p2:"Roasted green beans.",
+tip:"Pounding the breasts even is what keeps them juicy on the smoker — thin ends no longer dry out before the thick middle is done."},
+]},
+{day:"Monday Oct 26 · Pasta night",items:[
+{name:"Skillet Italian Beef Rigatoni",cal:490,methods:["Stovetop"],
+ing:["1.5 lb 93% lean ground beef","12 oz rigatoni (Barilla)","1 tbsp olive oil","1 tbsp minced garlic (jar)","2 tsp Italian seasoning","Salt & pepper","1/2 cup grated parmesan, plus more for serving","P1: 1 1/2 tbsp butter","P2 + guest: 2 cups marinara, 3 cups baby spinach"],
+steps:["Boil the rigatoni in well-salted water until al dente. Save 1 cup of the pasta water, then drain.","While the pasta cooks, heat the oil in a large skillet over medium-high. Brown the beef, breaking it up, 6–8 minutes. Spoon off any fat.","Stir in the garlic, Italian seasoning, 3/4 tsp salt and 1/2 tsp pepper and cook 1 minute.","P1: move one-third of the beef to a small pot with one-third of the rigatoni, the butter, a splash of pasta water and a handful of parmesan. Toss until glossy.","P2 + guest: add the marinara and spinach to the skillet and stir until the spinach wilts, 2 minutes. Add the rest of the rigatoni and the remaining parmesan, loosening with pasta water as needed.","Serve with extra parmesan at the table."],
+p1:"Beef and buttered parmesan rigatoni — no sauce, no spinach.",
+p2:"Marinara and baby spinach stirred in.",
+tip:"Splitting off P1's portion before the sauce goes in means one skillet, one pot, no second batch."},
+]},
+{day:"Tuesday Oct 27 · Shrimp night",items:[
+{name:"Foil-Packet Garlic-Butter Shrimp with Corn and Garlic Toast",cal:430,methods:["Outdoor Grill"],
+ing:["1.5 lb Gulf shrimp, raw & peeled (Lartigue's)","3 ears sweet corn, each cut in 3 pieces","4 tbsp butter, melted, plus 2 tbsp softened for the toast","1 tbsp minced garlic (jar)","1 1/2 tsp Old Bay","1 lemon","1 tsp dried parsley","6 slices Nature's Own bread","1/4 tsp garlic powder","Heavy-duty aluminum foil","P2 + guest: 1 bell pepper (sliced), 1 cup cherry tomatoes (halved)"],
+steps:["Heat the grill to medium-high, about 400°F.","Microwave the corn pieces covered with a damp paper towel for 3 minutes so they finish at the same time as the shrimp.","Stir the melted butter with the garlic, Old Bay and juice of half the lemon. Pat the shrimp dry and toss them in the butter.","Tear three 14-inch sheets of heavy-duty foil. Divide the corn and shrimp between them and spoon the leftover butter over the top. P2 + guest packets: add the bell pepper and tomatoes. Fold each into a tightly sealed packet.","Grill the packets, lid closed, 8–10 minutes, until the shrimp are pink and curled. Open one carefully to check — watch the steam.","Spread the bread with the softened butter, dust with garlic powder and grill 1–2 minutes per side while the packets rest.","Sprinkle with parsley, squeeze the rest of the lemon over and eat straight from the foil with the garlic toast."],
+p1:"Shrimp, corn and garlic toast — a packet with no pepper or tomato.",
+p2:"Sliced bell pepper and cherry tomatoes in the packet.",
+tip:"Mark P1's packet with a fold in one corner so it's easy to spot on the grill."},
+]},
+{day:"Wednesday Oct 28 · Hearty salad night",items:[
+{name:"Crispy Air-Fryer Chicken Chopped Salad with Honey-Mustard",cal:470,methods:["Air Fryer"],
+ing:["1.5 lb boneless skinless chicken breasts, cut in 1-inch strips","1 egg (on hand)","1 cup panko","1/2 tsp garlic powder","1/2 tsp paprika","1/2 tsp salt","Olive oil spray or 1 tbsp olive oil","3 romaine hearts, chopped","1 cup frozen sweet corn, thawed","3/4 cup shredded sharp cheddar (Sargento)","1 cup croutons (Olive Garden, on hand)","Honey-mustard: 1/4 cup FAGE Greek yogurt, 2 tbsp Dijon mustard, 2 tbsp honey, 1 tbsp apple cider vinegar, pinch of salt","P2 + guest: 1 cup cherry tomatoes (halved), 1 cucumber (diced), 1 avocado"],
+steps:["Whisk the honey-mustard: yogurt, Dijon, honey, vinegar and salt. Chill until dinner.","Beat the egg in a shallow dish. Mix the panko, garlic powder, paprika and salt in another.","Dip the chicken strips in egg, then press into the panko. Spray or brush lightly with oil.","Air fry at 400°F for 10–12 minutes, flipping halfway, until golden and 165°F inside. Work in two batches if needed.","Pat the thawed corn dry. Toss the romaine with the corn, cheddar and croutons and divide among plates.","P2 + guest: add the tomatoes, cucumber and sliced avocado.","Slice the chicken over the top and drizzle with the honey-mustard."],
+p1:"Chicken, romaine, corn, cheddar, croutons and honey-mustard — no tomato or cucumber.",
+p2:"Cherry tomatoes, cucumber and avocado.",
+tip:"Give the strips space in the basket — crowded panko steams instead of crisping."},
+]},
+{day:"Thursday Oct 29 · Fresh catch",items:[
+{name:"Parmesan-Herb Crusted Baked Gulf Fish with Roasted Potatoes",cal:440,methods:["Oven"],
+ing:["3 mild Gulf fish fillets, about 6 oz each (Lartigue's — ask for the mildest catch)","1/2 cup panko","1/3 cup grated parmesan","1 tsp dried parsley","1/2 tsp garlic powder","2 tbsp butter, melted","1.5 lb baby potatoes, halved","1 1/2 tbsp olive oil","Salt & pepper","P2 + guest: 1 bunch asparagus (trimmed), 1 lemon"],
+steps:["Call Lartigue's in the morning — flounder, triggerfish or snapper are mild and take a crust well.","Heat the oven to 425°F. Toss the potatoes with 1 tbsp oil, salt and pepper and roast cut-side down 30–35 minutes until crisp.","Mix the panko, parmesan, parsley, garlic powder and melted butter.","Pat the fillets dry, season lightly with salt and pepper and set on a parchment-lined pan. Press the crumb mix onto the tops.","When the potatoes have 15 minutes left, slide the fish in. Bake 10–14 minutes until the crust is golden and the fish flakes.","P2 + guest: toss the asparagus with the last 1/2 tbsp oil and a pinch of salt and roast on the fish pan for the same 10–12 minutes. Cut the lemon into wedges.","Serve the fish with the potatoes."],
+p1:"Mildest fillet and roasted potatoes — no asparagus.",
+p2:"Lemon wedges and roasted asparagus.",
+tip:"Thin fillets cook fast — start checking at 9 minutes."},
+]},
+{day:"Friday Oct 30 · Slow-cooker night",items:[
+{name:"Slow-Cooker Pork Carnitas Bowls with Cilantro-Lime Rice",cal:460,methods:["Slow Cooker","Stovetop","Vitamix"],
+ing:["2 lb boneless pork loin roast, trimmed","1 tsp cumin","1 tsp chili powder","1 tsp oregano","1 tsp garlic powder","1 tsp salt","1/2 yellow onion, sliced","1 orange (juice)","1/2 cup low-sodium chicken broth","1 1/2 cups jasmine rice","1 lime (zest and juice)","1/2 bunch cilantro, chopped","3/4 cup shredded sharp cheddar (Sargento)","Daisy sour cream for serving (on hand)","P2 + guest: 1 can black beans (rinsed), 1 avocado","P2 + guest Vitamix salsa: 1 can fire-roasted diced tomatoes, 1/4 yellow onion, 1 lime (juice), 1/2 bunch cilantro, 1 tsp minced garlic, 1/4 tsp cumin, pinch of salt"],
+steps:["Morning: lay the onion in the slow cooker. Rub the pork with the cumin, chili powder, oregano, garlic powder and salt and set it on top. Pour the orange juice and broth around it.","Cook on low 7–8 hours (or high 4–5) until the pork pulls apart. Shred it with two forks and toss in the juices.","For crisp edges, spread the shredded pork in a large skillet over medium-high with a splash of the juices and leave it alone 3–4 minutes.","Cook the rice. Fluff with the lime zest and juice and a pinch of salt. Set aside P1's portion, then stir the cilantro into the rest.","P2 + guest: pulse the salsa ingredients in the Vitamix 4–6 short pulses until chunky, not smooth. Warm the black beans and slice the avocado.","Build bowls: rice, pork, cheddar and a spoon of sour cream; P2 + guest add beans, avocado and salsa."],
+p1:"Pork, lime rice (no cilantro), cheddar and sour cream.",
+p2:"Black beans, avocado, Vitamix salsa and cilantro rice.",
+tip:"Pork loin is much leaner than shoulder — keep it on low and don't skip the juices when you shred it."},
+]},
+{day:"Saturday Oct 31 · Halloween griddle",items:[
+{name:"Griddle Turkey Cheeseburgers with Baked Tater Tots",cal:470,methods:["Outdoor Griddle","Oven"],
+ing:["1.25 lb 93% lean ground turkey","1 1/2 tsp Kinder's The Blend 1946 (spice drawer)","3 slices sharp cheddar","3 hamburger buns","1 tbsp butter","1/2 bag (about 16 oz) frozen tater tots","Ketchup and yellow mustard (fridge door)","P2 + guest: lettuce leaves from 1 romaine heart, 1 tomato (sliced), dill pickle chips"],
+steps:["Heat the oven to 425°F and bake the tots on a sheet pan 20–25 minutes, shaking once, until crisp.","Divide the turkey into 6 loose balls. Heat the griddle to high.","Set the balls on the griddle and smash each flat with a spatula. Season with Kinder's. Cook 2–3 minutes until well browned.","Flip, stack two patties per burger, top with cheddar and cook 1–2 minutes until the turkey reaches 165°F and the cheese melts.","Butter the buns and toast them cut-side down on the griddle, about 1 minute.","P2 + guest: add lettuce, tomato and pickles. Serve with the tots."],
+p1:"Burger, cheese and tots — no lettuce, tomato or pickles.",
+p2:"Lettuce, tomato and pickles.",
+tip:"Lean turkey sticks — scrape under each patty with a stiff spatula in one quick move to keep the crust."},
 ]}
 ];
 
@@ -786,6 +846,74 @@ const STORES=[
 ]}
 ]}
 ]
+
+// ── NEXT WEEK SHOPPING LIST (Oct 25–31, for 3) — not rendered yet; Sunday's rollover promotes this to STORES as-is ──
+const NEXT_STORES=[
+{id:'publix',name:"Publix",color:'#0F6E56',total:'~$95',sections:[
+{label:"Fresh Meat & Proteins",items:[
+{id:'x14_chicken',name:"Boneless skinless chicken breasts (3.5 lb)",note:"Sun smoked 2 lb · Wed salad strips 1.5 lb",lasting:false},
+{id:'x14_beef',name:"93% lean ground beef (1.5 lb)",note:"Mon rigatoni",lasting:false},
+{id:'x14_porkloin',name:"Boneless pork loin roast (2 lb)",note:"Fri slow-cooker carnitas",lasting:false},
+{id:'x14_turkey',name:"93% lean ground turkey (1.25 lb)",note:"Sat griddle burgers",lasting:false}
+]},
+{label:"Fresh Produce",items:[
+{id:'x14_sweetpot',name:"Sweet potatoes (3 medium)",note:"Sun",lasting:false},
+{id:'x14_greenbeans',name:"Green beans (12 oz)",note:"Sun — P2 + guest",lasting:false},
+{id:'x14_spinach',name:"Baby spinach (5 oz bag)",note:"Mon — P2 + guest",lasting:false},
+{id:'x14_corn',name:"Sweet corn (3 ears)",note:"Tue foil packets",lasting:false},
+{id:'x14_lemons',name:"Lemons (3)",note:"Sun chicken · Tue shrimp · Thu P2 + guest",lasting:false},
+{id:'x14_pepper',name:"Bell pepper (1, any color)",note:"Tue — P2 + guest",lasting:false},
+{id:'x14_cherrytom',name:"Cherry tomatoes (1 pint)",note:"Tue packets · Wed salad — P2 + guest",lasting:false},
+{id:'x14_romaine',name:"Romaine hearts (4 — a 3-pack plus 1)",note:"Wed salad 3 · Sat burger lettuce 1",lasting:false},
+{id:'x14_cucumber',name:"Cucumber (1)",note:"Wed — P2 + guest",lasting:false},
+{id:'x14_avocados',name:"Avocados (2)",note:"Wed & Fri — P2 + guest · buy one ripe, one firm",lasting:false},
+{id:'x14_potatoes',name:"Baby potatoes (1.5 lb bag)",note:"Thu",lasting:false},
+{id:'x14_asparagus',name:"Asparagus (1 bunch)",note:"Thu — P2 + guest",lasting:false},
+{id:'x14_orange',name:"Orange (1)",note:"Fri carnitas juice",lasting:false},
+{id:'x14_limes',name:"Limes (2)",note:"Fri rice 1 · Fri salsa 1",lasting:false},
+{id:'x14_cilantro',name:"Cilantro (1 bunch)",note:"Fri rice & salsa — P2 + guest",lasting:false},
+{id:'x14_onion',name:"Yellow onion (1)",note:"Fri slow cooker 1/2 · salsa 1/4",lasting:false},
+{id:'x14_tomato',name:"Tomato (1)",note:"Sat — P2 + guest",lasting:false}
+]},
+{label:"Dairy & Cheese",items:[
+{id:'x14_slicedcheddar',name:"Sliced sharp cheddar (8 oz pack)",note:"Sat burgers",lasting:false},
+{id:'x14_cheddar',name:"Shredded sharp cheddar (if Sargento bag is under 1 1/2 cups)",note:"Wed salad · Fri bowls — 3/4 cup each",lasting:false},
+{id:'x14_parm',name:"Grated parmesan (if under 1 cup)",note:"Mon rigatoni 1/2 cup · Thu crust 1/3 cup",lasting:false},
+{id:'x14_butter',name:"Butter (if under 1 1/2 sticks)",note:"Mon P1 · Tue packets & toast · Thu crust · Sat buns",lasting:true}
+]}
+]},
+{id:'walmart',name:"Walmart",color:'#185FA5',total:'~$16',sections:[
+{label:"Boxed, Canned & Frozen",items:[
+{id:'x14_rigatoni',name:"Rigatoni, Barilla (16 oz box)",note:"Mon — uses 12 oz",lasting:false},
+{id:'x14_marinara',name:"Marinara, 24 oz jar",note:"Mon — P2 + guest (2 cups)",lasting:false},
+{id:'x14_frozencorn',name:"Frozen sweet corn (12 oz bag)",note:"Wed salad (1 cup)",lasting:false},
+{id:'x14_blackbeans',name:"Black beans, 15 oz can",note:"Fri — P2 + guest",lasting:false},
+{id:'x14_firetom',name:"Fire-roasted diced tomatoes, 14.5 oz can",note:"Fri Vitamix salsa — P2 + guest",lasting:false},
+{id:'x14_buns',name:"Hamburger buns (8 ct)",note:"Sat burgers",lasting:false},
+{id:'x14_tots',name:"Frozen tater tots (32 oz bag)",note:"Sat — uses half",lasting:false},
+{id:'x14_pickles',name:"Dill pickle chips (if out)",note:"Sat — P2 + guest",lasting:true},
+{id:'x14_dijon',name:"Dijon mustard (if out)",note:"Wed honey-mustard",lasting:true},
+{id:'x14_broth',name:"Low-sodium chicken broth (if none left from last week)",note:"Fri slow cooker (1/2 cup)",lasting:true},
+{id:'x14_panko',name:"Panko breadcrumbs (if under 2 cups)",note:"Wed chicken 1 cup · Thu crust 1/2 cup",lasting:true},
+{id:'x14_rice',name:"Jasmine rice (if low)",note:"Fri — needs 1 1/2 cups",lasting:true},
+{id:'x14_acv',name:"Apple cider vinegar (if out)",note:"Wed honey-mustard",lasting:true},
+{id:'x14_foil',name:"Heavy-duty aluminum foil (if low)",note:"Tue packets",lasting:true}
+]}
+]},
+{id:'lartigues',name:"Lartigue's Fish Store",color:'#993C1D',total:'~$37',sections:[
+{label:"Gulf Seafood",items:[
+{id:'x14_shrimp',name:"Gulf shrimp, raw & peeled (1.5 lb)",note:"Tue — grilled foil packets",lasting:false},
+{id:'x14_fish',name:"Fresh Gulf fish fillets (3, mild, ~6 oz each)",note:"Thu — parmesan crust · call ahead",lasting:false}
+]}
+]}
+];
+
+/* NEXT_COSTS (Oct 25–31, 3 people) — for Sunday's Costs tab rollover:
+   Publix (fresh meat, produce & cheese) ~$95 · Walmart (boxed, canned & frozen) ~$16 · Lartigue's Fish Store ~$37
+   Total estimate ~$148 · ~$49 per person / week (3 people) · average dinner 459 cal — nothing over 490
+   Pantry contributing: jasmine rice & panko (~$5) · eggs, sour cream, Greek yogurt & cheddar (~$9) ·
+   honey, minced garlic jar & Nature's Own bread (~$6) · olive oil, Kinder's blend, croutons & the spice drawer (~$12)
+   Estimates from October 2026 Gulf Coast market rates. Lartigue's varies by daily catch — call ahead. ±10%. */
 
 // Items from last week's list — any NOT checked as bought carry over to this week.
 // Deliberately empty for the Oct 18–24 cycle: last week's perishables were bought for
