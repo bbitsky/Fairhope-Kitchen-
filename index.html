@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Fairhope Menu">
 <meta name="theme-color" content="#0a4a35">
-<title>Fairhope Kitchen · Nov 1–7</title>
+<title>Fairhope Kitchen · Nov 8–14</title>
 <style>
 :root{--teal:#0F6E56;--teal-dark:#0a4a35;--teal-mid:#1a8a6a;--teal-light:#e0f5ee;--teal-pale:#f0faf6;--amber:#c07a10;--amber-light:#fff4e0;--coral:#b03a1a;--coral-light:#fdf0ec;--blue:#1a5fa0;--blue-light:#e8f2fc;--sand:#f7f5f0;--sand-dark:#ede9e0;--border:#ddd9d0;--text:#1a1a16;--text-mid:#4a4a42;--text-muted:#7a7a70;--white:#ffffff;--shadow:0 1px 4px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);--shadow-sm:0 1px 3px rgba(0,0,0,.07);--r:14px;--r-sm:9px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -139,9 +139,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <body>
 <header class="site-header">
 <div class="header-inner">
-<div class="header-eyebrow">Fairhope, AL · Week of Nov 1</div>
+<div class="header-eyebrow">Fairhope, AL · Week of Nov 8</div>
 <div class="header-title">Our Kitchen Dashboard</div>
-<div class="header-sub">Nov 1–7 · Dinners for 3 · First week of November 🍂</div>
+<div class="header-sub">Nov 8–14 · Dinners for 3, then 2 from Tuesday · Mid-November 🍂</div>
 </div>
 <nav class="nav-tabs">
 <button class="nav-tab active" onclick="goTab('menu',this)"><span class="nav-tab-icon">🍽</span>Menu</button>
@@ -153,11 +153,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 </nav>
 </header>
 
-<div class="screen active" id="s-menu"><div id="stale-banner"></div><div class="memory-intro">👥 <strong>Cooking for 3 this week</strong> — P1, P2 and our guest (the guest eats like P2). The Recipes and Shopping tabs are sized for three.</div><div id="menu-days"></div><div class="note-box">⭐ Tap stars to rate each meal — saved automatically. Check "Made it!" to mark meals you've cooked.</div></div>
+<div class="screen active" id="s-menu"><div id="stale-banner"></div><div class="memory-intro">👥 <strong>Cooking for 3 on Sunday and Monday</strong> — P1, P2 and our guest (the guest eats like P2) — then just the two of you from Tuesday. The Recipes and Shopping tabs are sized to match.</div><div id="menu-days"></div><div class="note-box">⭐ Tap stars to rate each meal — saved automatically. Check "Made it!" to mark meals you've cooked.</div></div>
 <div class="screen" id="s-next"><div id="next-days"></div></div>
 <div class="screen" id="s-recipes"><div id="recipe-list"></div></div>
 <div class="screen" id="s-shop">
-<div class="note-box" style="margin-bottom:12px;">🛒 <strong>This list covers Nov 1–7, for 3</strong> — the same seven dinners on the Menu and Recipes tabs. Items you add under “My Additions” stay put and sync to both phones.</div>
+<div class="note-box" style="margin-bottom:12px;">🛒 <strong>This list covers Nov 8–14 — for 3 Sun–Mon, for 2 Tue–Sat</strong> — the same seven dinners on the Menu and Recipes tabs. Items you add under “My Additions” stay put and sync to both phones.</div>
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:0 2px;">
 <span id="sync-status" style="font-size:12px;color:var(--text-muted);cursor:pointer;" onclick="showSyncSetup()">⚙️ Tap to set up sync</span>
 <button onclick="syncPull().then(function(){buildShop();})" style="font-size:11px;padding:4px 10px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text-muted);cursor:pointer;">↓ Pull</button>
@@ -171,26 +171,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-
 <div id="pantry-grid"></div>
 </div>
 <div class="screen" id="s-costs">
-<div class="note-box" style="margin-bottom:12px;">💰 These numbers cover the <strong>Nov 1–7</strong> shopping list (3 people) — the week on the Menu tab.</div>
+<div class="note-box" style="margin-bottom:12px;">💰 These numbers cover the <strong>Nov 8–14</strong> shopping list (3 people Sun–Mon, 2 from Tuesday) — the week on the Menu tab.</div>
 <div class="cost-grid">
-<div class="cost-card"><div class="cost-num">$142</div><div class="cost-lbl">est. total groceries</div></div>
-<div class="cost-card"><div class="cost-num">$47</div><div class="cost-lbl">per person / week (3 people)</div></div>
-<div class="cost-card full"><div class="cost-num" style="color:var(--teal)">454 cal</div><div class="cost-lbl">average dinner this week — nothing over 480</div></div>
+<div class="cost-card"><div class="cost-num">$127</div><div class="cost-lbl">est. total groceries</div></div>
+<div class="cost-card"><div class="cost-num">$8</div><div class="cost-lbl">per dinner plate (16 plates this week)</div></div>
+<div class="cost-card full"><div class="cost-num" style="color:var(--teal)">456 cal</div><div class="cost-lbl">average dinner this week — nothing over 480</div></div>
 </div>
 <div class="savings-bar">
-<div class="savings-title">Week of Nov 1–7 breakdown</div>
-<div class="savings-row"><span>Publix (fresh meat, produce &amp; cheese)</span><strong>~$84</strong></div>
+<div class="savings-title">Week of Nov 8–14 breakdown</div>
+<div class="savings-row"><span>Publix (fresh meat, produce &amp; cheese)</span><strong>~$80</strong></div>
 <div class="savings-row"><span>Walmart (boxed, canned &amp; frozen)</span><strong>~$24</strong></div>
-<div class="savings-row"><span>Lartigue's Fish Store</span><strong>~$34</strong></div>
-<div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$142</strong></div>
+<div class="savings-row"><span>Lartigue's Fish Store</span><strong>~$23</strong></div>
+<div class="savings-row" style="border-top:1px solid rgba(15,110,86,.2);padding-top:8px;margin-top:4px;"><span><strong>Total estimate</strong></span><strong style="font-size:16px;">~$127</strong></div>
 </div>
 <div class="section-lbl">What your pantry is contributing</div>
 <div class="card">
 <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Olive oil, Kinder's blend, croutons, Italian seasoning &amp; the spice drawer</span><span style="color:var(--teal);font-weight:600;">saves ~$12</span></div>
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Quaker grits, honey, eggs &amp; Greek yogurt</span><span style="color:var(--teal);font-weight:600;">saves ~$7</span></div>
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Sargento cheddar, parmesan &amp; butter</span><span style="color:var(--teal);font-weight:600;">saves ~$8</span></div>
-<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Minced garlic jar, Old Bay, chili powder &amp; cumin</span><span style="color:var(--teal);font-weight:600;">saves ~$4</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Olive oil, garlic powder, chili powder, cumin, thyme &amp; the spice drawer</span><span style="color:var(--teal);font-weight:600;">saves ~$10</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Honey, Dijon, apple cider vinegar &amp; croutons (Cobb vinaigrette)</span><span style="color:var(--teal);font-weight:600;">saves ~$6</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);padding-bottom:8px;border-bottom:1px solid var(--border);"><span>Sargento cheddar, parmesan, butter, eggs &amp; FAGE yogurt</span><span style="color:var(--teal);font-weight:600;">saves ~$10</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);"><span>Minced garlic jar, Barilla pasta, bacon &amp; Nature's Own bread</span><span style="color:var(--teal);font-weight:600;">saves ~$7</span></div>
 </div>
 </div>
 </div>
@@ -406,19 +406,19 @@ window.scrollTo(0,0);
 
 // ── MENU DATA ──
 const DAYS=[
-{"id": "sun", "day": "Sunday", "date": "Nov 1", "color": "#0F6E56", "weather": "🔥 Smoker night", "wc": "w-grill", "meals": [{"id": "w15_sun_d", "type": "Dinner", "name": "Traeger Steakhouse Tri-Tip with Smoked Baby Potatoes", "cal": 460, "note": "Tri-tip smoked low on the Traeger with Kinder's The Blend, seared hot to finish, with baby potatoes roasted on the grill. P1: tri-tip and potatoes only. P2 + guest add: roasted Brussels sprouts.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · Kinder's The Blend · butter · garlic powder on hand"}]},
-{"id": "mon", "day": "Monday", "date": "Nov 2", "color": "#185FA5", "weather": "🍝 Pasta night", "wc": "w-cool", "meals": [{"id": "w15_mon_d", "type": "Dinner", "name": "One-Pot Lemon-Parmesan Chicken Orzo", "cal": 470, "note": "Chicken seared in a Dutch oven, then simmered with orzo, garlic, lemon and parmesan in the same pot. P1: chicken and plain buttery orzo before the lemon goes in. P2 + guest add: baby spinach and cherry tomatoes.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · minced garlic jar · Italian seasoning · parmesan · butter on hand"}]},
-{"id": "tue", "day": "Tuesday", "date": "Nov 3", "color": "#534AB7", "weather": "🍂 Sheet-pan night", "wc": "w-cool", "meals": [{"id": "w15_tue_d", "type": "Dinner", "name": "Maple-Dijon Pork Tenderloin with Roasted Sweet Potatoes and Apples", "cal": 450, "note": "Pork tenderloin glazed with maple and Dijon and roasted on one sheet pan with sweet potatoes. P1: pork and sweet potatoes only. P2 + guest add: roasted apple wedges.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · minced garlic jar · thyme on hand"}]},
-{"id": "wed", "day": "Wednesday", "date": "Nov 4", "color": "#993C1D", "weather": "🥗 Hearty salad night", "wc": "w-grill", "meals": [{"id": "w15_wed_d", "type": "Dinner", "name": "Grilled Chili-Lime Shrimp Chopped Salad with Corn, Black Beans & Cheddar", "cal": 430, "note": "Chili-lime Gulf shrimp grilled on skewers over chopped romaine with sweet corn, black beans, cheddar and croutons, with a creamy cilantro-lime dressing — this week's hearty salad and shrimp night. P1: no tomato or avocado, dressing on the side. P2 + guest add: cherry tomatoes and avocado.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · cumin · chili powder · FAGE yogurt · croutons · Sargento cheddar on hand"}]},
-{"id": "thu", "day": "Thursday", "date": "Nov 5", "color": "#0F6E56", "weather": "🐟 Fresh catch", "wc": "w-cool", "meals": [{"id": "w15_thu_d", "type": "Dinner", "name": "Air-Fryer Cornmeal-Crusted Gulf Fish with Cheddar Grits and Yogurt Tartar", "cal": 440, "note": "Mild Gulf fillets in a crunchy cornmeal-panko crust, air-fried and served on creamy cheddar grits with a quick yogurt tartar. P1: the mildest fillet, grits and no tartar. P2 + guest add: lemon wedges and tartar.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Quaker grits · panko · eggs · Old Bay · Dijon · butter · Sargento cheddar on hand"}]},
-{"id": "fri", "day": "Friday", "date": "Nov 6", "color": "#854F0B", "weather": "🍯 Slow-cooker night", "wc": "w-cool", "meals": [{"id": "w15_fri_d", "type": "Dinner", "name": "Slow-Cooker Honey-Garlic Ginger Chicken over Jasmine Rice", "cal": 450, "note": "Chicken breasts slow-cooked in a honey, soy, garlic and ginger sauce until tender, thickened, then spooned over rice. P1: chicken, rice and a little sauce. P2 + guest add: steamed broccoli.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Honey · minced garlic jar · apple cider vinegar · jasmine rice on hand"}]},
-{"id": "sat", "day": "Saturday", "date": "Nov 7", "color": "#5F5E5A", "weather": "🥪 Griddle night", "wc": "w-grill", "meals": [{"id": "w15_sat_d", "type": "Dinner", "name": "Griddle Turkey Meatball Sliders with Mozzarella", "cal": 480, "note": "Italian-seasoned turkey patties smashed on the griddle, topped with mozzarella and tucked into toasted slider buns. P1: plain cheesy sliders. P2 + guest add: warm marinara and a lemony arugula side.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Panko · parmesan · eggs · Italian seasoning · minced garlic jar · olive oil on hand"}]}
+{"id": "sun", "day": "Sunday", "date": "Nov 8", "color": "#0F6E56", "weather": "🔥 Smoker night", "wc": "w-grill", "meals": [{"id": "w16_sun_d", "type": "Dinner", "name": "Traeger Reverse-Seared Sirloin with Rosemary Red Potatoes", "cal": 450, "note": "Thick top sirloin smoked low on the Traeger, then seared hot to finish, with rosemary red potatoes roasted on the grill. P1: steak and potatoes only. P2 + guest add: roasted asparagus.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · garlic powder · butter · salt & pepper on hand"}]},
+{"id": "mon", "day": "Monday", "date": "Nov 9", "color": "#185FA5", "weather": "🌮 Fajita night", "wc": "w-cool", "meals": [{"id": "w16_mon_d", "type": "Dinner", "name": "Sheet-Pan Chicken Fajitas with Warm Tortillas and Lime Crema", "cal": 460, "note": "Sliced chicken tossed in a homemade fajita blend and roasted on one sheet pan, tucked into warm tortillas with cheddar and a quick lime-yogurt crema. P1: chicken, cheddar and crema in the tortilla. P2 + guest add: roasted peppers and onion.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · chili powder · cumin · garlic powder · FAGE yogurt · Sargento cheddar on hand"}]},
+{"id": "tue", "day": "Tuesday", "date": "Nov 10", "color": "#534AB7", "weather": "🍝 Pasta night", "wc": "w-cool", "meals": [{"id": "w16_tue_d", "type": "Dinner", "name": "Garlic-Parmesan Shrimp Linguine", "cal": 480, "note": "Gulf shrimp sautéed in garlic and olive oil and tossed through linguine with a splash of broth, lemon and parmesan — this week's shrimp and pasta night. P1: buttered parmesan linguine with shrimp, no lemon. P2 add: wilted spinach and cherry tomatoes.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · minced garlic jar · parmesan · butter · Barilla pasta on hand"}]},
+{"id": "wed", "day": "Wednesday", "date": "Nov 11", "color": "#993C1D", "weather": "🔥 Grill night", "wc": "w-grill", "meals": [{"id": "w16_wed_d", "type": "Dinner", "name": "Grilled Brown-Sugar Pork Chops with Skillet Cornbread and Garlic Green Beans", "cal": 470, "note": "Center-cut pork chops rubbed with brown sugar and smoked paprika and grilled hot, with a pan of golden cornbread. P1: pork chop and cornbread. P2 add: garlic green beans.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · garlic powder · minced garlic jar · butter · eggs on hand"}]},
+{"id": "thu", "day": "Thursday", "date": "Nov 12", "color": "#0F6E56", "weather": "🍲 Slow-cooker night", "wc": "w-cool", "meals": [{"id": "w16_thu_d", "type": "Dinner", "name": "Slow-Cooker Chicken and Wild Rice Soup with Toasted Bread", "cal": 420, "note": "Chicken simmers all day in the slow cooker with onion, garlic and thyme, then wild rice goes in near the end and a splash of half-and-half makes it creamy. P1: chicken, rice and broth with buttered toast. P2 add: peas, carrots and spinach stirred into P2's bowl.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Minced garlic jar · thyme · butter · Nature's Own bread on hand"}]},
+{"id": "fri", "day": "Friday", "date": "Nov 13", "color": "#854F0B", "weather": "🥗 Hearty salad night", "wc": "w-grill", "meals": [{"id": "w16_fri_d", "type": "Dinner", "name": "Griddle Turkey Cobb Salad with Bacon, Egg and Honey-Dijon Vinaigrette", "cal": 480, "note": "Seasoned turkey cutlets and bacon seared on the griddle over chopped romaine with hard-boiled egg, cheddar and croutons, with a honey-Dijon vinaigrette — this week's hearty salad. P1: dressing on the side, no tomato or avocado. P2 add: cherry tomatoes and avocado.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · honey · Dijon · apple cider vinegar · croutons · Sargento cheddar · eggs · bacon on hand"}]},
+{"id": "sat", "day": "Saturday", "date": "Nov 14", "color": "#5F5E5A", "weather": "🐟 Fresh catch", "wc": "w-cool", "meals": [{"id": "w16_sat_d", "type": "Dinner", "name": "Broiled Creole-Butter Gulf Fish over Garlic Couscous", "cal": 430, "note": "Mild Gulf fillets brushed with Creole butter and broiled on one pan, served over quick garlic couscous with lemon. P1: the mildest fillet with plain butter and lemon. P2 add: garlic-sautéed zucchini.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · minced garlic jar · butter on hand"}]}
 ];
 
-const WEEK_LABEL="Nov 1–7";
-const WEEK_END=new Date(2026,10,8);
+const WEEK_LABEL="Nov 8–14";
+const WEEK_END=new Date(2026,10,15);
 
-const TAG={both:'Works for both',p1:'P1 swap needed',p2:'P2 + guest add-ons',pantry:'Uses what you have'};
+const TAG={both:'Works for both',p1:'P1 swap needed',p2:'P2 add-ons',pantry:'Uses what you have'};
 const TAGCLS={both:'mt-both',p1:'mt-p1',p2:'mt-p2',pantry:'mt-pantry'};
 
 function buildMenu(){
@@ -465,15 +465,8 @@ el.appendChild(card);
 function rate(id,stars){const r=S.get('ratings')||{};r[id]=stars;S.set('ratings',r);stamp('ratings',id);syncSchedulePush();const el=document.getElementById('stars-'+id);if(el)el.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<stars));}
 function toggleMade(id){const m=S.get('made')||{};m[id]=!m[id];S.set('made',m);stamp('made',id);syncSchedulePush();const cb=document.getElementById('madecb-'+id);const mb=document.getElementById('mb-'+id);if(cb)cb.classList.toggle('on',m[id]);if(mb)mb.classList.toggle('made-meal',m[id]);}
 
-// ── NEXT WEEK MENU (Nov 8–14 — posts by Wednesday Nov 4) ──
+// ── NEXT WEEK MENU (Nov 15–21 — posts by Wednesday Nov 11) ──
 const NEXTWEEK=[
-{"id": "sun", "day": "Sunday", "date": "Nov 8", "color": "#0F6E56", "weather": "🔥 Smoker night", "wc": "w-grill", "meal": {"id": "w16_sun_d", "type": "Dinner", "name": "Traeger Reverse-Seared Sirloin with Rosemary Red Potatoes", "cal": 450, "note": "Thick top sirloin smoked low on the Traeger, then seared hot to finish, with rosemary red potatoes roasted on the grill. P1: steak and potatoes only. P2 + guest add: roasted asparagus.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · garlic powder · butter · salt & pepper on hand"}},
-{"id": "mon", "day": "Monday", "date": "Nov 9", "color": "#185FA5", "weather": "🌮 Fajita night", "wc": "w-cool", "meal": {"id": "w16_mon_d", "type": "Dinner", "name": "Sheet-Pan Chicken Fajitas with Warm Tortillas and Lime Crema", "cal": 460, "note": "Sliced chicken tossed in a homemade fajita blend and roasted on one sheet pan, tucked into warm tortillas with cheddar and a quick lime-yogurt crema. P1: chicken, cheddar and crema in the tortilla. P2 + guest add: roasted peppers and onion.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · chili powder · cumin · garlic powder · FAGE yogurt · Sargento cheddar on hand"}},
-{"id": "tue", "day": "Tuesday", "date": "Nov 10", "color": "#534AB7", "weather": "🍝 Pasta night", "wc": "w-cool", "meal": {"id": "w16_tue_d", "type": "Dinner", "name": "Garlic-Parmesan Shrimp Linguine", "cal": 480, "note": "Gulf shrimp sautéed in garlic and olive oil and tossed through linguine with a splash of broth, lemon and parmesan — this week's shrimp and pasta night. P1: buttered parmesan linguine with shrimp, no lemon. P2 add: wilted spinach and cherry tomatoes.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · minced garlic jar · parmesan · butter · Barilla pasta on hand"}},
-{"id": "wed", "day": "Wednesday", "date": "Nov 11", "color": "#993C1D", "weather": "🔥 Grill night", "wc": "w-grill", "meal": {"id": "w16_wed_d", "type": "Dinner", "name": "Grilled Brown-Sugar Pork Chops with Skillet Cornbread and Garlic Green Beans", "cal": 470, "note": "Center-cut pork chops rubbed with brown sugar and smoked paprika and grilled hot, with a pan of golden cornbread. P1: pork chop and cornbread. P2 add: garlic green beans.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · garlic powder · minced garlic jar · butter · eggs on hand"}},
-{"id": "thu", "day": "Thursday", "date": "Nov 12", "color": "#0F6E56", "weather": "🍲 Slow-cooker night", "wc": "w-cool", "meal": {"id": "w16_thu_d", "type": "Dinner", "name": "Slow-Cooker Chicken and Wild Rice Soup with Toasted Bread", "cal": 420, "note": "Chicken simmers all day in the slow cooker with onion, garlic and thyme, then wild rice goes in near the end and a splash of half-and-half makes it creamy. P1: chicken, rice and broth with buttered toast. P2 add: peas, carrots and spinach stirred into P2's bowl.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Minced garlic jar · thyme · butter · Nature's Own bread on hand"}},
-{"id": "fri", "day": "Friday", "date": "Nov 13", "color": "#854F0B", "weather": "🥗 Hearty salad night", "wc": "w-grill", "meal": {"id": "w16_fri_d", "type": "Dinner", "name": "Griddle Turkey Cobb Salad with Bacon, Egg and Honey-Dijon Vinaigrette", "cal": 480, "note": "Seasoned turkey cutlets and bacon seared on the griddle over chopped romaine with hard-boiled egg, cheddar and croutons, with a honey-Dijon vinaigrette — this week's hearty salad. P1: dressing on the side, no tomato or avocado. P2 add: cherry tomatoes and avocado.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · honey · Dijon · apple cider vinegar · croutons · Sargento cheddar · eggs · bacon on hand"}},
-{"id": "sat", "day": "Saturday", "date": "Nov 14", "color": "#5F5E5A", "weather": "🐟 Fresh catch", "wc": "w-cool", "meal": {"id": "w16_sat_d", "type": "Dinner", "name": "Broiled Creole-Butter Gulf Fish over Garlic Couscous", "cal": 430, "note": "Mild Gulf fillets brushed with Creole butter and broiled on one pan, served over quick garlic couscous with lemon. P1: the mildest fillet with plain butter and lemon. P2 add: garlic-sautéed zucchini.", "tags": ["both", "p1", "p2", "pantry"], "hasPantry": "Olive oil · minced garlic jar · butter on hand"}}
 ];
 
 function buildNext(){
@@ -482,7 +475,7 @@ if(!el)return;
 el.innerHTML='';
 const intro=document.createElement('div');
 intro.className='memory-intro';
-intro.innerHTML=NEXTWEEK.length?"<strong>Next week · Nov 8–14.</strong> A preview of the plan — dinners for 3 on Sunday and Monday while our guest is here, then for 2 (P1 and P2) from Tuesday on. The Menu, Recipes and Shopping tabs still cover this week, Nov 1–7; next week's recipes and shopping list switch over on Sunday, Nov 8.":"<strong>Next week · Nov 8–14.</strong> Still being planned — it posts here by Wednesday, Nov 4. This week (Nov 1–7) is on the Menu, Recipes and Shopping tabs.";
+intro.innerHTML=NEXTWEEK.length?"<strong>Next week · Nov 15–21.</strong> A preview of the plan. The Menu, Recipes and Shopping tabs still cover this week, Nov 8–14; next week's recipes and shopping list switch over on Sunday, Nov 15.":"<strong>Next week · Nov 15–21.</strong> Still being planned — it posts here by Wednesday, Nov 11. This week (Nov 8–14) is on the Menu, Recipes and Shopping tabs.";
 el.appendChild(intro);
 const ratings=S.get('ratings')||{};
 const made=S.get('made')||{};
@@ -521,6 +514,69 @@ el.appendChild(card);
 
 // ── RECIPES DATA ──
 const RECIPES=[
+{day:"Sunday Nov 8 · Smoker night",items:[
+{forThree:true,name:"Traeger Reverse-Seared Sirloin with Rosemary Red Potatoes",cal:450,methods:["Traeger"],
+ing:["1.5 lb top sirloin steak, about 1 1/2 inches thick", "2 tsp coarse salt", "1 tsp black pepper", "1 tsp garlic powder", "1.5 lb red potatoes, cut in 1-inch chunks", "2 tbsp olive oil", "1 tbsp chopped fresh rosemary", "1 tbsp butter", "P2 + guest: 1 bunch asparagus (trimmed), 1/2 tbsp olive oil"],
+steps:["Pat the sirloin dry and rub all over with the salt, pepper and garlic powder. Let it sit at room temperature while the Traeger heats to 225°F.", "Smoke the steak at 225°F until it reads 115°F inside, about 35–45 minutes.", "Move the steak to a plate. Turn the Traeger to its highest setting, 450–500°F, and give it 10 minutes to come up to temperature.", "While it heats, toss the potatoes with 1 1/2 tbsp olive oil, the rosemary, a pinch of salt and pepper on a sheet pan. Roast on the hot Traeger 25–30 minutes, stirring once, until crisp and golden. Finish with the butter.", "P2 + guest: toss the asparagus with the last 1/2 tbsp oil, salt and pepper and roast on a second pan for the final 10–12 minutes.", "With 10 minutes left on the potatoes, sear the steak 2 minutes per side directly on the grate until it reads 130°F for medium-rare. Rest 10 minutes.", "Slice the steak thinly against the grain and serve with the potatoes."],
+p1:"Steak and rosemary potatoes only — no asparagus.",
+p2:"Roasted asparagus.",
+tip:"Smoking low first and searing last (the reverse sear) gives edge-to-edge pink and a crust without a gray band."}
+]},
+{day:"Monday Nov 9 · Fajita night",items:[
+{forThree:true,name:"Sheet-Pan Chicken Fajitas with Warm Tortillas and Lime Crema",cal:460,methods:["Sheet pan"],
+ing:["1.5 lb boneless skinless chicken breasts, sliced in 1/2-inch strips", "2 tbsp olive oil, divided", "2 tsp chili powder", "1 tsp cumin", "1 tsp smoked paprika", "1/2 tsp garlic powder", "1/2 tsp salt", "8 small flour tortillas (6-inch)", "1/2 cup shredded sharp cheddar", "Lime crema: 1/3 cup plain Greek yogurt, juice of 1 lime, pinch of salt", "1 lime, cut in wedges", "P2 + guest: 2 bell peppers (sliced), 1/2 yellow onion (sliced)"],
+steps:["Heat the oven to 425°F. Mix the chili powder, cumin, smoked paprika, garlic powder and salt.", "Toss the chicken with 1 tbsp oil and two-thirds of the spice blend. Spread it over half of a large rimmed sheet pan.", "P2 + guest: toss the peppers and onion with the last 1 tbsp oil and the rest of the spice blend and spread them over the other half of the pan, so P1's chicken stays vegetable-free.", "Roast 16–18 minutes, stirring once, until the chicken reads 165°F and the vegetables are browned at the edges.", "While it roasts, stir together the yogurt, lime juice and salt for the crema. Warm the tortillas in a dry skillet or wrapped in foil in the oven for 5 minutes.", "Serve the chicken in the tortillas with cheddar and crema, with lime wedges. P2 + guest pile on the roasted vegetables."],
+p1:"Chicken, cheddar and crema in the tortilla — no peppers or onion.",
+p2:"Roasted peppers and onion.",
+tip:"Keeping the vegetables on their own half of the pan means one pan, one cleanup, and both plates still come out right."}
+]},
+{day:"Tuesday Nov 10 · Pasta night",items:[
+{name:"Garlic-Parmesan Shrimp Linguine",cal:480,methods:["Stovetop"],
+ing:["6 oz linguine", "3/4 lb large raw peeled Gulf shrimp", "2 tbsp olive oil", "1 tbsp minced garlic (jar)", "1/3 cup low-sodium chicken broth", "1 lemon (zest and juice)", "1/3 cup grated parmesan, plus more for serving", "1 tbsp butter", "1/4 tsp red pepper flakes (optional)", "1/2 cup pasta water, reserved", "Salt & pepper", "P2: 2 cups baby spinach, 1/2 cup cherry tomatoes (halved)"],
+steps:["Boil the linguine in well-salted water until just al dente. Save 1/2 cup of the pasta water, then drain.", "Pat the shrimp dry and season with 1/2 tsp salt and pepper. Heat 1 tbsp oil in a large skillet over medium-high and sear the shrimp 1–2 minutes per side until just pink. Move them to a plate.", "Lower the heat to medium. Add the remaining oil and the garlic (and pepper flakes) and cook 30 seconds, then pour in the broth and simmer 2 minutes.", "Add the pasta, butter, parmesan and a splash of pasta water and toss until glossy. Return the shrimp to the pan.", "P1: scoop half of the pasta and shrimp into a bowl before any lemon goes in.", "Stir the lemon zest and juice into the main pan. P2: fold in the spinach until wilted and top with the cherry tomatoes. Serve with extra parmesan."],
+p1:"Buttered parmesan linguine and shrimp — no lemon, spinach or tomatoes.",
+p2:"Wilted spinach and fresh cherry tomatoes.",
+tip:"Pull the shrimp the moment they curl into a loose C; they finish in the warm sauce and never turn rubbery."}
+]},
+{day:"Wednesday Nov 11 · Grill night",items:[
+{name:"Grilled Brown-Sugar Pork Chops with Skillet Cornbread and Garlic Green Beans",cal:470,methods:["Grill"],
+ing:["1 lb boneless center-cut pork chops (2 chops, about 1 inch thick)", "1 tbsp brown sugar", "1 1/2 tsp smoked paprika", "1 tsp garlic powder", "1/2 tsp salt", "1/2 tsp black pepper", "1 tbsp olive oil", "1 box (8.5 oz) corn muffin mix", "1 egg", "1/3 cup milk", "1 tbsp butter, for serving", "P2: 8 oz fresh green beans (trimmed), 1 tbsp olive oil, 1 tsp minced garlic (jar)"],
+steps:["Heat the oven to 400°F and heat the grill to medium-high. Mix the brown sugar, smoked paprika, garlic powder, salt and pepper.", "Pat the pork dry, rub with the olive oil and then the spice rub. Let it sit while the grill heats.", "Stir the muffin mix, egg and milk together just until combined and pour into a greased 8-inch pan or oven-safe skillet. Bake 15–18 minutes until golden and a toothpick comes out clean.", "Grill the chops 5–6 minutes per side until they read 145°F. Rest 5 minutes.", "P2: heat 1 tbsp oil in a skillet over medium-high, add the green beans and cook 6–8 minutes until blistered and crisp-tender, adding the garlic for the final 30 seconds. Season with salt.", "Serve the chops with a square of cornbread brushed with the butter. P2 takes the green beans."],
+p1:"Pork chop and cornbread — no green beans.",
+p2:"Garlic green beans.",
+tip:"A center-cut chop is lean but dries out fast. Pull it at 145°F and rest it; the carryover heat finishes it."}
+]},
+{day:"Thursday Nov 12 · Slow-cooker night",items:[
+{name:"Slow-Cooker Chicken and Wild Rice Soup with Toasted Bread",cal:420,methods:["Slow cooker"],
+ing:["1 lb boneless skinless chicken breasts", "5 cups low-sodium chicken broth", "1/2 yellow onion, finely diced", "1 tbsp minced garlic (jar)", "1 tsp dried thyme", "1 box (6 oz) long grain and wild rice blend, with seasoning packet", "1/3 cup half-and-half", "Salt & pepper", "4 slices bread, toasted, with butter", "P2: 1/2 cup frozen peas and carrots, 1 cup baby spinach"],
+steps:["Add the chicken, broth, onion, garlic, thyme and 1/2 tsp pepper to the slow cooker. Cook on low 6 hours or high 3 hours.", "Lift the chicken out and shred it with two forks. Return it to the pot.", "Stir in the rice and its seasoning packet, cover and cook on high 45 minutes, until the rice is tender.", "Stir in the half-and-half and add salt to taste. It makes about 6 bowls — the extra 2 are lunch.", "P1: ladle a bowl of chicken, rice and broth before any vegetables go in.", "P2: add the frozen peas and carrots and the spinach to P2's bowl and microwave 1 minute, or stir them into the pot just before serving. Serve with buttered toast."],
+p1:"Chicken, rice and broth with buttered toast — no vegetables.",
+p2:"Peas, carrots and spinach stirred into the bowl.",
+tip:"Stir in the half-and-half off the high heat so the soup stays silky instead of splitting."}
+]},
+{day:"Friday Nov 13 · Hearty salad night",items:[
+{name:"Griddle Turkey Cobb Salad with Bacon, Egg and Honey-Dijon Vinaigrette",cal:480,methods:["Griddle"],
+ing:["3/4 lb turkey breast cutlets", "1 tsp paprika", "1/2 tsp garlic powder", "1 tbsp olive oil", "4 slices thick-cut bacon", "2 eggs", "2 romaine hearts, chopped", "1/3 cup shredded sharp cheddar", "2/3 cup croutons", "Dressing: 2 tbsp olive oil, 2 tsp apple cider vinegar, 1 1/2 tsp Dijon mustard, 1 tsp honey, pinch of salt and pepper", "Salt & pepper", "P2: 1/2 cup cherry tomatoes (halved), 1/2 avocado (diced)"],
+steps:["Hard-boil the eggs: cover with cold water, bring to a boil, turn off the heat, cover and let sit 11 minutes, then cool in ice water, peel and slice.", "Mix the paprika, garlic powder, 1/2 tsp salt and 1/4 tsp pepper and rub it over the turkey cutlets with the olive oil.", "Heat the griddle to medium-high. Cook the bacon until crisp, remove it to paper towels and crumble. Pour off most of the fat.", "Sear the turkey cutlets on the griddle 3–4 minutes per side until they read 165°F. Rest 5 minutes, then slice into strips.", "Shake the vinaigrette ingredients in a jar.", "Pile the romaine on plates and arrange the turkey, bacon, egg, cheddar and croutons in rows. P2 adds the tomatoes and avocado. Drizzle with dressing, P1's on the side."],
+p1:"Romaine, turkey, bacon, egg, cheddar and croutons with dressing on the side — no tomato or avocado.",
+p2:"Cherry tomatoes and diced avocado.",
+tip:"Slice the cutlets thin and across the grain; thin strips stay tender and make the salad eat like a full dinner."}
+]},
+{day:"Saturday Nov 14 · Fresh catch",items:[
+{name:"Broiled Creole-Butter Gulf Fish over Garlic Couscous",cal:430,methods:["Broiler"],
+ing:["2 mild Gulf fish fillets (drum or redfish), about 6 oz each", "2 tbsp butter, melted, divided", "1 tsp Creole seasoning", "1 tsp minced garlic (jar), plus 1/2 tsp for the couscous", "1 tsp olive oil", "1 lemon, cut in wedges", "2/3 cup plain couscous", "3/4 cup plus 2 tbsp water", "1 tbsp butter, for the couscous", "Salt & pepper", "P2: 1 small zucchini (sliced in half-moons), 1/2 tbsp olive oil"],
+steps:["Set the oven rack 6 inches under the broiler and heat the broiler to high. Line a pan with foil and oil it lightly.", "Mix 1 1/2 tbsp melted butter with the Creole seasoning and 1 tsp garlic. Pat the fish dry and place it on the pan. P1: brush that fillet with plain melted butter and a pinch of salt instead.", "Broil the fish 6–8 minutes, brushing once with the remaining butter, until it flakes easily and reads 145°F.", "Meanwhile bring the water, 1/2 tsp garlic and a pinch of salt to a boil, stir in the couscous, cover, take off the heat and let it sit 5 minutes. Fluff with the 1 tbsp butter.", "P2: sauté the zucchini in the olive oil over medium-high 4–5 minutes until golden, with salt and pepper.", "Serve the fish over the couscous with lemon wedges."],
+p1:"Fillet with plain butter, salt and lemon — no Creole spice or zucchini.",
+p2:"Garlic-sautéed zucchini.",
+tip:"Broil close to the heat and skip the flip: thin fillets cook through from the top while the bottom stays moist."}
+]}
+];
+
+// ── NEXT WEEK RECIPES (Nov 15–21) — not rendered; filled by Wednesday, promoted to RECIPES on Sunday ──
+const NEXT_RECIPES=[
+];
+
+const RECIPE_ARCHIVE=[{week:"Nov 1–7",days:[
 {day:"Sunday Nov 1 · Smoker night",items:[
 {name:"Traeger Steakhouse Tri-Tip with Smoked Baby Potatoes",cal:460,methods:["Traeger"],
 ing:["1.5 lb tri-tip roast, trimmed", "2 tbsp Kinder's The Blend (spice drawer)", "1.5 lb baby potatoes, halved", "2 tbsp olive oil", "1/2 tsp garlic powder", "1 tsp dried parsley", "1 tbsp butter", "Salt & pepper", "P2 + guest: 12 oz Brussels sprouts (trimmed and halved), 1/2 tbsp olive oil"],
@@ -577,69 +633,7 @@ p1:"Plain turkey sliders with melted mozzarella — no marinara or arugula.",
 p2:"Warm marinara and the lemony arugula.",
 tip:"Smash the patties right away, while the meat is cold and the griddle is hot — that is where the crispy edge comes from."}
 ]}
-];
-
-// ── NEXT WEEK RECIPES (Nov 8–14) — not rendered; filled by Wednesday, promoted to RECIPES on Sunday ──
-const NEXT_RECIPES=[
-{day:"Sunday Nov 8 · Smoker night",items:[
-{name:"Traeger Reverse-Seared Sirloin with Rosemary Red Potatoes",cal:450,methods:["Traeger"],
-ing:["1.5 lb top sirloin steak, about 1 1/2 inches thick", "2 tsp coarse salt", "1 tsp black pepper", "1 tsp garlic powder", "1.5 lb red potatoes, cut in 1-inch chunks", "2 tbsp olive oil", "1 tbsp chopped fresh rosemary", "1 tbsp butter", "P2 + guest: 1 bunch asparagus (trimmed), 1/2 tbsp olive oil"],
-steps:["Pat the sirloin dry and rub all over with the salt, pepper and garlic powder. Let it sit at room temperature while the Traeger heats to 225°F.", "Smoke the steak at 225°F until it reads 115°F inside, about 35–45 minutes.", "Move the steak to a plate. Turn the Traeger to its highest setting, 450–500°F, and give it 10 minutes to come up to temperature.", "While it heats, toss the potatoes with 1 1/2 tbsp olive oil, the rosemary, a pinch of salt and pepper on a sheet pan. Roast on the hot Traeger 25–30 minutes, stirring once, until crisp and golden. Finish with the butter.", "P2 + guest: toss the asparagus with the last 1/2 tbsp oil, salt and pepper and roast on a second pan for the final 10–12 minutes.", "With 10 minutes left on the potatoes, sear the steak 2 minutes per side directly on the grate until it reads 130°F for medium-rare. Rest 10 minutes.", "Slice the steak thinly against the grain and serve with the potatoes."],
-p1:"Steak and rosemary potatoes only — no asparagus.",
-p2:"Roasted asparagus.",
-tip:"Smoking low first and searing last (the reverse sear) gives edge-to-edge pink and a crust without a gray band."}
-]},
-{day:"Monday Nov 9 · Fajita night",items:[
-{name:"Sheet-Pan Chicken Fajitas with Warm Tortillas and Lime Crema",cal:460,methods:["Sheet pan"],
-ing:["1.5 lb boneless skinless chicken breasts, sliced in 1/2-inch strips", "2 tbsp olive oil, divided", "2 tsp chili powder", "1 tsp cumin", "1 tsp smoked paprika", "1/2 tsp garlic powder", "1/2 tsp salt", "8 small flour tortillas (6-inch)", "1/2 cup shredded sharp cheddar", "Lime crema: 1/3 cup plain Greek yogurt, juice of 1 lime, pinch of salt", "1 lime, cut in wedges", "P2 + guest: 2 bell peppers (sliced), 1/2 yellow onion (sliced)"],
-steps:["Heat the oven to 425°F. Mix the chili powder, cumin, smoked paprika, garlic powder and salt.", "Toss the chicken with 1 tbsp oil and two-thirds of the spice blend. Spread it over half of a large rimmed sheet pan.", "P2 + guest: toss the peppers and onion with the last 1 tbsp oil and the rest of the spice blend and spread them over the other half of the pan, so P1's chicken stays vegetable-free.", "Roast 16–18 minutes, stirring once, until the chicken reads 165°F and the vegetables are browned at the edges.", "While it roasts, stir together the yogurt, lime juice and salt for the crema. Warm the tortillas in a dry skillet or wrapped in foil in the oven for 5 minutes.", "Serve the chicken in the tortillas with cheddar and crema, with lime wedges. P2 + guest pile on the roasted vegetables."],
-p1:"Chicken, cheddar and crema in the tortilla — no peppers or onion.",
-p2:"Roasted peppers and onion.",
-tip:"Keeping the vegetables on their own half of the pan means one pan, one cleanup, and both plates still come out right."}
-]},
-{day:"Tuesday Nov 10 · Pasta night",items:[
-{name:"Garlic-Parmesan Shrimp Linguine",cal:480,methods:["Stovetop"],
-ing:["6 oz linguine", "3/4 lb large raw peeled Gulf shrimp", "2 tbsp olive oil", "1 tbsp minced garlic (jar)", "1/3 cup low-sodium chicken broth", "1 lemon (zest and juice)", "1/3 cup grated parmesan, plus more for serving", "1 tbsp butter", "1/4 tsp red pepper flakes (optional)", "1/2 cup pasta water, reserved", "Salt & pepper", "P2: 2 cups baby spinach, 1/2 cup cherry tomatoes (halved)"],
-steps:["Boil the linguine in well-salted water until just al dente. Save 1/2 cup of the pasta water, then drain.", "Pat the shrimp dry and season with 1/2 tsp salt and pepper. Heat 1 tbsp oil in a large skillet over medium-high and sear the shrimp 1–2 minutes per side until just pink. Move them to a plate.", "Lower the heat to medium. Add the remaining oil and the garlic (and pepper flakes) and cook 30 seconds, then pour in the broth and simmer 2 minutes.", "Add the pasta, butter, parmesan and a splash of pasta water and toss until glossy. Return the shrimp to the pan.", "P1: scoop half of the pasta and shrimp into a bowl before any lemon goes in.", "Stir the lemon zest and juice into the main pan. P2: fold in the spinach until wilted and top with the cherry tomatoes. Serve with extra parmesan."],
-p1:"Buttered parmesan linguine and shrimp — no lemon, spinach or tomatoes.",
-p2:"Wilted spinach and fresh cherry tomatoes.",
-tip:"Pull the shrimp the moment they curl into a loose C; they finish in the warm sauce and never turn rubbery."}
-]},
-{day:"Wednesday Nov 11 · Grill night",items:[
-{name:"Grilled Brown-Sugar Pork Chops with Skillet Cornbread and Garlic Green Beans",cal:470,methods:["Grill"],
-ing:["1 lb boneless center-cut pork chops (2 chops, about 1 inch thick)", "1 tbsp brown sugar", "1 1/2 tsp smoked paprika", "1 tsp garlic powder", "1/2 tsp salt", "1/2 tsp black pepper", "1 tbsp olive oil", "1 box (8.5 oz) corn muffin mix", "1 egg", "1/3 cup milk", "1 tbsp butter, for serving", "P2: 8 oz fresh green beans (trimmed), 1 tbsp olive oil, 1 tsp minced garlic (jar)"],
-steps:["Heat the oven to 400°F and heat the grill to medium-high. Mix the brown sugar, smoked paprika, garlic powder, salt and pepper.", "Pat the pork dry, rub with the olive oil and then the spice rub. Let it sit while the grill heats.", "Stir the muffin mix, egg and milk together just until combined and pour into a greased 8-inch pan or oven-safe skillet. Bake 15–18 minutes until golden and a toothpick comes out clean.", "Grill the chops 5–6 minutes per side until they read 145°F. Rest 5 minutes.", "P2: heat 1 tbsp oil in a skillet over medium-high, add the green beans and cook 6–8 minutes until blistered and crisp-tender, adding the garlic for the final 30 seconds. Season with salt.", "Serve the chops with a square of cornbread brushed with the butter. P2 takes the green beans."],
-p1:"Pork chop and cornbread — no green beans.",
-p2:"Garlic green beans.",
-tip:"A center-cut chop is lean but dries out fast. Pull it at 145°F and rest it; the carryover heat finishes it."}
-]},
-{day:"Thursday Nov 12 · Slow-cooker night",items:[
-{name:"Slow-Cooker Chicken and Wild Rice Soup with Toasted Bread",cal:420,methods:["Slow cooker"],
-ing:["1 lb boneless skinless chicken breasts", "5 cups low-sodium chicken broth", "1/2 yellow onion, finely diced", "1 tbsp minced garlic (jar)", "1 tsp dried thyme", "1 box (6 oz) long grain and wild rice blend, with seasoning packet", "1/3 cup half-and-half", "Salt & pepper", "4 slices bread, toasted, with butter", "P2: 1/2 cup frozen peas and carrots, 1 cup baby spinach"],
-steps:["Add the chicken, broth, onion, garlic, thyme and 1/2 tsp pepper to the slow cooker. Cook on low 6 hours or high 3 hours.", "Lift the chicken out and shred it with two forks. Return it to the pot.", "Stir in the rice and its seasoning packet, cover and cook on high 45 minutes, until the rice is tender.", "Stir in the half-and-half and add salt to taste. It makes about 6 bowls — the extra 2 are lunch.", "P1: ladle a bowl of chicken, rice and broth before any vegetables go in.", "P2: add the frozen peas and carrots and the spinach to P2's bowl and microwave 1 minute, or stir them into the pot just before serving. Serve with buttered toast."],
-p1:"Chicken, rice and broth with buttered toast — no vegetables.",
-p2:"Peas, carrots and spinach stirred into the bowl.",
-tip:"Stir in the half-and-half off the high heat so the soup stays silky instead of splitting."}
-]},
-{day:"Friday Nov 13 · Hearty salad night",items:[
-{name:"Griddle Turkey Cobb Salad with Bacon, Egg and Honey-Dijon Vinaigrette",cal:480,methods:["Griddle"],
-ing:["3/4 lb turkey breast cutlets", "1 tsp paprika", "1/2 tsp garlic powder", "1 tbsp olive oil", "4 slices thick-cut bacon", "2 eggs", "2 romaine hearts, chopped", "1/3 cup shredded sharp cheddar", "2/3 cup croutons", "Dressing: 2 tbsp olive oil, 2 tsp apple cider vinegar, 1 1/2 tsp Dijon mustard, 1 tsp honey, pinch of salt and pepper", "Salt & pepper", "P2: 1/2 cup cherry tomatoes (halved), 1/2 avocado (diced)"],
-steps:["Hard-boil the eggs: cover with cold water, bring to a boil, turn off the heat, cover and let sit 11 minutes, then cool in ice water, peel and slice.", "Mix the paprika, garlic powder, 1/2 tsp salt and 1/4 tsp pepper and rub it over the turkey cutlets with the olive oil.", "Heat the griddle to medium-high. Cook the bacon until crisp, remove it to paper towels and crumble. Pour off most of the fat.", "Sear the turkey cutlets on the griddle 3–4 minutes per side until they read 165°F. Rest 5 minutes, then slice into strips.", "Shake the vinaigrette ingredients in a jar.", "Pile the romaine on plates and arrange the turkey, bacon, egg, cheddar and croutons in rows. P2 adds the tomatoes and avocado. Drizzle with dressing, P1's on the side."],
-p1:"Romaine, turkey, bacon, egg, cheddar and croutons with dressing on the side — no tomato or avocado.",
-p2:"Cherry tomatoes and diced avocado.",
-tip:"Slice the cutlets thin and across the grain; thin strips stay tender and make the salad eat like a full dinner."}
-]},
-{day:"Saturday Nov 14 · Fresh catch",items:[
-{name:"Broiled Creole-Butter Gulf Fish over Garlic Couscous",cal:430,methods:["Broiler"],
-ing:["2 mild Gulf fish fillets (drum or redfish), about 6 oz each", "2 tbsp butter, melted, divided", "1 tsp Creole seasoning", "1 tsp minced garlic (jar), plus 1/2 tsp for the couscous", "1 tsp olive oil", "1 lemon, cut in wedges", "2/3 cup plain couscous", "3/4 cup plus 2 tbsp water", "1 tbsp butter, for the couscous", "Salt & pepper", "P2: 1 small zucchini (sliced in half-moons), 1/2 tbsp olive oil"],
-steps:["Set the oven rack 6 inches under the broiler and heat the broiler to high. Line a pan with foil and oil it lightly.", "Mix 1 1/2 tbsp melted butter with the Creole seasoning and 1 tsp garlic. Pat the fish dry and place it on the pan. P1: brush that fillet with plain melted butter and a pinch of salt instead.", "Broil the fish 6–8 minutes, brushing once with the remaining butter, until it flakes easily and reads 145°F.", "Meanwhile bring the water, 1/2 tsp garlic and a pinch of salt to a boil, stir in the couscous, cover, take off the heat and let it sit 5 minutes. Fluff with the 1 tbsp butter.", "P2: sauté the zucchini in the olive oil over medium-high 4–5 minutes until golden, with salt and pepper.", "Serve the fish over the couscous with lemon wedges."],
-p1:"Fillet with plain butter, salt and lemon — no Creole spice or zucchini.",
-p2:"Garlic-sautéed zucchini.",
-tip:"Broil close to the heat and skip the flip: thin fillets cook through from the top while the bottom stays moist."}
-]}
-];
-
-const RECIPE_ARCHIVE=[{week:"Oct 25–31",days:[
+]},{week:"Oct 25–31",days:[
 {day:"Sunday Oct 25 · Smoker night",items:[
 {name:"Traeger Lemon-Herb Smoked Chicken Breasts with Roasted Sweet Potatoes",cal:450,methods:["Traeger","Oven"],
 ing:["2 lb boneless skinless chicken breasts (3 large)","1 lemon (zest and juice)","3 tbsp olive oil","1 tbsp minced garlic (jar)","1 tsp dried parsley","1/2 tsp dried thyme","Salt & pepper","3 medium sweet potatoes, peeled and cut in 1-inch cubes","1/2 tsp paprika","P2 + guest: 12 oz green beans (trimmed), 1/2 tsp garlic powder"],
@@ -742,7 +736,7 @@ var keepers=S.get('keepers')||{};
 
 var head=document.createElement('div');
 head.className='memory-intro';
-head.innerHTML='<strong>This week · '+WEEK_LABEL+' · dinners for 3.</strong> P1, P2 and our guest (the guest eats like P2). Every amount below is already sized for three.';
+head.innerHTML='<strong>This week · '+WEEK_LABEL+'.</strong> Sunday and Monday are sized for 3 (P1, P2 and our guest, who eats like P2); Tuesday through Saturday are sized for the two of you.';
 el.appendChild(head);
 
 var current={};
@@ -751,7 +745,7 @@ var dl=document.createElement('div');
 dl.className='recipe-day-label';
 dl.textContent=dg.day;
 el.appendChild(dl);
-dg.items.forEach(function(r){current[slug(r.name)]=1;el.appendChild(recipeCard(r,keepers,'wk',true));});
+dg.items.forEach(function(r){current[slug(r.name)]=1;el.appendChild(recipeCard(r,keepers,'wk',!!r.forThree));});
 });
 
 var keep=[];
@@ -776,7 +770,7 @@ var note=document.createElement('div');
 note.className='note-box';
 note.style.marginTop='0';
 note.style.marginBottom='10px';
-note.textContent='Older recipes were written for 2. While the guest is here, make 1 1/2 times the protein and double the P2 add-ons. Tap 🏆 to pin a favorite to Keepers.';
+note.textContent='Recipes from Oct 18 to Nov 7 were sized for 3 (our guest was here); for just the two of you, use about two-thirds of the protein and half the P2 add-ons. Older ones are already for 2. Tap 🏆 to pin a favorite to Keepers.';
 el.appendChild(note);
 var search=document.createElement('input');
 search.type='search';
@@ -831,25 +825,22 @@ if(q)det.open=hits>0;
 });
 }
 
-// ── SHOPPING DATA (Week of Nov 1–7, for 3 — matches the Menu tab) ──
+// ── SHOPPING DATA (Week of Nov 8–14, for 3 Sun–Mon and 2 Tue–Sat — matches the Menu tab) ──
 const STORES=[
-{"id": "publix", "name": "Publix", "color": "#0F6E56", "total": "~$84", "sections": [{"label": "Fresh Meat & Proteins", "items": [{"id": "x15_trital", "name": "Tri-tip roast, trimmed (about 1.5 lb)", "note": "Sun Traeger — ask the butcher to cut a half roast", "lasting": false}, {"id": "x15_chicken", "name": "Boneless skinless chicken breasts (2.5 lb)", "note": "Mon orzo 1.25 lb · Fri slow cooker 1.25 lb", "lasting": false}, {"id": "x15_pork", "name": "Pork tenderloin (1.5 lb, 2 pieces)", "note": "Tue sheet pan", "lasting": false}, {"id": "x15_turkey", "name": "93% lean ground turkey (1 lb)", "note": "Sat griddle sliders", "lasting": false}]}, {"label": "Fresh Produce", "items": [{"id": "x15_babypot", "name": "Baby potatoes (1.5 lb bag)", "note": "Sun", "lasting": false}, {"id": "x15_sprouts", "name": "Brussels sprouts (12 oz)", "note": "Sun — P2 + guest", "lasting": false}, {"id": "x15_sweetpot", "name": "Sweet potatoes (2 medium)", "note": "Tue", "lasting": false}, {"id": "x15_apples", "name": "Honeycrisp apples (2)", "note": "Tue — P2 + guest", "lasting": false}, {"id": "x15_onion", "name": "Yellow onion (1)", "note": "Mon orzo — uses 1/2", "lasting": false}, {"id": "x15_lemons", "name": "Lemons (3)", "note": "Mon orzo 1 · Thu tartar & wedges 1 · Sat arugula 1", "lasting": false}, {"id": "x15_limes", "name": "Limes (3)", "note": "Wed — shrimp 1 · dressing 2 (plus wedges)", "lasting": false}, {"id": "x15_ginger", "name": "Fresh ginger (1 small knob)", "note": "Fri sauce — 1 tbsp grated", "lasting": false}, {"id": "x15_romaine", "name": "Romaine hearts (3-pack)", "note": "Wed salad", "lasting": false}, {"id": "x15_cilantro", "name": "Cilantro (1 bunch)", "note": "Wed dressing", "lasting": false}, {"id": "x15_spinach", "name": "Baby spinach (5 oz bag)", "note": "Mon — P2 + guest", "lasting": false}, {"id": "x15_cherrytom", "name": "Cherry tomatoes (1 pint)", "note": "Mon 1/2 cup · Wed 1 cup — P2 + guest", "lasting": false}, {"id": "x15_avocado", "name": "Avocado (1)", "note": "Wed — P2 + guest", "lasting": false}, {"id": "x15_broccoli", "name": "Broccoli florets (12 oz)", "note": "Fri — P2 + guest", "lasting": false}, {"id": "x15_arugula", "name": "Baby arugula (5 oz)", "note": "Sat — P2 + guest", "lasting": false}]}, {"label": "Dairy & Cheese", "items": [{"id": "x15_mozz", "name": "Shredded mozzarella (8 oz bag)", "note": "Sat sliders — uses 1/3 cup", "lasting": false}, {"id": "x15_yogurt", "name": "Plain Greek yogurt (small tub, about 8 oz)", "note": "Wed dressing 1/3 cup · Thu tartar 1/3 cup", "lasting": false}, {"id": "x15_cheddar", "name": "Shredded sharp cheddar (if Sargento bag is under 1 1/4 cups)", "note": "Wed salad 3/4 cup · Thu grits 1/2 cup", "lasting": false}, {"id": "x15_parm", "name": "Grated parmesan (if under 3/4 cup)", "note": "Mon 1/3 cup · Sat 1/4 cup", "lasting": false}, {"id": "bp_butter", "name": "Butter (if under 1 stick)", "note": "Sun potatoes · Mon P1 · Thu grits", "lasting": true}, {"id": "x15_eggs", "name": "Eggs (if under 3 left)", "note": "Thu coating 1 · Sat meatballs 1", "lasting": false}]}]},
-{"id": "walmart", "name": "Walmart", "color": "#185FA5", "total": "~$24", "sections": [{"label": "Boxed, Canned & Frozen", "items": [{"id": "x15_orzo", "name": "Orzo, Barilla (16 oz box)", "note": "Mon — uses 6 oz", "lasting": false}, {"id": "x15_broth", "name": "Low-sodium chicken broth (32 oz carton)", "note": "Mon orzo 2 1/4 cups · Fri sauce 1/2 cup", "lasting": false}, {"id": "x15_frozencorn", "name": "Frozen sweet corn (12 oz bag)", "note": "Wed salad (1 cup)", "lasting": false}, {"id": "x15_blackbeans", "name": "Black beans, 15 oz can", "note": "Wed salad", "lasting": false}, {"id": "x15_marinara", "name": "Marinara, 15 oz jar", "note": "Sat — P2 + guest (1 cup)", "lasting": false}, {"id": "x15_sliderbuns", "name": "Slider buns (12 ct)", "note": "Sat — uses 6, freeze the rest", "lasting": false}, {"id": "bw_maple", "name": "Pure maple syrup (small bottle)", "note": "Tue glaze — 2 tbsp", "lasting": true}, {"id": "bw_cornmeal", "name": "Yellow cornmeal (small bag)", "note": "Thu crust — 1/2 cup", "lasting": true}, {"id": "bw_soy", "name": "Low-sodium soy sauce (if out)", "note": "Fri sauce — 1/3 cup", "lasting": true}, {"id": "bw_cornstarch", "name": "Cornstarch (if out)", "note": "Fri sauce thickener", "lasting": true}, {"id": "bw_skewers", "name": "Wooden skewers (pack)", "note": "Wed shrimp — 8 skewers", "lasting": true}, {"id": "bw_dijon", "name": "Dijon mustard (if out)", "note": "Tue glaze 2 tbsp · Thu egg wash & tartar 4 tsp", "lasting": true}, {"id": "bw_pickles", "name": "Dill pickle chips (if out)", "note": "Thu tartar", "lasting": true}, {"id": "bw_panko", "name": "Panko breadcrumbs (if under 3/4 cup)", "note": "Thu crust 1/4 cup · Sat meatballs 1/4 cup", "lasting": true}, {"id": "aw_rice", "name": "Jasmine rice (if low)", "note": "Fri — needs 1 cup", "lasting": true}, {"id": "bw_acv", "name": "Apple cider vinegar (if out)", "note": "Fri sauce 1 tbsp", "lasting": true}]}]},
-{"id": "lartigues", "name": "Lartigue's Fish Store", "color": "#993C1D", "total": "~$34", "sections": [{"label": "Gulf Seafood", "items": [{"id": "x15_shrimp", "name": "Gulf shrimp, raw & peeled, large (1 lb)", "note": "Wed — grilled shrimp salad", "lasting": false}, {"id": "x15_fish", "name": "Fresh Gulf fish fillets (3, mild, ~6 oz each)", "note": "Thu — cornmeal crust · call ahead", "lasting": false}]}]}
-];
-
-// ── NEXT WEEK SHOPPING LIST (Nov 8–14) — not rendered; promoted to STORES on Sunday ──
-const NEXT_STORES=[
 {"id": "publix", "name": "Publix", "color": "#0F6E56", "total": "~$80", "sections": [{"label": "Fresh Meat & Proteins", "items": [{"id": "x16_sirloin", "name": "Top sirloin steak, 1 1/2 inches thick (1.5 lb)", "note": "Sun Traeger — ask the butcher to cut it thick", "lasting": false}, {"id": "x16_chicken", "name": "Boneless skinless chicken breasts (2.5 lb)", "note": "Mon fajitas 1.5 lb · Thu soup 1 lb", "lasting": false}, {"id": "x16_pork", "name": "Boneless center-cut pork chops (1 lb, 2 chops about 1 inch thick)", "note": "Wed grill", "lasting": false}, {"id": "x16_turkey", "name": "Turkey breast cutlets (3/4 lb)", "note": "Fri Cobb salad — freeze any extra", "lasting": false}, {"id": "x16_bacon", "name": "Thick-cut bacon (if under 4 slices)", "note": "Fri Cobb salad", "lasting": false}]}, {"label": "Fresh Produce", "items": [{"id": "x16_redpot", "name": "Red potatoes (1.5 lb)", "note": "Sun", "lasting": false}, {"id": "x16_asparagus", "name": "Asparagus (1 bunch)", "note": "Sun — P2 + guest", "lasting": false}, {"id": "x16_rosemary", "name": "Fresh rosemary (1 small pack)", "note": "Sun potatoes — 1 tbsp", "lasting": false}, {"id": "x16_peppers", "name": "Bell peppers (2, any color)", "note": "Mon fajitas — P2 + guest", "lasting": false}, {"id": "x16_onion", "name": "Yellow onions (2 small)", "note": "Mon fajitas 1/2 · Thu soup 1/2", "lasting": false}, {"id": "x16_limes", "name": "Limes (2)", "note": "Mon — crema 1 · wedges 1", "lasting": false}, {"id": "x16_lemons", "name": "Lemons (2)", "note": "Tue linguine 1 · Sat fish wedges 1", "lasting": false}, {"id": "x16_spinach", "name": "Baby spinach (5 oz bag)", "note": "Tue 2 cups · Thu 1 cup — P2", "lasting": false}, {"id": "x16_cherrytom", "name": "Cherry tomatoes (1 pint)", "note": "Tue 1/2 cup · Fri 1/2 cup — P2", "lasting": false}, {"id": "x16_greenbeans", "name": "Fresh green beans (8 oz)", "note": "Wed — P2", "lasting": false}, {"id": "x16_romaine", "name": "Romaine hearts (3-pack)", "note": "Fri Cobb salad — uses 2", "lasting": false}, {"id": "x16_avocado", "name": "Avocado (1)", "note": "Fri — P2, uses 1/2", "lasting": false}, {"id": "x16_zucchini", "name": "Zucchini (1 small)", "note": "Sat — P2", "lasting": false}]}, {"label": "Dairy & Cheese", "items": [{"id": "x16_halfhalf", "name": "Half-and-half (small carton)", "note": "Thu soup — 1/3 cup", "lasting": false}, {"id": "x16_milk", "name": "Milk (smallest carton, only if none on hand)", "note": "Wed cornbread — 1/3 cup", "lasting": false}, {"id": "x16_cheddar", "name": "Shredded sharp cheddar (if Sargento bag is under 1 cup)", "note": "Mon fajitas 1/2 cup · Fri Cobb 1/3 cup", "lasting": false}, {"id": "x16_parm", "name": "Grated parmesan (if under 1/2 cup)", "note": "Tue linguine — 1/3 cup", "lasting": false}, {"id": "x16_yogurt", "name": "Plain Greek yogurt (small tub, if FAGE is low)", "note": "Mon lime crema — 1/3 cup", "lasting": false}, {"id": "bp_butter", "name": "Butter (if under 1 stick)", "note": "Sun potatoes 1 tbsp · Tue 1 tbsp · Wed cornbread 1 tbsp · Sat fish 2 tbsp + couscous 1 tbsp · Thu toast", "lasting": true}, {"id": "x16_eggs", "name": "Eggs (if under 3 left)", "note": "Wed cornbread 1 · Fri Cobb 2", "lasting": false}]}]},
 {"id": "walmart", "name": "Walmart", "color": "#185FA5", "total": "~$24", "sections": [{"label": "Boxed, Canned & Frozen", "items": [{"id": "x16_linguine", "name": "Barilla linguine, 16 oz (only if no long pasta in the pantry)", "note": "Tue — uses 6 oz", "lasting": true}, {"id": "x16_tortillas", "name": "Flour tortillas, 6-inch fajita size (10 ct)", "note": "Mon — uses 8", "lasting": false}, {"id": "x16_wildrice", "name": "Long grain & wild rice blend (6 oz box with seasoning packet)", "note": "Thu soup", "lasting": false}, {"id": "x16_cornmix", "name": "Corn muffin mix (8.5 oz box)", "note": "Wed cornbread", "lasting": false}, {"id": "x16_couscous", "name": "Plain couscous (10 oz box)", "note": "Sat — uses 2/3 cup", "lasting": true}, {"id": "x16_broth", "name": "Low-sodium chicken broth (32 oz carton × 2)", "note": "Tue 1/3 cup · Thu soup 5 cups", "lasting": false}, {"id": "x16_bread", "name": "Sandwich bread (only if under 4 slices left)", "note": "Thu soup — toasted with butter", "lasting": false}, {"id": "x16_peascarrots", "name": "Frozen peas & carrots (12 oz bag)", "note": "Thu — P2, uses 1/2 cup", "lasting": false}, {"id": "x16_paprika", "name": "Smoked paprika (small jar, if out)", "note": "Mon 1 tsp · Wed 1 1/2 tsp", "lasting": true}, {"id": "x16_creole", "name": "Creole seasoning, such as Tony Chachere's (small, if out)", "note": "Sat fish — 1 tsp", "lasting": true}, {"id": "x16_brownsugar", "name": "Brown sugar (if out)", "note": "Wed pork rub — 1 tbsp", "lasting": true}]}]},
 {"id": "lartigues", "name": "Lartigue's Fish Store", "color": "#993C1D", "total": "~$23", "sections": [{"label": "Gulf Seafood", "items": [{"id": "x16_shrimp", "name": "Gulf shrimp, raw & peeled, large (3/4 lb)", "note": "Tue — linguine", "lasting": false}, {"id": "x16_fish", "name": "Mild Gulf fish fillets (2, drum or redfish, ~6 oz each)", "note": "Sat — broiled · buy Fri or Sat, not Sunday · call ahead", "lasting": false}]}]}
 ];
 
-/* NEXT_COSTS (Nov 8–14; for 3 Sun–Mon, for 2 Tue–Sat — Sunday rollover: use "P2 + guest add:" on Sun/Mon recipes and "P2 add:" Tue–Sat), for Sunday's Costs tab rollover */
-const NEXT_COSTS={"week": "Nov 8–14", "publix": "~$80", "walmart": "~$24", "lartigues": "~$23", "total": "~$127", "perPerson": "$8", "perLabel": "per dinner plate (16 plates: 3 a night Sun–Mon, 2 a night Tue–Sat)", "avgCal": "456 cal", "maxCal": "nothing over 480", "pantry": [["Olive oil, garlic powder, chili powder, cumin, thyme & the spice drawer", "saves ~$10"], ["Honey, Dijon, apple cider vinegar & croutons (Cobb vinaigrette)", "saves ~$6"], ["Sargento cheddar, parmesan, butter, eggs & FAGE yogurt", "saves ~$10"], ["Minced garlic jar, Barilla pasta, bacon & Nature's Own bread", "saves ~$7"]]};
+// ── NEXT WEEK SHOPPING LIST (Nov 15–21) — not rendered; promoted to STORES on Sunday ──
+const NEXT_STORES=[
+];
+
+/* NEXT_COSTS (Nov 15–21, not yet planned), for Sunday's Costs tab rollover — headcount 2 */
+const NEXT_COSTS={week:"Nov 15–21"};
 
 // Items from last week's list — any NOT checked as bought carry over to this week.
-// Deliberately empty for the Nov 1–7 cycle: last week's perishables were bought for
+// Deliberately empty for the Nov 8–14 cycle: last week's perishables were bought for
 // meals that are now cooked, so carrying them forward would only add junk.
 // cleanupStaleCarry() (flag carry_cleanup_v3) strips any leftover carry_* rows first.
 const PREV_ITEMS=[
